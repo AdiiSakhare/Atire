@@ -20,6 +20,10 @@ jobs:
       - name: Build theme assets
         run: npm run build:theme
       - name: Theme assets are committed and current
-        run: git diff --exit-code -- theme/assets || (echo "theme/assets is out of date: run npm run build:theme and commit" && exit 1)
+        run: |
+          if ! git diff --exit-code -- theme/assets; then
+            echo "theme/assets is out of date. Run npm run build:theme and commit the result."
+            exit 1
+          fi
       - name: Lint Liquid
         run: npm run theme:check

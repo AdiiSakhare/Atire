@@ -42,6 +42,14 @@ Chronological record of project work. **Newest entry first.** Maintained per `CL
 
 ## Entries
 
+### 2026-10-05 · Phase 9 · Fix invalid CI workflow
+**Status:** done (fix written; first real GitHub run still to be seen)
+**What was done:** The first push showed GitHub's "Invalid workflow file: theme.yml#L23 — error in your yaml syntax". The `run:` value on the assets check contained an unquoted `: ` (in an echo message), which is invalid YAML. Rewrote that step as a `run: |` block.
+**Files:** changed `.github/workflows/theme.yml`.
+**Commands & results:** parsed the file with Ruby's YAML loader → 7 steps, valid. Earlier I had only re-run the workflow's *commands* in a fresh clone (all passed) and had not parsed the YAML itself — that is why this slipped through.
+**Verification:** YAML parse + the commands pass in a clean clone on Node 24. The Linux runner itself has not run yet.
+**Next:** push; if the run still fails, read the failing step's log.
+
 ### 2026-10-05 · Phases 6–9 · Content pages, offers mapping, CI
 **Status:** partial. All pages exist as Liquid and lint clean; nothing has been rendered on a store.
 **What was done:**
