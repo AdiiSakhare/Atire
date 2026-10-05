@@ -20,7 +20,8 @@ Add `?static` to any URL to turn off all motion. Useful for QA screenshots.
 ## Structure
 
 ```
-website/
+atire/
+├── design/mockups/               source design mockups (not shipped)
 ├── index.html, product.html      pages (Shopify: templates/*.json)
 ├── public/assets/images/         images (placeholders/ = temporary)
 ├── scripts/                      tooling (placeholder extraction)

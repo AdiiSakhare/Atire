@@ -12,8 +12,8 @@ import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 const ROOT = resolve(import.meta.dirname, '..');
-const LANDING = resolve(ROOT, '../landing page.png');
-const HERO = resolve(ROOT, '../hero-image.png');
+const LANDING = resolve(ROOT, 'design/mockups/landing-page.png');
+const HERO = resolve(ROOT, 'design/mockups/hero-image.png');
 const OUT = resolve(ROOT, 'public/assets/images/placeholders');
 
 // Inset trims the rounded corners baked into the mockup cards.
