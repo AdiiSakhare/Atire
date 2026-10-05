@@ -51,6 +51,9 @@ export function initWelcomePopup() {
 
   qs('[data-welcome-form]', popup).addEventListener('submit', (event) => {
     event.preventDefault();
+    // Shopify theme: the form has a real action (customer form) — post it for real.
+    const form = event.currentTarget;
+    if (form.getAttribute('action')) fetch(form.action, { method: 'POST', body: new FormData(form) }).catch(() => {});
     write(KEY, { subscribed: true });
     qs('[data-welcome-form-wrap]', popup).hidden = true;
     qs('[data-welcome-success]', popup).hidden = false;

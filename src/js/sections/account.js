@@ -10,6 +10,7 @@ import { getOrders, getOrder, formatDate, estimateDelivery } from '../core/order
 import { formatMoney } from '../core/money.js';
 import { syncCards, syncWishlistButtons } from '../components/product-card.js';
 import { toast } from '../components/toast.js';
+import { routes } from '../core/routes.js';
 import { icon } from '../../data/icons.js';
 
 const SESSION = 'atire:session';
@@ -43,7 +44,7 @@ function initWishlist() {
     read(WISHLIST_KEY, []).forEach((h) => wishlist.toggle(h));
   });
   qs('[data-wl-share]', root).addEventListener('click', async () => {
-    const url = `${location.origin}/wishlist.html?items=${read(WISHLIST_KEY, []).join(',')}`;
+    const url = `${location.origin}${routes.wishlist}?items=${read(WISHLIST_KEY, []).join(',')}`;
     try { await navigator.clipboard.writeText(url); } catch { /* blocked */ }
     toast('Wishlist link copied — send it to someone with good taste', { iconName: 'share' });
   });

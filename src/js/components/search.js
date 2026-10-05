@@ -2,6 +2,7 @@
 import { qs } from '../core/dom.js';
 import { formatMoney } from '../core/money.js';
 import { products } from '../../data/products.js';
+import { routes } from '../core/routes.js';
 
 const escape = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
@@ -38,7 +39,7 @@ export function initSearchSuggestions() {
               <span class="price"><span class="price__current">${formatMoney(p.price)}</span><s class="price__compare">${formatMoney(p.compare_at_price)}</s></span>
             </a></li>`,
           )
-          .join('')}</ul><a class="search__all" href="/shop.html?q=${encodeURIComponent(q)}">See all results for “${escape(q)}” →</a>`
+          .join('')}</ul><a class="search__all" href="${routes.search(q)}">See all results for “${escape(q)}” →</a>`
       : `<p class="search__empty">No matches for “${escape(q)}”. Try “oversized”, “hoodie” or “couple”.</p>`;
   });
 }

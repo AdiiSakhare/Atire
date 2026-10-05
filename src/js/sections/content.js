@@ -7,6 +7,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { qs, qsa, on, prefersReducedMotion } from '../core/dom.js';
 import { icon } from '../../data/icons.js';
+import { routes } from '../core/routes.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -83,7 +84,7 @@ function initSizeFinder() {
             ? 'Sized up for that extra-drapey streetwear look.'
             : 'Our signature oversized drape — dropped shoulders, relaxed body.';
       qs('[data-finder-result]', finder).hidden = false;
-      qs('[data-finder-result] a', finder).href = `/shop.html?size=${size}`;
+      qs('[data-finder-result] a', finder).href = routes.size(size);
     });
   }
 

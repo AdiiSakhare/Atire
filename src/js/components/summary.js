@@ -10,7 +10,7 @@ export function renderSummary(root, totals) {
     ['Discount on MRP', `− ${formatMoney(totals.productSavings)}`, 'is-save'],
   ];
   if (totals.coupon?.ok) rows.push([`Coupon <em>${totals.coupon.code}</em> <button type="button" class="summary__remove" data-coupon-remove>Remove</button>`, `− ${formatMoney(totals.couponDiscount)}`, 'is-save']);
-  rows.push(['Delivery', totals.shipping ? formatMoney(totals.shipping) : '<span class="is-free">FREE</span>']);
+  rows.push(['Delivery', totals.shipping === null ? 'Calculated at checkout' : totals.shipping ? formatMoney(totals.shipping) : '<span class="is-free">FREE</span>']);
 
   qs('[data-summary-rows]', root).innerHTML =
     rows.map(([k, v, cls = '']) => `<div class="${cls}"><dt>${k}</dt><dd>${v}</dd></div>`).join('') +
@@ -59,7 +59,8 @@ export function initCouponUi(root, { getPaymentMethod = () => 'prepaid', onChang
     }
   });
 
-  if (offers) {
+  // Only render client-side offers when the store defines some (the theme keeps Liquid-rendered ones).
+  if (offers && Object.keys(COUPONS).length) {
     offers.innerHTML = Object.entries(COUPONS)
       .map(([code, c]) => `<button class="offer-chip" type="button" data-offer="${code}"><strong>${code}</strong><span>${c.label}</span><em>Apply</em></button>`)
       .join('');

@@ -86,8 +86,12 @@
   background: var(--c-surface-2);
 }
 
-.auth__tabs button {
+.auth__tabs button,
+.auth__tabs a {
   flex: 1;
+  display: grid;
+  place-items: center;
+  text-align: center;
   height: 44px;
   border-radius: var(--r-pill);
   font-size: var(--fs-15);

@@ -1,6 +1,7 @@
 /** "Browse All You Need" tabs — sliding pill + tag filtering (first 6 shown). */
 import { gsap } from 'gsap';
 import { qs, qsa, prefersReducedMotion } from '../core/dom.js';
+import { routes } from '../core/routes.js';
 
 const LIMIT = 6;
 
@@ -38,7 +39,7 @@ export function initProductTabs() {
     }
 
     const more = qs('[data-tabs-more]', root);
-    if (more) more.href = `/shop.html?c=${tag}`;
+    if (more) more.href = routes.collection(tag);
   };
 
   tabs.forEach((tab) => tab.addEventListener('click', () => select(tab)));

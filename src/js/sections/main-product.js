@@ -15,6 +15,7 @@ import { getProduct } from '../../data/products.js';
 import { createGallery } from './gallery.js';
 import { openDrawer } from '../components/drawer.js';
 import { toast } from '../components/toast.js';
+import { routes } from '../core/routes.js';
 
 const RECENT_KEY = 'atire:recently-viewed';
 
@@ -146,6 +147,10 @@ export function initMainProduct() {
     const variant = currentVariant();
     if (!requireSize()) return;
     if (!getQuantity(variant.id)) await addItems([{ id: variant.id, quantity: 1 }]);
+    if (routes.checkout) {
+      location.href = routes.checkout; // Shopify theme: Buy Now goes straight to checkout
+      return;
+    }
     openDrawer('cart-drawer');
     toast('Ready when you are — tap Checkout', { iconName: 'bolt' });
   });

@@ -34,6 +34,8 @@ function initAnchors() {
 function initNewsletter() {
   on(document, 'submit', '[data-newsletter]', (event, form) => {
     event.preventDefault();
+    // Shopify theme: the form has a real action (customer form) — post it for real.
+    if (form.getAttribute('action')) fetch(form.action, { method: 'POST', body: new FormData(form) }).catch(() => {});
     form.reset();
     toast('You’re on the list. Check your inbox for 10% off!', { iconName: 'sparkle' });
   });
