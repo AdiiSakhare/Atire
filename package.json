@@ -6,10 +6,17 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:theme": "vite build --config vite.theme.config.js && node scripts/copy-theme-placeholders.mjs",
     "preview": "vite preview",
+    "theme:dev": "shopify theme dev --path theme",
+    "theme:check": "shopify theme check --path theme",
+    "shopify:products": "node scripts/export-shopify-products.mjs",
+    "theme:seed": "node scripts/seed-theme-templates.mjs",
+    "theme:icons": "node scripts/build-icon-snippet.mjs",
     "images": "node scripts/extract-placeholders.mjs"
   },
   "devDependencies": {
+    "@shopify/cli": "^4.8.4",
     "handlebars": "^4.7.9",
     "sharp": "^0.35.5",
     "vite": "^8.3.2",

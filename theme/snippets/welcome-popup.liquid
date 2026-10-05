@@ -1,0 +1,40 @@
+{%- comment -%}
+  First-visit offer. Shown once (after 20s or on exit intent, desktop). JS: js/components/welcome-popup.js
+  Content: Theme settings → Welcome popup. Form creates a Shopify customer subscribed to marketing.
+{%- endcomment -%}
+{%- if settings.welcome_enabled -%}
+<div class="welcome" data-welcome role="dialog" aria-modal="true" aria-labelledby="welcome-title" aria-hidden="true">
+  <div class="welcome__panel">
+    <button class="icon-btn icon-btn--sm welcome__close" type="button" data-welcome-close aria-label="Close">{% render 'icon', name: 'close' %}</button>
+    <div class="welcome__media">
+      {%- if settings.welcome_image != blank -%}
+        {{ settings.welcome_image | image_url: width: 700 | image_tag: loading: 'lazy', alt: '' }}
+      {%- endif -%}
+      <span class="welcome__sticker">10%<small>OFF</small></span>
+    </div>
+    <div class="welcome__body" data-welcome-form-wrap>
+      <p class="eyebrow">Welcome to {{ shop.name }}</p>
+      <h2 class="welcome__title" id="welcome-title">{{ settings.welcome_title }}</h2>
+      <p class="welcome__text">{{ settings.welcome_text }}</p>
+      {%- form 'customer', class: 'welcome__form', data-welcome-form: '' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter,welcome-popup">
+        <label class="visually-hidden" for="welcome-email">Email</label>
+        <input class="welcome__input" id="welcome-email" type="email" name="contact[email]" placeholder="you@email.com" required autocomplete="email">
+        <button class="btn btn--dark btn--block btn--lg" type="submit">Unlock 10% Off</button>
+      {%- endform -%}
+      <button class="welcome__skip" type="button" data-welcome-close>Maybe later</button>
+      <p class="welcome__fine">No spam. Unsubscribe anytime.</p>
+    </div>
+    <div class="welcome__body welcome__success" data-welcome-success hidden>
+      <p class="eyebrow">You’re in 🎉</p>
+      <h2 class="welcome__title">Here’s your 10% off.</h2>
+      <button class="welcome__code" type="button" data-copy="{{ settings.welcome_code }}">{{ settings.welcome_code }} <span>{% render 'icon', name: 'copy' %}</span></button>
+      <p class="welcome__text">Use it at checkout on your first order. We’ve also sent it to your inbox.</p>
+      <a class="btn-arrow btn-arrow--dark" href="{{ routes.all_products_collection_url }}" data-welcome-close>
+        <span class="btn-arrow__label">Start Shopping</span>
+        <span class="btn-arrow__circle">{% render 'icon', name: 'arrow-up-right' %}</span>
+      </a>
+    </div>
+  </div>
+</div>
+{%- endif -%}

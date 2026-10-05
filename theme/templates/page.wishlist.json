@@ -1,0 +1,29 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-wishlist",
+      "settings": {
+        "eyebrow": "Saved for later",
+        "title": "Your Wishlist",
+        "sub": "Hearted it? It lives here. Prices and stock update live.",
+        "empty_title": "Nothing saved yet",
+        "empty_text": "Tap the heart on anything you love and it’ll wait for you here — even if you leave.",
+        "empty_cta": "Discover Bestsellers",
+        "empty_url": "/collections/bestseller"
+      }
+    },
+    "recommendations": {
+      "type": "product-rail",
+      "settings": {
+        "title": "You might also love",
+        "subtitle": "",
+        "source": "collection",
+        "limit": 8
+      }
+    }
+  },
+  "order": [
+    "main",
+    "recommendations"
+  ]
+}

@@ -1,0 +1,10 @@
+{%- comment -%}
+  Five stars with partial fill. Usage: {% render 'stars', rating: 4.6 %}
+{%- endcomment -%}
+{%- liquid
+  assign rating = rating | default: 0 | times: 1.0
+  assign pct = rating | divided_by: 5.0 | times: 100 | at_most: 100 | at_least: 0
+-%}
+<span class="stars" style="--fill:{{ pct }}%" role="img" aria-label="Rated {{ rating }} out of 5">
+  <span class="stars__base">{% for i in (1..5) %}{% render 'icon', name: 'star' %}{% endfor %}</span><span class="stars__fill">{% for i in (1..5) %}{% render 'icon', name: 'star' %}{% endfor %}</span>
+</span>

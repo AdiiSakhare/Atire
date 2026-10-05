@@ -1,0 +1,28 @@
+{%- comment -%} Sticky add-to-cart bar. JS: js/sections/sticky-atc.js. Usage: {% render 'sticky-atc', product: product %} {%- endcomment -%}
+{%- assign size_option = product.options_with_values | where: 'name', 'Size' | first -%}
+<div class="sticky-atc" data-sticky-atc aria-hidden="true">
+  <div class="sticky-atc__inner container">
+    <div class="sticky-atc__product">
+      {%- if product.featured_image -%}{{ product.featured_image | image_url: width: 120 | image_tag: class: 'sticky-atc__thumb', alt: '' }}{%- endif -%}
+      <div>
+        <p class="sticky-atc__title">{% render 'product-title', product: product %}</p>
+        <div class="price">
+          <span class="price__current" data-price-current>{{ product.price | money_without_trailing_zeros }}</span>
+          {%- if product.compare_at_price > product.price -%}
+            <s class="price__compare">{{ product.compare_at_price | money_without_trailing_zeros }}</s>
+            <span class="price__off">{{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}% OFF</span>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    <div class="sticky-atc__sizes sizes" data-sticky-sizes>
+      {%- for value in size_option.values -%}<button class="size-pill" type="button" data-sticky-size="{{ value }}">{{ value }}</button>{%- endfor -%}
+    </div>
+
+    <div class="sticky-atc__ctas">
+      <button class="btn btn--outline sticky-atc__buy" type="button" data-pdp-buy>Buy Now</button>
+      <button class="btn btn--primary" type="button" data-sticky-add>Add to Cart</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,154 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-faq",
+      "settings": {
+        "whatsapp_url": "https://wa.me/919000000000",
+        "contact_url": "/pages/contact"
+      },
+      "blocks": {
+        "group-1": {
+          "type": "group",
+          "settings": {
+            "heading": "Orders & Shipping",
+            "icon": "truck"
+          }
+        },
+        "question-1-1": {
+          "type": "question",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "Metro cities: 2–4 business days. Rest of India: 4–7 business days. Every order ships within 24 hours on weekdays."
+          }
+        },
+        "question-1-2": {
+          "type": "question",
+          "settings": {
+            "question": "Is delivery free?",
+            "answer": "Delivery is free on all prepaid orders. For Cash on Delivery, it’s free above ₹999 and ₹79 below that."
+          }
+        },
+        "question-1-3": {
+          "type": "question",
+          "settings": {
+            "question": "How do I track my order?",
+            "answer": "You’ll get a tracking link on WhatsApp and email once it ships. You can also use the Track Order page with your order number."
+          }
+        },
+        "question-1-4": {
+          "type": "question",
+          "settings": {
+            "question": "Can I change my address after ordering?",
+            "answer": "Yes, until the order is packed. Message us on WhatsApp with your order number as soon as possible."
+          }
+        },
+        "group-2": {
+          "type": "group",
+          "settings": {
+            "heading": "Returns & Exchange",
+            "icon": "return"
+          }
+        },
+        "question-2-1": {
+          "type": "question",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "You can return or exchange within 7 days of delivery. Items must be unworn, unwashed and have tags attached."
+          }
+        },
+        "question-2-2": {
+          "type": "question",
+          "settings": {
+            "question": "How do I start a return?",
+            "answer": "Go to Track Order, enter your order number and tap “Return or exchange”. We’ll schedule a free pickup."
+          }
+        },
+        "question-2-3": {
+          "type": "question",
+          "settings": {
+            "question": "When will I get my refund?",
+            "answer": "Refunds reach your original payment method within 5–7 business days after the pickup is quality checked. COD refunds go to your bank or as store credit."
+          }
+        },
+        "group-3": {
+          "type": "group",
+          "settings": {
+            "heading": "Products & Sizing",
+            "icon": "ruler"
+          }
+        },
+        "question-3-1": {
+          "type": "question",
+          "settings": {
+            "question": "How do your oversized tees fit?",
+            "answer": "Boxy with a dropped shoulder. Take your usual size for the intended oversized look, or size down for a closer fit."
+          }
+        },
+        "question-3-2": {
+          "type": "question",
+          "settings": {
+            "question": "Will the print crack or fade?",
+            "answer": "We use high-density screen printing tested for 30+ washes. Wash inside out in cold water and skip the dryer for best results."
+          }
+        },
+        "question-3-3": {
+          "type": "question",
+          "settings": {
+            "question": "Do the tees shrink?",
+            "answer": "Our cotton is pre-shrunk and bio-washed, so expect less than 3% shrinkage when washed cold."
+          }
+        },
+        "group-4": {
+          "type": "group",
+          "settings": {
+            "heading": "Payments",
+            "icon": "cash"
+          }
+        },
+        "question-4-1": {
+          "type": "question",
+          "settings": {
+            "question": "Which payment methods do you accept?",
+            "answer": "UPI, all major credit and debit cards, net banking, wallets and Cash on Delivery."
+          }
+        },
+        "question-4-2": {
+          "type": "question",
+          "settings": {
+            "question": "Is Cash on Delivery available?",
+            "answer": "Yes, on most pincodes across India. Check yours on any product page."
+          }
+        },
+        "question-4-3": {
+          "type": "question",
+          "settings": {
+            "question": "Are there extra charges for COD?",
+            "answer": "No COD fee. Delivery is free for COD orders above ₹999."
+          }
+        }
+      },
+      "block_order": [
+        "group-1",
+        "question-1-1",
+        "question-1-2",
+        "question-1-3",
+        "question-1-4",
+        "group-2",
+        "question-2-1",
+        "question-2-2",
+        "question-2-3",
+        "group-3",
+        "question-3-1",
+        "question-3-2",
+        "question-3-3",
+        "group-4",
+        "question-4-1",
+        "question-4-2",
+        "question-4-3"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

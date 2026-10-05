@@ -1,0 +1,120 @@
+{%- comment -%} Bulk & custom orders: hero, steps, pricing tiers, quote form (Shopify contact form). {%- endcomment -%}
+<section class="bulk-hero">
+  {% render 'responsive-image', image: section.settings.image, fallback: section.settings.placeholder, alt: '', width: 1600, sizes: '100vw', loading: 'eager', class: 'bulk-hero__bg', fetchpriority: 'high' %}
+  <div class="container bulk-hero__inner">
+    {% render 'breadcrumb', title: 'Bulk orders' %}
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h1 class="bulk-hero__title" data-split>{{ section.settings.title }}</h1>
+    <p class="bulk-hero__text">{{ section.settings.text }}</p>
+    <div class="bulk-hero__ctas">
+      <a class="btn-arrow" href="#bulk-form" data-scroll-to><span class="btn-arrow__label">{{ section.settings.cta_label }}</span><span class="btn-arrow__circle">{% render 'icon', name: 'arrow-up-right' %}</span></a>
+      <span class="bulk-hero__note">{% render 'icon', name: 'check-circle' %} {{ section.settings.cta_note }}</span>
+    </div>
+    <ul class="bulk-hero__uses">
+      {%- for block in section.blocks -%}{%- if block.type == 'use_case' -%}<li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>{%- endif -%}{%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+<section class="section container">
+  {% render 'section-head', eyebrow: section.settings.steps_eyebrow, title: section.settings.steps_title %}
+  <ol class="steps">
+    {%- assign step_number = 0 -%}
+    {%- for block in section.blocks -%}{%- if block.type == 'step' -%}
+      {%- assign step_number = step_number | plus: 1 -%}
+      <li class="step" data-reveal {{ block.shopify_attributes }}><span class="step__num">0{{ step_number }}</span><h3>{{ block.settings.title }}</h3><p>{{ block.settings.text }}</p></li>
+    {%- endif -%}{%- endfor -%}
+  </ol>
+</section>
+
+<section class="section container">
+  {% render 'section-head', eyebrow: section.settings.pricing_eyebrow, title: section.settings.pricing_title, sub: section.settings.pricing_sub %}
+  <div class="tiers">
+    {%- for block in section.blocks -%}{%- if block.type == 'tier' -%}
+      <div class="tier{% if block.settings.popular %} tier--popular{% endif %}" data-reveal {{ block.shopify_attributes }}>
+        {%- if block.settings.popular -%}<span class="tier__tag">Most popular</span>{%- endif -%}
+        <p class="tier__qty">{{ block.settings.qty }} pcs</p>
+        <p class="tier__price">{{ block.settings.price }}</p>
+        <p class="tier__note">{{ block.settings.note }}</p>
+      </div>
+    {%- endif -%}{%- endfor -%}
+  </div>
+  <ul class="perks">
+    {%- for block in section.blocks -%}{%- if block.type == 'perk' -%}<li {{ block.shopify_attributes }}>{% render 'icon', name: 'check-circle' %} {{ block.settings.text }}</li>{%- endif -%}{%- endfor -%}
+  </ul>
+</section>
+
+<section class="section container" id="bulk-form">
+  <div class="bulk-form">
+    <div class="bulk-form__intro">
+      <p class="eyebrow section-head__eyebrow">{{ section.settings.form_eyebrow }}</p>
+      <h2 class="h-display-sm">{{ section.settings.form_title }}</h2>
+      <p class="text-muted">{{ section.settings.form_text }}</p>
+    </div>
+    {%- assign quantities = section.settings.quantities | newline_to_br | strip_newlines | split: '<br />' -%}
+    {%- form 'contact', class: 'summary__box', id: 'bulk-quote-form' -%}
+      {%- if form.posted_successfully? -%}
+        <div class="form-success" role="status">{% render 'icon', name: 'check-circle' %}<h3>Message received</h3><p>{{ section.settings.success_text }}</p></div>
+      {%- else -%}
+        {%- if form.errors -%}<p class="summary__msg is-error" role="alert">{{ form.errors | default_errors }}</p>{%- endif -%}
+        <input type="hidden" name="contact[topic]" value="Bulk / custom order" />
+        <div class="form-grid">
+          <label class="input"><span>Name</span><input name="contact[name]" required value="{{ form.name }}" /></label>
+          <label class="input"><span>Company / college</span><input name="contact[company]" /></label>
+          <label class="input"><span>Email</span><input name="contact[email]" type="email" required value="{{ form.email }}" /></label>
+          <label class="input"><span>Phone</span><input name="contact[phone]" type="tel" required value="{{ form.phone }}" /></label>
+          <label class="input"><span>Quantity</span><select name="contact[quantity]" required><option value="">Select</option>{% for quantity in quantities %}{% assign quantity_name = quantity | strip %}{% if quantity_name != blank %}<option>{{ quantity_name }}</option>{% endif %}{% endfor %}</select></label>
+          <label class="input"><span>Needed by</span><input name="contact[needed_by]" type="date" /></label>
+          <label class="input input--full"><span>Tell us more</span><textarea name="contact[body]" rows="4" placeholder="Products, colours, print idea, delivery city…">{{ form.body }}</textarea></label>
+        </div>
+        <button class="btn btn--primary btn--lg" type="submit">Request Quote</button>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bulk orders page",
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "image_picker", "id": "image", "label": "Background image" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder image (asset file name or URL)" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Bulk & Custom Orders" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Merch your team will actually wear." },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Get a free quote" },
+    { "type": "text", "id": "cta_note", "label": "Note next to button", "default": "Mockups in 48 hours · MOQ 25" },
+    { "type": "header", "content": "How it works" },
+    { "type": "text", "id": "steps_eyebrow", "label": "Eyebrow", "default": "How it works" },
+    { "type": "text", "id": "steps_title", "label": "Heading", "default": "From idea to delivered in 2 weeks" },
+    { "type": "header", "content": "Pricing" },
+    { "type": "text", "id": "pricing_eyebrow", "label": "Eyebrow", "default": "Pricing" },
+    { "type": "text", "id": "pricing_title", "label": "Heading", "default": "Transparent bulk pricing" },
+    { "type": "text", "id": "pricing_sub", "label": "Subheading", "default": "240 GSM oversized tee, 1 colour print, front + back. GST extra." },
+    { "type": "header", "content": "Quote form" },
+    { "type": "text", "id": "form_eyebrow", "label": "Eyebrow", "default": "Get a quote" },
+    { "type": "text", "id": "form_title", "label": "Heading", "default": "Tell us about your order" },
+    { "type": "textarea", "id": "form_text", "label": "Text", "default": "We reply within one business day with pricing and timelines. No commitment." },
+    { "type": "textarea", "id": "quantities", "label": "Quantity options (one per line)", "default": "25 – 49\n50 – 99\n100 – 249\n250+" },
+    { "type": "textarea", "id": "success_text", "label": "Success message", "default": "Got it! Our merch team will reach out within one business day with mockups and a quote." }
+  ],
+  "blocks": [
+    { "type": "use_case", "name": "Use case", "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "Startup & team merch" }] },
+    { "type": "step", "name": "Step", "settings": [
+      { "type": "text", "id": "title", "label": "Title", "default": "Share your idea" },
+      { "type": "textarea", "id": "text", "label": "Text" }
+    ] },
+    { "type": "tier", "name": "Pricing tier", "settings": [
+      { "type": "text", "id": "qty", "label": "Quantity range", "default": "25 – 49", "info": "“pcs” is added after it." },
+      { "type": "text", "id": "price", "label": "Price", "default": "₹649" },
+      { "type": "text", "id": "note", "label": "Note", "default": "per tee" },
+      { "type": "checkbox", "id": "popular", "label": "Mark as most popular", "default": false }
+    ] },
+    { "type": "perk", "name": "Perk", "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "240 GSM premium cotton" }] }
+  ],
+  "presets": [
+    { "name": "Bulk orders page", "blocks": [{ "type": "use_case" }, { "type": "step" }, { "type": "tier" }, { "type": "perk" }] }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,9 @@
+{%- comment -%} Generic page (templates/page.json): title + rich text from the Shopify page. {%- endcomment -%}
+{% render 'page-hero', title: page.title %}
+<section class="section container">
+  <div class="policy__body rte">{{ page.content }}</div>
+</section>
+
+{% schema %}
+{ "name": "Page", "settings": [] }
+{% endschema %}

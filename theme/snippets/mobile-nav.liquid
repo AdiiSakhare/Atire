@@ -1,0 +1,8 @@
+{%- comment -%} App-style bottom navigation for phones. {%- endcomment -%}
+<nav class="mobile-nav" aria-label="Quick navigation">
+  <a class="mobile-nav__item{% if template.name == 'index' %} is-active{% endif %}" href="{{ routes.root_url }}">{% render 'icon', name: 'home' %}<span>Home</span></a>
+  <a class="mobile-nav__item" href="{{ routes.all_products_collection_url }}">{% render 'icon', name: 'grid' %}<span>Shop</span></a>
+  <button class="mobile-nav__item" type="button" data-search-open>{% render 'icon', name: 'search' %}<span>Search</span></button>
+  <a class="mobile-nav__item" href="{{ pages.wishlist.url | default: '/pages/wishlist' }}">{% render 'icon', name: 'heart' %}<span>Wishlist</span><span class="mobile-nav__badge" data-wishlist-count-mobile></span></a>
+  <button class="mobile-nav__item" type="button" data-drawer-open="cart-drawer">{% render 'icon', name: 'bag' %}<span>Cart</span><span class="mobile-nav__badge" data-cart-count-mobile></span></button>
+</nav>

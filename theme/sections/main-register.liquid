@@ -1,0 +1,41 @@
+<section class="container account">
+  <div class="auth">
+    <div class="auth__media">
+      {% render 'responsive-image', image: section.settings.image, fallback: section.settings.placeholder, alt: '', width: 800, sizes: '(min-width: 990px) 50vw, 0px' %}
+      <div class="auth__media-copy">
+        <p class="eyebrow">Members get more</p>
+        <ul>
+          {%- for block in section.blocks -%}<li {{ block.shopify_attributes }}>{% render 'icon', name: 'check-circle' %} {{ block.settings.text }}</li>{%- endfor -%}
+        </ul>
+      </div>
+    </div>
+    <div class="auth__panel">
+      <div class="auth__tabs" role="tablist">
+        <a role="tab" aria-selected="false" href="{{ routes.account_login_url }}">Sign in</a>
+        <a role="tab" aria-selected="true" href="{{ routes.account_register_url }}">Create account</a>
+      </div>
+
+      {%- form 'create_customer', class: 'auth__form', novalidate: 'novalidate' -%}
+        <h1 class="auth__title">Join the {{ shop.name }} fam</h1>
+        <p class="text-muted">Takes 20 seconds. Your welcome code is waiting.</p>
+        {%- if form.errors -%}<p class="summary__msg is-error" role="alert">{{ form.errors | default_errors }}</p>{%- endif -%}
+        <label class="input"><span>First name</span><input name="customer[first_name]" required autocomplete="given-name" value="{{ form.first_name }}"></label>
+        <label class="input"><span>Last name</span><input name="customer[last_name]" required autocomplete="family-name" value="{{ form.last_name }}"></label>
+        <label class="input"><span>Email</span><input name="customer[email]" type="email" required autocomplete="email" value="{{ form.email }}"></label>
+        <label class="input"><span>Password</span><input name="customer[password]" type="password" required autocomplete="new-password"></label>
+        <button class="btn btn--dark btn--block btn--lg" type="submit">Create Account</button>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Create account",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Side image" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder image (asset file name or URL)", "default": "tee-couple-roast.jpg" }
+  ],
+  "blocks": [{ "type": "perk", "name": "Perk", "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "10% off your first order" }] }]
+}
+{% endschema %}

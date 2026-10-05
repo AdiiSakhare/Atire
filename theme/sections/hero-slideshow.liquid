@@ -1,0 +1,96 @@
+{%- comment -%} Full-bleed hero slider. JS: js/sections/home-hero.js {%- endcomment -%}
+<section class="hero" data-hero aria-roledescription="carousel" aria-label="Featured collections">
+  <div class="hero__slides">
+    {%- for block in section.blocks -%}
+      {%- assign look = block.settings.look -%}
+      <article class="hero__slide{% if forloop.first %} is-active{% endif %}" data-hero-slide aria-roledescription="slide" aria-label="{{ forloop.index }} of {{ section.blocks.size }}" {% unless forloop.first %}aria-hidden="true"{% endunless %} {{ block.shopify_attributes }}>
+        <picture class="hero__media">
+          {%- if block.settings.image_mobile != blank -%}
+            <source media="(max-width: 767px)" srcset="{{ block.settings.image_mobile | image_url: width: 900 }}">
+          {%- elsif block.settings.placeholder_mobile != blank -%}
+            <source media="(max-width: 767px)" srcset="{% if block.settings.placeholder_mobile contains 'http' %}{{ block.settings.placeholder_mobile }}{% else %}{{ block.settings.placeholder_mobile | asset_url }}{% endif %}">
+          {%- endif -%}
+          {%- liquid
+            assign focus = 'object-position: ' | append: block.settings.position
+            assign eager = forloop.first
+          -%}
+          {%- if eager -%}
+            {% render 'responsive-image', image: block.settings.image, fallback: block.settings.placeholder, alt: '', width: 2400, widths: '900, 1400, 1800, 2400', sizes: '100vw', style: focus, loading: 'eager', fetchpriority: 'high' %}
+          {%- else -%}
+            {% render 'responsive-image', image: block.settings.image, fallback: block.settings.placeholder, alt: '', width: 2400, widths: '900, 1400, 1800, 2400', sizes: '100vw', style: focus %}
+          {%- endif -%}
+        </picture>
+        <div class="hero__content container">
+          {%- if forloop.first -%}<h1 class="hero__title" data-hero-title>{{ block.settings.title }}</h1>{%- else -%}<h2 class="hero__title" data-hero-title>{{ block.settings.title }}</h2>{%- endif -%}
+          <p class="hero__text" data-hero-fade>{{ block.settings.text }}</p>
+          {% render 'btn-arrow', url: block.settings.url, label: block.settings.cta, modifier: 'light', class: 'hero__cta', attrs: 'data-hero-fade' %}
+          <p class="hero__proof" data-hero-fade>
+            {% render 'stars', rating: section.settings.proof_rating %}
+            <span><strong>{{ section.settings.proof_rating }}/5</strong> from {{ section.settings.proof_reviews }} reviews</span>
+            <span class="hero__proof-sep" aria-hidden="true"></span>
+            <span>Loved by {{ section.settings.proof_customers }} customers</span>
+          </p>
+        </div>
+
+        {%- if look != blank -%}
+          <aside class="hero-look" data-hero-fade aria-label="Shop this look">
+            <span class="hero-look__label">{% render 'icon', name: 'sparkle' %} Shop this look</span>
+            <a class="hero-look__card" href="{{ look.url }}">
+              {%- if look.featured_image -%}{{ look.featured_image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+              <span class="hero-look__info">
+                <span class="hero-look__title">{% render 'product-title', product: look %}</span>
+                {% render 'price', product: look, off_suffix: '% OFF' %}
+              </span>
+            </a>
+            <button class="hero-look__add" type="button" data-quick-shop="{{ look.handle }}" aria-label="Quick add {{ look.title | escape }}">{% render 'icon', name: 'plus' %}</button>
+          </aside>
+        {%- endif -%}
+      </article>
+    {%- endfor -%}
+  </div>
+
+  <div class="hero__controls container">
+    <div class="hero__progress" role="tablist" aria-label="Choose slide">
+      {%- for block in section.blocks -%}
+        <button class="hero__bar{% if forloop.first %} is-active{% endif %}" type="button" role="tab" data-hero-go="{{ forloop.index0 }}" aria-label="Slide {{ forloop.index }}"><span></span></button>
+      {%- endfor -%}
+    </div>
+    <div class="hero__arrows">
+      <button class="icon-btn icon-btn--nav" type="button" data-hero-prev aria-label="Previous slide">{% render 'icon', name: 'arrow-left' %}</button>
+      <button class="icon-btn icon-btn--nav" type="button" data-hero-next aria-label="Next slide">{% render 'icon', name: 'arrow-right' %}</button>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero slideshow",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "header", "content": "Social proof line" },
+    { "type": "number", "id": "proof_rating", "label": "Rating", "default": 4.7 },
+    { "type": "text", "id": "proof_reviews", "label": "Review count", "default": "12,400+" },
+    { "type": "text", "id": "proof_customers", "label": "Customers", "default": "2.4 lakh+" }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Heading", "default": "Modern Fashion" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "text", "id": "cta", "label": "Button label", "default": "Start Shopping" },
+        { "type": "url", "id": "url", "label": "Button link" },
+        { "type": "image_picker", "id": "image", "label": "Image (desktop)" },
+        { "type": "image_picker", "id": "image_mobile", "label": "Image (mobile, portrait)" },
+        { "type": "text", "id": "position", "label": "Image focus (CSS object-position)", "default": "50% 50%" },
+        { "type": "product", "id": "look", "label": "“Shop this look” product" },
+        { "type": "header", "content": "Placeholders" },
+        { "type": "text", "id": "placeholder", "label": "Placeholder image (asset file name or URL)", "info": "Used until an image is uploaded above." },
+        { "type": "text", "id": "placeholder_mobile", "label": "Placeholder image, mobile" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Hero slideshow", "blocks": [{ "type": "slide" }] }]
+}
+{% endschema %}

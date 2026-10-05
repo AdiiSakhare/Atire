@@ -1,0 +1,181 @@
+{%- comment -%}
+  Ratings & reviews. Summary + fit meter + customer photos + review cards.
+  Reviews come from "Review" blocks (hand-maintained) and/or a reviews app via the app block (decision D1).
+  JS: js/sections/product-reviews.js
+{%- endcomment -%}
+{%- liquid
+  assign average = product.metafields.custom.rating_value.value | default: section.settings.average
+  assign total = product.metafields.custom.rating_count.value | default: section.settings.count
+  assign dist = section.settings.distribution | split: ','
+  assign review_blocks = section.blocks | where: 'type', 'review'
+  assign photo_blocks = section.blocks | where: 'type', 'photo'
+-%}
+<section class="section container reviews" id="reviews" data-reviews>
+  <div class="section-head">
+    <div>
+      <h2 class="h-display-sm" data-reveal>Loved by <span class="text-amber">{{ total }} people</span> who wore it</h2>
+      <p class="section-head__sub" data-reveal>Real reviews from verified buyers.</p>
+    </div>
+    <button class="btn btn--outline btn--pill" type="button" data-write-review>Write a Review</button>
+  </div>
+
+  <div class="reviews__layout">
+    <aside class="reviews__summary" data-reveal>
+      <div class="reviews__score">
+        <strong>{{ average }}</strong>
+        <div>
+          {% render 'stars', rating: average %}
+          <p>Based on {{ total }} reviews</p>
+        </div>
+      </div>
+
+      <ul class="reviews__bars">
+        {%- for count in dist -%}
+          {%- assign star = 5 | minus: forloop.index0 -%}
+          <li>
+            <span class="reviews__bar-label">{{ star }} {% render 'icon', name: 'star' %}</span>
+            <span class="reviews__bar"><span style="--w: {{ count | strip | times: 100.0 | divided_by: total | round }}%" data-bar></span></span>
+            <span class="reviews__bar-count">{{ count | strip }}</span>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      <div class="reviews__fit">
+        <p class="reviews__fit-title">How it fits <span>{{ section.settings.fit_percent }}% say <strong>{{ section.settings.fit_label }}</strong></span></p>
+        <div class="reviews__fit-track">
+          <span class="reviews__fit-dot" style="--pos: {{ section.settings.fit_position }}%"></span>
+        </div>
+        <div class="reviews__fit-scale"><span>Runs small</span><span>Perfect</span><span>Runs large</span></div>
+      </div>
+
+      {%- if photo_blocks.size > 0 -%}
+        <div class="reviews__photos">
+          <p class="reviews__fit-title">{% render 'icon', name: 'camera' %} Customer photos</p>
+          <div class="reviews__photo-grid">
+            {%- for block in photo_blocks -%}
+              {%- liquid
+                if block.settings.image != blank
+                  assign src = block.settings.image | image_url: width: 1000
+                elsif block.settings.placeholder contains 'http'
+                  assign src = block.settings.placeholder
+                else
+                  assign src = block.settings.placeholder | asset_url
+                endif
+              -%}
+              <button type="button" class="reviews__photo" data-review-photo="{{ src }}" aria-label="Open customer photo {{ forloop.index }}" {{ block.shopify_attributes }}>
+                <img src="{{ src }}" alt="" loading="lazy">
+                {%- if forloop.last and section.settings.more_photos > 0 -%}<span class="reviews__photo-more">+{{ section.settings.more_photos }}</span>{%- endif -%}
+              </button>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </aside>
+
+    <div class="reviews__main">
+      <div class="reviews__toolbar">
+        <div class="reviews__filters no-scrollbar" role="group" aria-label="Filter reviews">
+          <button class="chip-toggle" type="button" aria-pressed="true" data-review-filter="all">All</button>
+          <button class="chip-toggle" type="button" aria-pressed="false" data-review-filter="photos">{% render 'icon', name: 'camera' %}With photos</button>
+          <button class="chip-toggle" type="button" aria-pressed="false" data-review-filter="5">5 {% render 'icon', name: 'star' %}</button>
+          <button class="chip-toggle" type="button" aria-pressed="false" data-review-filter="4">4 {% render 'icon', name: 'star' %}</button>
+        </div>
+        <select class="select" aria-label="Sort reviews">
+          <option>Most helpful</option>
+          <option>Newest</option>
+          <option>Highest rated</option>
+          <option>Lowest rated</option>
+        </select>
+      </div>
+
+      <ul class="reviews__list" data-review-list>
+        {%- for block in review_blocks -%}
+          {%- liquid
+            assign photo = ''
+            if block.settings.image != blank
+              assign photo = block.settings.image | image_url: width: 1000
+            elsif block.settings.placeholder contains 'http'
+              assign photo = block.settings.placeholder
+            elsif block.settings.placeholder != blank
+              assign photo = block.settings.placeholder | asset_url
+            endif
+            assign first = block.settings.name | split: ' ' | first | slice: 0
+            assign last = block.settings.name | split: ' ' | last | slice: 0
+          -%}
+          <li class="review-card" data-reveal data-rating="{{ block.settings.rating }}" {% if photo != blank %}data-has-photo{% endif %} {{ block.shopify_attributes }}>
+            <div class="review-card__top">
+              {% render 'stars', rating: block.settings.rating %}
+              <span class="review-card__date">{{ block.settings.date }}</span>
+            </div>
+            <h3 class="review-card__title">{{ block.settings.title }}</h3>
+            <p class="review-card__body">“{{ block.settings.body }}”</p>
+            {%- if photo != blank -%}
+              <button type="button" class="review-card__photo" data-review-photo="{{ photo }}" aria-label="Open photo from {{ block.settings.name | escape }}">
+                <img src="{{ photo }}" alt="" loading="lazy">
+              </button>
+            {%- endif -%}
+            <div class="review-card__foot">
+              <div class="review-card__author">
+                <span class="review-card__avatar">{{ first }}{{ last }}</span>
+                <span>
+                  <strong>{{ block.settings.name }} <span class="review-card__verified">{% render 'icon', name: 'verified' %}</span></strong>
+                  <small>Verified buyer · {{ block.settings.variant }}</small>
+                </span>
+              </div>
+              <button class="review-card__helpful" type="button" data-helpful aria-pressed="false">
+                {% render 'icon', name: 'thumbs-up' %} <span>{{ block.settings.helpful }}</span>
+              </button>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      {%- for block in section.blocks -%}{%- if block.type == '@app' -%}{% render block %}{%- endif -%}{%- endfor -%}
+
+      {%- if review_blocks.size > 0 -%}
+        <button class="btn btn--outline btn--pill reviews__more" type="button" data-reviews-more>Load more reviews</button>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "settings": [
+    { "type": "number", "id": "average", "label": "Average rating (fallback)", "info": "Used when the product has no custom.rating_value metafield.", "default": 4.6 },
+    { "type": "number", "id": "count", "label": "Review count (fallback)", "default": 102 },
+    { "type": "text", "id": "distribution", "label": "Counts for 5★,4★,3★,2★,1★", "default": "78,15,5,2,2" },
+    { "type": "number", "id": "fit_percent", "label": "Fit: % agreeing", "default": 82 },
+    { "type": "text", "id": "fit_label", "label": "Fit: label", "default": "True to size" },
+    { "type": "range", "id": "fit_position", "label": "Fit: marker position", "min": 0, "max": 100, "step": 1, "default": 52, "info": "0 = runs small, 100 = runs large." },
+    { "type": "number", "id": "more_photos", "label": "“+N” on the last photo", "default": 24 }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Aarav M." },
+        { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "date", "label": "Date label", "default": "2 weeks ago" },
+        { "type": "text", "id": "variant", "label": "Variant", "default": "Blue / M" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "body", "label": "Review" },
+        { "type": "number", "id": "helpful", "label": "Helpful votes", "default": 0 },
+        { "type": "image_picker", "id": "image", "label": "Photo (optional)" },
+        { "type": "text", "id": "placeholder", "label": "Placeholder photo (asset file name or URL)" }
+      ]
+    },
+    {
+      "type": "photo",
+      "name": "Customer photo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "placeholder", "label": "Placeholder photo (asset file name or URL)" }
+      ]
+    },
+    { "type": "@app" }
+  ]
+}
+{% endschema %}

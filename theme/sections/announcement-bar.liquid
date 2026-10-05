@@ -1,0 +1,49 @@
+<div class="announcement" data-announcement role="region" aria-label="Store announcements">
+  <div class="announcement__track">
+    {%- for block in section.blocks -%}
+      <p class="announcement__item{% if forloop.first %} is-active{% endif %}" {% unless forloop.first %}aria-hidden="true"{% endunless %} {{ block.shopify_attributes }}>
+        <span class="announcement__icon">{% render 'icon', name: block.settings.icon %}</span>{{ block.settings.text }}
+      </p>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "sparkle",
+          "options": [
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "tag", "label": "Tag" },
+            { "value": "return", "label": "Returns" },
+            { "value": "truck", "label": "Delivery" },
+            { "value": "shield", "label": "Secure" },
+            { "value": "cash", "label": "Cash" }
+          ]
+        },
+        { "type": "text", "id": "text", "label": "Text", "default": "Get free delivery on all prepaid orders" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar",
+      "blocks": [
+        { "type": "message", "settings": { "icon": "sparkle", "text": "Get free delivery on all prepaid orders" } },
+        { "type": "message", "settings": { "icon": "tag", "text": "Flat ₹100 off with code PREPAID100" } },
+        { "type": "message", "settings": { "icon": "return", "text": "7-day easy returns & exchange" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

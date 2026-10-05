@@ -1,0 +1,79 @@
+{%- comment -%}
+  Product card.
+  Usage: {% render 'product-card', product: product, modifier: 'compact' %}
+  JS:    js/components/product-card.js (wishlist, quick add, ATC → stepper)
+  Options: option 1 is Color, option 2 is Size (same convention as the catalogue JSON).
+{%- endcomment -%}
+{%- liquid
+  assign color_option = product.options_with_values | where: 'name', 'Color' | first
+  assign size_option = product.options_with_values | where: 'name', 'Size' | first
+  assign card_title = product.metafields.custom.card_title.value | default: product.title
+  assign discount = 0
+  if product.compare_at_price > product.price
+    assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
+  endif
+-%}
+<article class="product-card{% if modifier %} product-card--{{ modifier }}{% endif %}" data-product-card data-handle="{{ product.handle }}">
+  <div class="product-card__media">
+    {%- if product.featured_image -%}
+      {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', decoding: 'async', alt: product.featured_image.alt, widths: '300, 450, 600', sizes: '(min-width: 990px) 25vw, 50vw' }}
+    {%- endif -%}
+    {%- if product.images[1] -%}
+      {{ product.images[1] | image_url: width: 600 | image_tag: loading: 'lazy', decoding: 'async', alt: '', widths: '300, 450, 600', sizes: '(min-width: 990px) 25vw, 50vw', aria-hidden: 'true' }}
+    {%- endif -%}
+
+    {%- assign badge = product.metafields.custom.badge.value -%}
+    {%- if badge != blank -%}<span class="chip chip--badge product-card__badge">{{ badge }}</span>{%- endif -%}
+
+    <button class="icon-btn icon-btn--sm product-card__wish" type="button" data-wishlist-toggle="{{ product.handle }}" aria-pressed="false" aria-label="Add {{ product.title | escape }} to wishlist">
+      {% render 'icon', name: 'heart' %}
+    </button>
+
+    <div class="product-card__quick" data-quick-add>
+      <p class="product-card__quick-label">Quick add — select size</p>
+      <div class="sizes">
+        {%- for value in size_option.values -%}
+          <button class="size-pill" type="button" data-quick-size="{{ value }}">{{ value }}</button>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="product-card__body">
+    <h3 class="product-card__title">
+      <a href="{{ product.url }}">{{ card_title }}</a>
+    </h3>
+    <p class="product-card__tagline">{{ product.metafields.custom.tagline.value }}</p>
+
+    <div class="product-card__meta">
+      <div class="price">
+        <span class="price__current">{{ product.price | money_without_trailing_zeros }}</span>
+        {%- if discount > 0 -%}
+          <s class="price__compare">{{ product.compare_at_price | money_without_trailing_zeros }}</s>
+          <span class="price__off">{{ discount }}% off</span>
+        {%- endif -%}
+      </div>
+      {%- if product.metafields.custom.rating_value.value != blank -%}
+        <span class="product-card__rating" title="{{ product.metafields.custom.rating_value.value }} out of 5">
+          {% render 'stars', rating: product.metafields.custom.rating_value.value %}<span>({{ product.metafields.custom.rating_count.value }})</span>
+        </span>
+      {%- endif -%}
+    </div>
+
+    {%- if color_option -%}
+      <ul class="product-card__colors" aria-label="{{ color_option.values.size }} colours">
+        {%- for value in color_option.values -%}
+          <li class="swatch swatch--sm" style="--swatch: {% render 'swatch-color', value: value %}" title="{{ value.name }}"></li>
+        {%- endfor -%}
+        {%- if color_option.values.size > 1 -%}<li class="product-card__colors-label">{{ color_option.values.size }} colours</li>{%- endif -%}
+      </ul>
+    {%- endif -%}
+
+    <div class="product-card__actions">
+      <div data-atc-slot>
+        <button class="btn btn--primary btn--block" type="button" data-card-atc>Add to Cart</button>
+      </div>
+      <a class="btn btn--outline btn--block" href="{{ product.url }}?buy=1">Buy Now</a>
+    </div>
+  </div>
+</article>

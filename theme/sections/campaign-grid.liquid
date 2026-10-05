@@ -1,0 +1,62 @@
+{%- comment -%} Full-width campaign cards: large + small, edge to edge. {%- endcomment -%}
+<section class="section campaigns" data-campaigns>
+  <div class="campaigns__large">
+    {%- for block in section.blocks -%}{%- if block.type == 'large' -%}
+      <a class="campaign campaign--large" href="{{ block.settings.url }}" data-reveal {{ block.shopify_attributes }}>
+        <span class="campaign__media" data-parallax>{% render 'responsive-image', image: block.settings.image, fallback: block.settings.placeholder, alt: '', width: 1400, sizes: '(min-width: 990px) 50vw, 100vw' %}</span>
+        <span class="campaign__body">
+          <span class="campaign__kicker">{{ block.settings.kicker }}</span>
+          <span class="campaign__title">{{ block.settings.title }}</span>
+          <span class="btn-arrow btn-arrow--light">
+            <span class="btn-arrow__label">{{ block.settings.cta }}</span>
+            <span class="btn-arrow__circle">{% render 'icon', name: 'arrow-up-right' %}</span>
+          </span>
+        </span>
+      </a>
+    {%- endif -%}{%- endfor -%}
+  </div>
+  <div class="campaigns__small">
+    {%- for block in section.blocks -%}{%- if block.type == 'small' -%}
+      <a class="campaign campaign--small" href="{{ block.settings.url }}" data-reveal {{ block.shopify_attributes }}>
+        <span class="campaign__media">{% render 'responsive-image', image: block.settings.image, fallback: block.settings.placeholder, alt: '', width: 900, sizes: '(min-width: 990px) 33vw, 100vw' %}</span>
+        <span class="campaign__body">
+          <span class="campaign__title">{{ block.settings.title }}</span>
+          <span class="campaign__meta">{{ block.settings.meta }}</span>
+        </span>
+        <span class="campaign__arrow">{% render 'icon', name: 'arrow-up-right' %}</span>
+      </a>
+    {%- endif -%}{%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Campaign grid",
+  "blocks": [
+    {
+      "type": "large",
+      "name": "Large card",
+      "settings": [
+        { "type": "text", "id": "kicker", "label": "Kicker" },
+        { "type": "text", "id": "title", "label": "Heading" },
+        { "type": "text", "id": "cta", "label": "Button label", "default": "Shop now" },
+        { "type": "url", "id": "url", "label": "Link" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "placeholder", "label": "Placeholder image (asset file name or URL)" }
+      ]
+    },
+    {
+      "type": "small",
+      "name": "Small card",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "text", "id": "meta", "label": "Sub text" },
+        { "type": "url", "id": "url", "label": "Link" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "placeholder", "label": "Placeholder image (asset file name or URL)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Campaign grid", "blocks": [{ "type": "large" }, { "type": "large" }, { "type": "small" }, { "type": "small" }, { "type": "small" }] }]
+}
+{% endschema %}

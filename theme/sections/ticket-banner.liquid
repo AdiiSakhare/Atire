@@ -1,0 +1,33 @@
+{%- comment -%} Ticket-shaped offer banner with countdown. JS: js/sections/countdown.js {%- endcomment -%}
+<section class="container ticket-wrap" data-reveal>
+  <div class="ticket">
+    <div class="ticket__copy">
+      <p class="ticket__title">{{ section.settings.title }}</p>
+      <p class="ticket__sub">{{ section.settings.subtitle }}</p>
+    </div>
+    <button class="ticket__code" type="button" data-copy="{{ section.settings.code }}" aria-label="Copy code {{ section.settings.code }}">
+      <span class="ticket__code-label">USE CODE</span>
+      <span class="ticket__code-value">{{ section.settings.code }}</span>
+      <span class="ticket__tag" aria-hidden="true">%</span>
+    </button>
+    <div class="ticket__timer" data-countdown data-ends-at="{{ section.settings.ends_at }}" aria-label="Offer ends in">
+      <div><strong data-cd="d">00</strong><span>DAYS</span></div>
+      <div><strong data-cd="h">00</strong><span>HRS</span></div>
+      <div><strong data-cd="m">00</strong><span>MINS</span></div>
+      <div><strong data-cd="s">00</strong><span>SECS</span></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Offer ticket",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Heading", "default": "GET 20% CASHBACK" },
+    { "type": "text", "id": "subtitle", "label": "Subheading", "default": "On All Orders Above ₹1000" },
+    { "type": "text", "id": "code", "label": "Discount code", "default": "CASHBACK20" },
+    { "type": "text", "id": "ends_at", "label": "Ends at (ISO date-time)", "default": "2026-10-12T23:59:59+05:30", "info": "The timer hides itself once this passes." }
+  ],
+  "presets": [{ "name": "Offer ticket" }]
+}
+{% endschema %}

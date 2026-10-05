@@ -1,0 +1,104 @@
+{%- comment -%}
+  Size guide + finder. The chart is Theme settings → Size chart (shared with the PDP drawer).
+  JS hooks: data-finder, data-finder-form, data-finder-result, data-finder-size, data-finder-note, data-unit, data-inches.
+{%- endcomment -%}
+{% render 'page-hero', eyebrow: section.settings.eyebrow, title: section.settings.title, sub: section.settings.sub, crumb: 'Size guide', center: false %}
+<section class="container size-page">
+  <div class="finder summary__box" data-finder>
+    <div class="finder__intro">
+      <p class="eyebrow section-head__eyebrow">{{ section.settings.finder_eyebrow }}</p>
+      <h2 class="h-display-sm">{{ section.settings.finder_title }}</h2>
+      <p class="text-muted">{{ section.settings.finder_text }}</p>
+    </div>
+    <form class="finder__form" data-finder-form>
+      <label class="input"><span>Height (cm)</span><input name="height" type="number" min="140" max="210" value="175" required /></label>
+      <label class="input"><span>Weight (kg)</span><input name="weight" type="number" min="35" max="150" value="70" required /></label>
+      <div class="input"><span>Preferred fit</span>
+        <div class="seg">
+          <label><input type="radio" name="fit" value="regular" /><span>Closer</span></label>
+          <label><input type="radio" name="fit" value="oversized" checked /><span>Oversized</span></label>
+          <label><input type="radio" name="fit" value="baggy" /><span>Extra baggy</span></label>
+        </div>
+      </div>
+      <button class="btn btn--dark btn--lg" type="submit">Find my size</button>
+    </form>
+    <div class="finder__result" data-finder-result hidden>
+      <span class="finder__size" data-finder-size>M</span>
+      <div><strong>Your recommended size</strong><p class="text-muted" data-finder-note></p></div>
+      <a class="btn btn--primary" href="{{ section.settings.shop_url | default: routes.all_products_collection_url }}">Shop in your size</a>
+    </div>
+  </div>
+
+  <div class="size-page__units">
+    <p class="dash__h2">Size charts</p>
+    <div class="size-guide__units" role="group" aria-label="Units">
+      <button type="button" aria-pressed="true" data-unit="in">in</button>
+      <button type="button" aria-pressed="false" data-unit="cm">cm</button>
+    </div>
+  </div>
+
+  <div class="size-page__charts">
+    <div class="summary__box">
+      <h3 class="summary__title">{{ section.settings.chart_title }}</h3>
+      <p class="text-muted size-page__note">{{ section.settings.chart_note }}</p>
+      <div class="size-guide__table-wrap">
+        {% render 'size-chart-table' %}
+      </div>
+    </div>
+  </div>
+
+  <div class="size-page__how">
+    <div class="summary__box">
+      <h3 class="summary__title">How to measure</h3>
+      <ul class="size-guide__tips">
+        {%- for block in section.blocks -%}{%- if block.type == 'tip' -%}
+          <li {{ block.shopify_attributes }}><strong>{{ block.settings.label }}</strong> {{ block.settings.text }}</li>
+        {%- endif -%}{%- endfor -%}
+      </ul>
+    </div>
+    {%- for block in section.blocks -%}{%- if block.type == 'fit' -%}
+      <div class="summary__box" {{ block.shopify_attributes }}><h3 class="summary__title">{{ block.settings.title }} fit</h3><p class="text-muted">{{ block.settings.text }}</p></div>
+    {%- endif -%}{%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Size guide page",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Find your fit" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Size guide" },
+    { "type": "textarea", "id": "sub", "label": "Subheading", "default": "Our tees run oversized on purpose. Use the finder or the charts below to get the drape you want." },
+    { "type": "header", "content": "Size finder" },
+    { "type": "text", "id": "finder_eyebrow", "label": "Eyebrow", "default": "Size finder" },
+    { "type": "text", "id": "finder_title", "label": "Heading", "default": "Not sure? We’ll pick for you." },
+    { "type": "text", "id": "finder_text", "label": "Text", "default": "Based on 40,000+ orders with under 4% size exchanges." },
+    { "type": "url", "id": "shop_url", "label": "“Shop in your size” link", "info": "The size is added by the finder. Defaults to all products." },
+    { "type": "header", "content": "Size chart" },
+    { "type": "paragraph", "content": "Chart values come from Theme settings → Size chart." },
+    { "type": "text", "id": "chart_title", "label": "Chart title", "default": "Oversized Tees" },
+    { "type": "text", "id": "chart_note", "label": "Chart note", "default": "Garment measurements in inches. Relaxed, boxy fit." }
+  ],
+  "blocks": [
+    {
+      "type": "tip",
+      "name": "Measuring tip",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Chest" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    },
+    {
+      "type": "fit",
+      "name": "Fit card",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Fit name", "default": "Oversized", "info": "“fit” is added after the name." },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Size guide page", "blocks": [{ "type": "tip" }, { "type": "fit" }] }
+  ]
+}
+{% endschema %}

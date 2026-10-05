@@ -1,0 +1,245 @@
+{%- comment -%}
+  Collection + search results. Used by templates/collection.json and templates/search.json.
+  Filtering, sorting and pagination are Shopify-native (Search & Discovery app → Filters);
+  js (src/shopify/shop.js) re-renders this section through the Section Rendering API.
+{%- endcomment -%}
+{%- liquid
+  assign is_search = false
+  if template.name == 'search'
+    assign is_search = true
+  endif
+
+  if is_search
+    assign result_filters = search.filters
+    assign result_total = search.results_count
+    assign sort_options = search.sort_options
+    assign sort_by = search.sort_by | default: search.default_sort_by
+    assign reset_url = search.url | append: '?q=' | append: search.terms | url_encode | append: '&type=product'
+    assign title = 'Results for “' | append: search.terms | append: '”'
+  else
+    assign result_filters = collection.filters
+    assign result_total = collection.products_count
+    assign sort_options = collection.sort_options
+    assign sort_by = collection.sort_by | default: collection.default_sort_by
+    assign reset_url = collection.url
+    assign title = collection.title
+  endif
+  assign chips_menu = linklists[section.settings.categories_menu]
+  assign preset_blocks = section.blocks | where: 'type', 'price_preset'
+  assign promo_blocks = section.blocks | where: 'type', 'promo'
+  assign promo = promo_blocks.first
+  if is_search
+    assign paginated = search.results
+  else
+    assign paginated = collection.products
+  endif
+-%}
+
+<header class="page-hero shop-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="{{ routes.root_url }}">Home</a>{% render 'icon', name: 'chevron-right' %}</li>
+        <li aria-current="page" data-shop-crumb>{{ title }}</li>
+      </ol>
+    </nav>
+    <div class="shop-hero__row">
+      <div>
+        <h1 class="page-hero__title" data-shop-title>{{ title }}</h1>
+        <p class="page-hero__sub" data-shop-text>
+          {%- if is_search -%}{{ result_total }} product{% if result_total != 1 %}s{% endif %} match your search.{%- else -%}{{ collection.description | strip_html | truncate: 200 }}{%- endif -%}
+        </p>
+      </div>
+      <p class="shop-hero__count"><strong data-shop-count>{{ result_total }}</strong> products</p>
+    </div>
+  </div>
+</header>
+
+{%- paginate paginated by section.settings.per_page -%}
+<section class="container shop" data-shop data-section-id="{{ section.id }}">
+  <nav class="shop__chips no-scrollbar" aria-label="Categories" data-shop-cats>
+    <a class="chip-toggle" href="{{ routes.all_products_collection_url }}" data-shop-cat="all" aria-pressed="{% if collection.handle == 'all' %}true{% else %}false{% endif %}">All</a>
+    {%- for link in chips_menu.links -%}
+      <a class="chip-toggle" href="{{ link.url }}" data-shop-cat="{{ link.handle }}" aria-pressed="{% if link.active %}true{% else %}false{% endif %}">{{ link.title }}</a>
+    {%- endfor -%}
+  </nav>
+
+  <div class="shop__toolbar">
+    <button class="btn btn--outline btn--sm shop__filter-btn" type="button" data-shop-filter-toggle aria-expanded="true">
+      {% render 'icon', name: 'grid' %} <span data-filter-label>Hide filters</span> <span class="shop__filter-count" data-filter-count hidden></span>
+    </button>
+    <div class="shop__active no-scrollbar" data-shop-active>
+      {%- for filter in result_filters -%}
+        {%- for value in filter.active_values -%}
+          <a class="active-chip" href="{{ value.url_to_remove }}" data-shop-url="{{ value.url_to_remove }}">{{ value.label }}<span aria-hidden="true">×</span><span class="visually-hidden">Remove filter</span></a>
+        {%- endfor -%}
+        {%- if filter.type == 'price_range' and filter.min_value.value != blank or filter.type == 'price_range' and filter.max_value.value != blank -%}
+          <a class="active-chip" href="{{ filter.url_to_remove }}" data-shop-url="{{ filter.url_to_remove }}">Price<span aria-hidden="true">×</span><span class="visually-hidden">Remove filter</span></a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div class="shop__tools">
+      <label class="visually-hidden" for="shop-sort">Sort by</label>
+      <select class="select" id="shop-sort" data-shop-sort>
+        {%- for option in sort_options -%}
+          <option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>
+        {%- endfor -%}
+      </select>
+      <div class="shop__density" role="group" aria-label="Grid density">
+        <button type="button" data-density="2" aria-label="2 per row">{% render 'icon', name: 'grid' %}</button>
+        <button type="button" data-density="3" aria-pressed="true" aria-label="3 per row"><span class="density-3"></span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="shop__layout" data-shop-layout>
+    <aside class="shop-filters" data-shop-filters aria-label="Filters">
+      <div class="shop-filters__head">
+        <p class="shop-filters__title">Filters</p>
+        <a class="shop-filters__clear" href="{{ reset_url }}" data-shop-clear data-shop-clear-url="{{ reset_url }}">Clear all</a>
+        <button class="icon-btn icon-btn--sm shop-filters__close" type="button" data-shop-filter-close aria-label="Close filters">{% render 'icon', name: 'close' %}</button>
+      </div>
+
+      <div class="shop-filters__body" data-shop-filters-body data-lenis-prevent>
+        {%- for filter in result_filters -%}
+          {%- liquid
+            assign label_lower = filter.label | downcase
+            assign is_size = false
+            assign is_color = false
+            if filter.type == 'list'
+              if label_lower == 'size'
+                assign is_size = true
+              elsif label_lower == 'color' or label_lower == 'colour'
+                assign is_color = true
+              endif
+            endif
+          -%}
+          <details class="accordion" open>
+            <summary class="accordion__summary">{{ filter.label }}<span class="icon">{% render 'icon', name: 'chevron-down' %}</span></summary>
+            <div class="accordion__content">
+              {%- if filter.type == 'price_range' -%}
+                <div class="accordion__inner shop-filters__list">
+                  {%- for block in preset_blocks -%}
+                    {%- comment -%} Active filter values are in minor units (paise); presets are entered in rupees. 0 = unset. {%- endcomment -%}
+                    {%- assign preset_min = block.settings.min | default: 0 | times: 100 -%}
+                    {%- assign preset_max = block.settings.max | default: 0 | times: 100 -%}
+                    {%- assign pressed = false -%}
+                    {%- assign active_min = filter.min_value.value | default: 0 -%}
+                    {%- assign active_max = filter.max_value.value | default: 0 -%}
+                    {%- if active_min == preset_min and active_max == preset_max -%}{%- assign pressed = true -%}{%- endif -%}
+                    <label class="check">
+                      <input type="checkbox" data-price-preset data-price-min="{{ block.settings.min }}" data-price-max="{{ block.settings.max }}" aria-pressed="{{ pressed }}" {% if pressed %}checked{% endif %}>
+                      <span class="check__box">{% render 'icon', name: 'check' %}</span>{{ block.settings.label }}
+                    </label>
+                  {%- endfor -%}
+                </div>
+              {%- elsif is_size -%}
+                <div class="accordion__inner sizes">
+                  {%- for value in filter.values -%}
+                    {%- if value.active -%}{%- assign target = value.url_to_remove -%}{%- else -%}{%- assign target = value.url_to_add -%}{%- endif -%}
+                    <button class="size-pill" type="button" aria-pressed="{{ value.active }}" data-shop-url="{{ target }}"{% if value.count == 0 and value.active == false %} disabled{% endif %}>{{ value.label }}</button>
+                  {%- endfor -%}
+                </div>
+              {%- elsif is_color -%}
+                <div class="accordion__inner shop-filters__colors">
+                  {%- for value in filter.values -%}
+                    {%- if value.active -%}{%- assign target = value.url_to_remove -%}{%- else -%}{%- assign target = value.url_to_add -%}{%- endif -%}
+                    {%- assign lower = value.label | downcase -%}
+                    <button class="shop-filters__color" type="button" aria-pressed="{{ value.active }}" data-shop-url="{{ target }}"{% if value.count == 0 and value.active == false %} disabled{% endif %}>
+                      <span class="swatch" style="--swatch: {% render 'swatch-color', value: value.value %}"{% if lower == 'off white' or lower == 'beige' or lower == 'grey melange' or lower == 'white' %} data-light{% endif %}>{% render 'icon', name: 'check' %}</span>{{ value.label }}
+                    </button>
+                  {%- endfor -%}
+                </div>
+              {%- else -%}
+                <div class="accordion__inner shop-filters__list">
+                  {%- for value in filter.values -%}
+                    {%- if value.active -%}{%- assign target = value.url_to_remove -%}{%- else -%}{%- assign target = value.url_to_add -%}{%- endif -%}
+                    <label class="check">
+                      <input type="checkbox" data-shop-url="{{ target }}" {% if value.active %}checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %}>
+                      <span class="check__box">{% render 'icon', name: 'check' %}</span>{{ value.label }} <small>({{ value.count }})</small>
+                    </label>
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </details>
+        {%- endfor -%}
+      </div>
+
+      <div class="shop-filters__foot">
+        <button class="btn btn--primary btn--block btn--lg" type="button" data-shop-filter-close>Show <span data-shop-count-btn>{{ result_total }}</span> products</button>
+      </div>
+    </aside>
+
+    <div class="shop__main">
+      <div class="shop__grid" data-shop-grid data-density="3">
+        {%- for item in paginated -%}
+          {%- if item.object_type == 'product' or is_search == false -%}
+            <div class="shop__item" data-shop-item>
+              {% render 'product-card', product: item %}
+            </div>
+            {%- if forloop.index == 4 and promo and paginate.current_page == 1 -%}
+              <a class="shop-promo" href="{{ promo.settings.url | default: '#' }}" data-shop-promo {{ promo.shopify_attributes }}>
+                <span class="shop-promo__kicker">{% render 'icon', name: 'bolt' %} {{ promo.settings.kicker }}</span>
+                <span class="shop-promo__title">{{ promo.settings.title }} <strong>{{ promo.settings.highlight }}</strong></span>
+                <span class="shop-promo__text">{{ promo.settings.text }}</span>
+                <span class="btn-arrow btn-arrow--dark"><span class="btn-arrow__label">{{ promo.settings.cta }}</span><span class="btn-arrow__circle">{% render 'icon', name: 'arrow-up-right' %}</span></span>
+              </a>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <div class="shop__empty" data-shop-empty{% if result_total > 0 %} hidden{% endif %}>
+        {% render 'empty-state', icon: 'search', title: 'Nothing matches those filters', text: 'Try removing a filter or two — or browse our bestsellers instead.' %}
+        <a class="btn btn--dark btn--pill" href="{{ reset_url }}" data-shop-clear data-shop-clear-url="{{ reset_url }}">Clear all filters</a>
+      </div>
+
+      <div class="shop__more" data-shop-more{% if paginate.pages < 2 %} hidden{% endif %}>
+        {%- assign shown = paginate.current_page | times: paginate.page_size | at_most: paginate.items -%}
+        <p class="shop__progress-text">Showing <span data-shop-shown>{{ shown }}</span> of <span data-shop-total>{{ paginate.items }}</span></p>
+        <div class="shop__progress"><span data-shop-progress style="width: {{ shown | times: 100.0 | divided_by: paginate.items }}%"></span></div>
+        {%- if paginate.next -%}
+          <a class="btn btn--outline btn--pill" href="{{ paginate.next.url }}" data-shop-load data-next-url="{{ paginate.next.url }}">Load more</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+{%- endpaginate -%}
+
+<div class="overlay shop-overlay" data-shop-overlay></div>
+
+{% schema %}
+{
+  "name": "Product grid",
+  "settings": [
+    { "type": "link_list", "id": "categories_menu", "label": "Category chips menu", "default": "shop-categories", "info": "Each link becomes a chip above the grid (an “All” chip is always first)." },
+    { "type": "range", "id": "per_page", "label": "Products per page", "min": 8, "max": 24, "step": 4, "default": 12 }
+  ],
+  "blocks": [
+    {
+      "type": "price_preset",
+      "name": "Price range",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Under ₹999" },
+        { "type": "number", "id": "min", "label": "From (₹)" },
+        { "type": "number", "id": "max", "label": "To (₹)" }
+      ]
+    },
+    {
+      "type": "promo",
+      "name": "Promo tile",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "kicker", "label": "Kicker", "default": "Combo deal" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Any 3 Textees for" },
+        { "type": "text", "id": "highlight", "label": "Highlight", "default": "₹1,999" },
+        { "type": "text", "id": "text", "label": "Text" },
+        { "type": "text", "id": "cta", "label": "Button label", "default": "Shop Textees" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    }
+  ]
+}
+{% endschema %}

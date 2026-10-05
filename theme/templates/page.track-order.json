@@ -1,0 +1,39 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-track-order",
+      "settings": {
+        "eyebrow": "Order status",
+        "title": "Track your order",
+        "sub": "Enter your order number and the mobile number or email used at checkout.",
+        "tracking_url": "",
+        "help_url": "/pages/contact"
+      },
+      "blocks": {
+        "help-1": {
+          "type": "help",
+          "settings": {
+            "icon": "bolt",
+            "title": "Fastest help",
+            "text": "WhatsApp us your order number — we reply in under 10 minutes."
+          }
+        },
+        "help-2": {
+          "type": "help",
+          "settings": {
+            "icon": "return",
+            "title": "Returns made easy",
+            "text": "Free pickup within 48 hours, refund in 5–7 days."
+          }
+        }
+      },
+      "block_order": [
+        "help-1",
+        "help-2"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

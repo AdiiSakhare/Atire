@@ -1,0 +1,78 @@
+{%- assign legal = linklists[section.settings.legal_menu] -%}
+<footer class="site-footer">
+  <div class="site-footer__main">
+    <div class="container site-footer__top">
+      <div class="site-footer__brand">
+        <a href="{{ routes.root_url }}" class="site-footer__logo" aria-label="{{ shop.name }} home">{% render 'logo' %}</a>
+        <p class="site-footer__blurb">{{ section.settings.blurb }}</p>
+
+        {%- form 'customer', class: 'site-footer__news', data-newsletter: '' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <label class="visually-hidden" for="footer-email">Email address</label>
+          <input id="footer-email" type="email" name="contact[email]" placeholder="Your email for early drops" required>
+          <button type="submit" aria-label="Subscribe">{% render 'icon', name: 'arrow-right' %}</button>
+        {%- endform -%}
+        <p class="site-footer__news-note">{{ section.settings.newsletter_note }}</p>
+      </div>
+
+      <div class="site-footer__cols">
+        {%- for block in section.blocks -%}
+          <div class="site-footer__col" {{ block.shopify_attributes }}>
+            <p class="site-footer__title">{{ block.settings.title }}</p>
+            <ul>
+              {%- for link in linklists[block.settings.menu].links -%}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="container site-footer__bottom">
+    <p>{{ 'now' | date: '%Y' }} {{ shop.name }} Inc. All rights reserved.</p>
+    <ul class="site-footer__pay" aria-label="Payment methods">
+      {%- assign payments = section.settings.payment_methods | split: ',' -%}
+      {%- for method in payments -%}<li>{{ method | strip }}</li>{%- endfor -%}
+    </ul>
+    <ul class="site-footer__legal">
+      {%- for link in legal.links -%}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "textarea", "id": "blurb", "label": "Brand blurb", "default": "Clothing that starts conversations. Designed in India for people who say it with their tees." },
+    { "type": "text", "id": "newsletter_note", "label": "Newsletter note", "default": "Get 10% off your first order. No spam, only drops." },
+    { "type": "text", "id": "payment_methods", "label": "Payment labels (comma separated)", "default": "UPI, VISA, Mastercard, RuPay, Paytm, COD" },
+    { "type": "link_list", "id": "legal_menu", "label": "Legal links", "default": "footer-legal" }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Link column",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Heading", "default": "Shop" },
+        { "type": "link_list", "id": "menu", "label": "Links", "default": "footer" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Footer",
+      "blocks": [
+        { "type": "column", "settings": { "title": "Shop", "menu": "footer" } },
+        { "type": "column", "settings": { "title": "Help", "menu": "footer" } },
+        { "type": "column", "settings": { "title": "Atire", "menu": "footer" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

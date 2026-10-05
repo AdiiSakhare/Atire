@@ -70,3 +70,19 @@ atire/
 - ✅ Product page: your mockup built 1:1 above the fold, plus the full lower half
 - ✅ Home page: full revamp (16 sections)
 - ⏳ Listing page → About and other pages → motion polish
+
+
+## Shopify theme
+
+The same source also builds a Shopify Online Store 2.0 theme in `theme/`.
+
+```bash
+npm run build:theme   # compile src/ → theme/assets (+ placeholder images)
+npm run theme:seed    # regenerate default template content from src/data
+npm run theme:check   # lint the Liquid
+npm run theme:dev     # shopify theme dev (needs a store: docs/shopify-setup.md)
+```
+
+- Plan and phase status: [docs/shopify-conversion-plan.md](docs/shopify-conversion-plan.md), [docs/shopify-port.md](docs/shopify-port.md)
+- Store setup: [docs/shopify-setup.md](docs/shopify-setup.md) · Offers and payments: [docs/shopify-offers.md](docs/shopify-offers.md)
+- Work log: [log.md](log.md)

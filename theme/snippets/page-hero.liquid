@@ -1,0 +1,13 @@
+{%- comment -%}
+  Page header for utility & content pages.
+  Usage: {% render 'page-hero', eyebrow: '', title: '', sub: '', crumb: '', center: true %}
+{%- endcomment -%}
+<header class="page-hero{% if center %} page-hero--center{% endif %}">
+  <div class="container">
+    {%- assign crumb_title = crumb | default: title -%}
+    {% render 'breadcrumb', title: crumb_title %}
+    {%- if eyebrow != blank -%}<p class="eyebrow page-hero__eyebrow">{{ eyebrow }}</p>{%- endif -%}
+    <h1 class="page-hero__title" data-split>{{ title }}</h1>
+    {%- if sub != blank -%}<p class="page-hero__sub">{{ sub }}</p>{%- endif -%}
+  </div>
+</header>

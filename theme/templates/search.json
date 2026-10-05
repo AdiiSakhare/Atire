@@ -1,0 +1,20 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "price-1": { "type": "price_preset", "settings": { "label": "Under ₹999", "min": 0, "max": 998 } },
+        "price-2": { "type": "price_preset", "settings": { "label": "₹999 – ₹1,499", "min": 999, "max": 1499 } },
+        "price-3": { "type": "price_preset", "settings": { "label": "Above ₹1,499", "min": 1500 } },
+        "promo": { "type": "promo", "settings": { "kicker": "Combo deal", "title": "Any 3 Textees for", "highlight": "₹1,999", "text": "Mix prints and sizes. Applied automatically at checkout.", "cta": "Shop Textees", "url": "/collections/textees" } }
+      },
+      "block_order": ["price-1", "price-2", "price-3", "promo"],
+      "settings": { "categories_menu": "shop-categories", "per_page": 12 }
+    },
+    "recently-viewed": {
+      "type": "product-rail",
+      "settings": { "title": "Recently viewed", "source": "recently_viewed", "limit": 8 }
+    }
+  },
+  "order": ["main", "recently-viewed"]
+}

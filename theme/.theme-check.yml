@@ -1,0 +1,13 @@
+# Shopify theme check — https://shopify.dev/docs/storefronts/themes/tools/theme-check
+extends: theme-check:recommended
+ignore:
+  - assets/*
+
+# Google Fonts + Lucide CDN are intentional for now; self-hosting is a Phase 8 item.
+RemoteAsset:
+  enabled: false
+
+# Prototype images are sized by CSS (aspect-ratio / object-fit); explicit dimensions would
+# fight that layout. Revisit in Phase 8 (CLS pass).
+ImgWidthAndHeight:
+  enabled: false

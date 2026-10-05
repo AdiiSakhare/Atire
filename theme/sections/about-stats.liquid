@@ -1,0 +1,25 @@
+<section class="container">
+  <ul class="stats about-stats">
+    {%- for block in section.blocks -%}
+      <li data-reveal {{ block.shopify_attributes }}><strong>{{ block.settings.value }}</strong><span>{{ block.settings.label }}</span></li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "About stats",
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "2.4L+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Happy customers" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [{ "name": "About stats", "blocks": [{ "type": "stat" }, { "type": "stat" }, { "type": "stat" }, { "type": "stat" }] }]
+}
+{% endschema %}

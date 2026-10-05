@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-article",
+      "settings": {
+        "fallback_author": "Team Atire",
+        "author_role": "Style desk",
+        "products_title": "Shop the story",
+        "more_eyebrow": "Keep reading",
+        "more_title": "More from the Journal"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

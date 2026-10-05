@@ -1,0 +1,56 @@
+<section class="section container deals">
+  {% render 'section-head', eyebrow: section.settings.eyebrow, title: section.settings.title, sub: section.settings.sub, link: section.settings.link, link_label: section.settings.link_label %}
+  <div class="deals__grid">
+    {%- for block in section.blocks -%}
+      <a class="deal deal--{{ block.settings.theme }}" href="{{ block.settings.url }}" data-reveal {{ block.shopify_attributes }}>
+        <span class="deal__kicker">{{ block.settings.kicker }}</span>
+        <strong class="deal__big">{{ block.settings.big }}</strong>
+        <span class="deal__text">{{ block.settings.text }}</span>
+        <span class="deal__foot">
+          {%- if block.settings.code != blank -%}<span class="deal__code">{{ block.settings.code }}</span>{%- else -%}<span>Shop now</span>{%- endif -%}
+          <span class="deal__arrow">{% render 'icon', name: 'arrow-up-right' %}</span>
+        </span>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Deal tiles",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Offers" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Deals you can’t scroll past" },
+    { "type": "text", "id": "sub", "label": "Subheading", "default": "Stack them. Seriously, they stack." },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "All offers" }
+  ],
+  "blocks": [
+    {
+      "type": "deal",
+      "name": "Deal",
+      "settings": [
+        { "type": "text", "id": "kicker", "label": "Kicker", "default": "Combo" },
+        { "type": "text", "id": "big", "label": "Big text", "default": "₹100 OFF" },
+        { "type": "text", "id": "text", "label": "Description" },
+        { "type": "text", "id": "code", "label": "Code (optional)" },
+        { "type": "url", "id": "url", "label": "Link" },
+        {
+          "type": "select",
+          "id": "theme",
+          "label": "Style",
+          "default": "yellow",
+          "options": [
+            { "value": "yellow", "label": "Yellow" },
+            { "value": "dark", "label": "Dark" },
+            { "value": "grey", "label": "Grey" },
+            { "value": "outline", "label": "Outline" }
+          ]
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [{ "name": "Deal tiles", "blocks": [{ "type": "deal" }, { "type": "deal" }] }]
+}
+{% endschema %}

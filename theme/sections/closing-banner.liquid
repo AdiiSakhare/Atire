@@ -1,0 +1,26 @@
+<section class="section container">
+  <div class="closing" data-reveal>
+    <div class="closing__body">
+      <h2 class="closing__title" data-split>{{ section.settings.title }}</h2>
+      <p class="closing__text">{{ section.settings.text }}</p>
+      {% render 'btn-arrow', url: section.settings.url, label: section.settings.cta, modifier: 'light' %}
+    </div>
+    <div class="closing__media" data-parallax>{% render 'responsive-image', image: section.settings.image, fallback: section.settings.placeholder, alt: section.settings.image_alt, width: 1400, sizes: '(min-width: 990px) 50vw, 100vw' %}</div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Closing banner",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Heading", "default": "Wear What Speaks for You." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Every design is crafted to reflect your personality, spark conversations, and become your everyday favorite." },
+    { "type": "text", "id": "cta", "label": "Button label", "default": "Discover Your Next Favorite" },
+    { "type": "url", "id": "url", "label": "Button link" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder image (asset file name or URL)" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text" }
+  ],
+  "presets": [{ "name": "Closing banner" }]
+}
+{% endschema %}

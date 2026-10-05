@@ -1,0 +1,56 @@
+{%- comment -%} Shop by vibe: oversized type list, cursor-following image on hover. JS: js/sections/vibes.js {%- endcomment -%}
+<section class="vibes-band" data-vibes>
+<div class="container vibes">
+  {% render 'section-head', eyebrow: section.settings.eyebrow, title: section.settings.title, link: section.settings.link, link_label: section.settings.link_label %}
+  <ul class="vibes__list">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        if block.settings.image != blank
+          assign vibe_image = block.settings.image | image_url: width: 600
+        elsif block.settings.placeholder contains 'http'
+          assign vibe_image = block.settings.placeholder
+        elsif block.settings.placeholder != blank
+          assign vibe_image = block.settings.placeholder | asset_url
+        else
+          assign vibe_image = ''
+        endif
+      -%}
+      <li data-reveal {{ block.shopify_attributes }}>
+        <a class="vibe" href="{{ block.settings.url | default: '#' }}" data-vibe-image="{{ vibe_image }}">
+          <span class="vibe__thumb">{%- if vibe_image != blank -%}<img src="{{ vibe_image }}" alt="" loading="lazy">{%- endif -%}</span>
+          <span class="vibe__title">{{ block.settings.title }}</span>
+          <span class="vibe__count">{{ block.settings.count }} designs</span>
+          <span class="vibe__arrow">{% render 'icon', name: 'arrow-up-right' %}</span>
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+  <div class="vibes__float" data-vibe-float aria-hidden="true"><img alt=""></div>
+</div>
+</section>
+
+{% schema %}
+{
+  "name": "Vibes list",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop by vibe" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "What’s your tee saying today?" },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Browse all prints" }
+  ],
+  "blocks": [
+    {
+      "type": "vibe",
+      "name": "Vibe",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Sarcasm" },
+        { "type": "number", "id": "count", "label": "Number of designs", "default": 10 },
+        { "type": "url", "id": "url", "label": "Link" },
+        { "type": "image_picker", "id": "image", "label": "Hover image" },
+        { "type": "text", "id": "placeholder", "label": "Placeholder image (asset file name or URL)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Vibes list", "blocks": [{ "type": "vibe" }, { "type": "vibe" }, { "type": "vibe" }] }]
+}
+{% endschema %}

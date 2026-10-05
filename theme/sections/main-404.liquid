@@ -1,0 +1,47 @@
+{%- comment -%} 404 — “Human not found”. {%- endcomment -%}
+<section class="container nf">
+  <div class="nf__copy">
+    <p class="eyebrow section-head__eyebrow">{{ section.settings.eyebrow }}</p>
+    <h1 class="nf__title">{{ section.settings.title }}<br><span>{{ section.settings.title_accent }}</span></h1>
+    <p class="text-muted nf__text">{{ section.settings.text }}</p>
+    <form class="faq-search nf__search" action="{{ routes.search_url }}" role="search">
+      <span>{% render 'icon', name: 'search' %}</span>
+      <input type="search" name="q" placeholder="Search for tees, hoodies…" aria-label="Search">
+    </form>
+    <div class="nf__links">
+      {% render 'btn-arrow', url: routes.root_url, label: 'Back to Home' %}
+      {%- for block in section.blocks -%}
+        <a class="chip-toggle" href="{{ block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+      {%- endfor -%}
+    </div>
+  </div>
+  <div class="nf__art">
+    {% render 'responsive-image', image: section.settings.image, fallback: section.settings.placeholder, alt: 'Error 404 Human Not Found tee', width: 1000, sizes: '(min-width: 900px) 40vw, 100vw' %}
+    <span class="nf__sticker">404</span>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "404 page",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Error 404" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Page not found." },
+    { "type": "text", "id": "title_accent", "label": "Heading (second line)", "default": "Unlike our tees." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "The page you’re looking for went for a chai break and never came back. Try a search or head somewhere fun." },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder image (asset file name or URL)" }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Quick link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Bestsellers" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 6
+}
+{% endschema %}

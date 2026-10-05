@@ -1,0 +1,105 @@
+{%- comment -%}
+  Journal article. Content, image, author, tags come from the Shopify admin.
+  Note: the prototype's demo hooks data-article / data-posts are intentionally omitted (the demo JS swaps content from a JSON blob).
+{%- endcomment -%}
+{%- liquid
+  assign read_min = article.content | strip_html | split: ' ' | size | divided_by: 200 | plus: 1
+  assign category = article.tags.first | default: blog.title
+  assign author_name = article.author | default: section.settings.fallback_author
+  assign initials = author_name | strip | slice: 0, 2 | upcase
+  assign share_url = shop.url | append: article.url
+  assign more_link = blog.url
+  assign ig_handle = settings.instagram_handle | remove: '@'
+  assign ig_url = 'https://www.instagram.com/' | append: ig_handle
+  assign ig_url = section.settings.instagram_url | default: ig_url
+  assign more_eyebrow = section.settings.more_eyebrow
+  assign more_title = section.settings.more_title
+-%}
+<article class="article">
+  <header class="container article__head">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="{{ routes.root_url }}">Home</a>{% render 'icon', name: 'chevron-right' %}</li>
+        <li><a href="{{ blog.url }}">{{ blog.title }}</a>{% render 'icon', name: 'chevron-right' %}</li>
+        <li aria-current="page" data-a-cat-crumb>{{ category }}</li>
+      </ol>
+    </nav>
+    <p class="post__meta"><b data-a-cat>{{ category }}</b> · <span data-a-date>{{ article.published_at | date: '%b %d, %Y' }}</span> · <span data-a-read>{{ read_min }} min read</span></p>
+    <h1 class="article__title" data-a-title>{{ article.title }}</h1>
+    {%- if article.excerpt != blank -%}<p class="article__lede" data-a-lede>{{ article.excerpt | strip_html }}</p>{%- endif -%}
+    <div class="article__author"><span class="review-card__avatar">{{ initials }}</span><span><strong>{{ author_name }}</strong><small>{{ section.settings.author_role }}</small></span></div>
+  </header>
+
+  {%- if article.image or section.settings.placeholder != blank -%}
+    <figure class="container article__hero">
+      {%- if article.image -%}{{ article.image | image_url: width: 1600 | image_tag: widths: '800, 1200, 1600', sizes: '(min-width: 1200px) 1200px, 100vw', loading: 'eager', alt: article.image.alt, data-a-image: '' }}{%- else -%}{% render 'responsive-image', fallback: section.settings.placeholder, alt: '', width: 1600, sizes: '100vw', loading: 'eager' %}{%- endif -%}
+    </figure>
+  {%- endif -%}
+
+  <div class="container article__layout">
+    <div class="article__body" data-a-body>
+      {{ article.content }}
+    </div>
+
+    <aside class="article__aside">
+      {%- if section.settings.products != blank -%}
+        <div class="summary__box">
+          <p class="summary__title">{{ section.settings.products_title }}</p>
+          <ul class="stl__list">
+            {%- for p in section.settings.products -%}
+              <li class="stl__item stl__item--sm">
+                <a class="stl__thumb" href="{{ p.url }}">{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</a>
+                <div class="stl__info"><a class="stl__title" href="{{ p.url }}">{% render 'product-title', product: p %}</a>{% render 'price', product: p, tag: 'div' %}</div>
+                <button class="icon-btn icon-btn--sm" type="button" data-quick-shop="{{ p.handle }}" aria-label="Quick add">{% render 'icon', name: 'plus' %}</button>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+      <div class="article__share">
+        <span>Share</span>
+        <button class="icon-btn icon-btn--sm" type="button" data-copy="{{ share_url }}" aria-label="Copy link">{% render 'icon', name: 'copy' %}</button>
+        <a class="icon-btn icon-btn--sm" href="{{ ig_url }}" aria-label="Instagram" rel="noopener">{% render 'icon', name: 'instagram' %}</a>
+      </div>
+    </aside>
+  </div>
+</article>
+
+{%- assign related_count = 0 -%}
+{%- capture related_html -%}
+  {%- for other in blog.articles -%}
+    {%- if other.id != article.id and related_count < 3 -%}
+      {%- assign related_count = related_count | plus: 1 -%}
+      {%- assign o_read = other.content | strip_html | split: ' ' | size | divided_by: 200 | plus: 1 -%}
+      <a class="post" href="{{ other.url }}" data-reveal>
+        <span class="post__media">
+          {%- if other.image -%}{{ other.image | image_url: width: 800 | image_tag: widths: '400, 800', sizes: '(min-width: 990px) 33vw, 100vw', loading: 'lazy', alt: other.image.alt }}{%- else -%}{% render 'responsive-image', fallback: section.settings.placeholder, alt: '', width: 800, sizes: '(min-width: 990px) 33vw, 100vw' %}{%- endif -%}
+        </span>
+        <span class="post__meta"><b>{{ other.tags.first | default: blog.title }}</b> · {{ o_read }} min read</span>
+        <span class="post__title">{{ other.title }}</span>
+      </a>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- if related_count > 0 -%}
+  <section class="section container">
+    {% render 'section-head', eyebrow: more_eyebrow, title: more_title, link: more_link, link_label: 'All stories' %}
+    <div class="posts">{{ related_html }}</div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": [
+    { "type": "text", "id": "fallback_author", "label": "Author name (when the article has none)", "default": "Team Atire" },
+    { "type": "text", "id": "author_role", "label": "Author role line", "default": "Style desk" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder image (asset file name or URL)", "info": "Used when an article has no featured image." },
+    { "type": "text", "id": "products_title", "label": "Shop-the-story heading", "default": "Shop the story" },
+    { "type": "product_list", "id": "products", "label": "Shop-the-story products", "limit": 4, "info": "Shown beside every article. Leave empty to hide." },
+    { "type": "url", "id": "instagram_url", "label": "Instagram link" },
+    { "type": "text", "id": "more_eyebrow", "label": "Related heading eyebrow", "default": "Keep reading" },
+    { "type": "text", "id": "more_title", "label": "Related heading", "default": "More from the Journal" }
+  ]
+}
+{% endschema %}

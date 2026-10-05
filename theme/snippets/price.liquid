@@ -1,0 +1,19 @@
+{%- comment -%}
+  Price block. Usage: {% render 'price', product: product, off_suffix: '% OFF', tag: 'span' %}
+  Pass `variant` to price a specific variant instead of the product.
+{%- endcomment -%}
+{%- liquid
+  assign item = variant | default: product
+  assign tag = tag | default: 'span'
+  assign discount = 0
+  if item.compare_at_price > item.price
+    assign discount = item.compare_at_price | minus: item.price | times: 100.0 | divided_by: item.compare_at_price | round
+  endif
+-%}
+<{{ tag }} class="price">
+  <span class="price__current">{{ item.price | money_without_trailing_zeros }}</span>
+  {%- if discount > 0 -%}
+    <s class="price__compare">{{ item.compare_at_price | money_without_trailing_zeros }}</s>
+    {%- if off_suffix -%}<span class="price__off">{{ discount }}{{ off_suffix }}</span>{%- endif -%}
+  {%- endif -%}
+</{{ tag }}>

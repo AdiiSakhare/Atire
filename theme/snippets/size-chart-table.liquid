@@ -1,0 +1,20 @@
+{%- comment -%} Size chart table from theme settings (shared by the size-guide drawer and page). {%- endcomment -%}
+{%- assign columns = settings.size_chart_columns | split: ',' -%}
+{%- assign rows = settings.size_chart_rows | newline_to_br | strip_newlines | split: '<br />' -%}
+<table class="size-guide__table">
+  <thead>
+    <tr>{%- for column in columns -%}<th scope="col">{{ column | strip }}</th>{%- endfor -%}</tr>
+  </thead>
+  <tbody>
+    {%- for row in rows -%}
+      {%- assign cells = row | split: ',' -%}
+      {%- if cells.size > 1 -%}
+        <tr>
+          {%- for cell in cells -%}
+            {%- if forloop.first -%}<th scope="row">{{ cell | strip }}</th>{%- else -%}<td data-inches="{{ cell | strip }}">{{ cell | strip }}</td>{%- endif -%}
+          {%- endfor -%}
+        </tr>
+      {%- endif -%}
+    {%- endfor -%}
+  </tbody>
+</table>

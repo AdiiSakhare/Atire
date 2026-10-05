@@ -1,0 +1,958 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-slideshow",
+      "settings": {
+        "proof_rating": 4.7,
+        "proof_reviews": "12,400+",
+        "proof_customers": "2.4 lakh+"
+      },
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "title": "Modern Fashion",
+            "text": "Discover our wide ranging and timeless lifestyle products. Pick your favourite stuff that matches your personal taste and style.",
+            "cta": "Start Shopping",
+            "url": "/collections/all",
+            "position": "60% 40%",
+            "look": "same-sht-different-day-tee",
+            "placeholder": "hero-same-different.jpg",
+            "placeholder_mobile": "hero-same-different-portrait.jpg"
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "title": "Twin in Winter.",
+            "text": "The couple hoodie edit is here. Matching fits for the one who matches your energy.",
+            "cta": "Shop Couple Edit",
+            "url": "/collections/couples",
+            "position": "50% 50%",
+            "look": "manifest-more-love-hoodie",
+            "placeholder": "https://images.unsplash.com/photo-1635650805023-f2529440b5aa?auto=format&fit=crop&w=2400&h=1350&q=75",
+            "placeholder_mobile": "https://images.unsplash.com/photo-1635650805023-f2529440b5aa?auto=format&fit=crop&w=900&h=1200&q=75"
+          }
+        },
+        "slide-3": {
+          "type": "slide",
+          "settings": {
+            "title": "Say it with your tee.",
+            "text": "Textees that start conversations. 40+ new prints dropped this week.",
+            "cta": "Shop Textees",
+            "url": "/collections/textees",
+            "position": "50% 35%",
+            "look": "conversation-starter-oversized-tee",
+            "placeholder": "https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=2400&h=1350&q=75",
+            "placeholder_mobile": "https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=900&h=1200&q=75"
+          }
+        }
+      },
+      "block_order": [
+        "slide-1",
+        "slide-2",
+        "slide-3"
+      ]
+    },
+    "marquee": {
+      "type": "marquee",
+      "settings": {},
+      "blocks": {
+        "item-1": {
+          "type": "item",
+          "settings": {
+            "text": "New Drop Every Friday"
+          }
+        },
+        "item-2": {
+          "type": "item",
+          "settings": {
+            "text": "Oversized Fits"
+          }
+        },
+        "item-3": {
+          "type": "item",
+          "settings": {
+            "text": "Couple Sets"
+          }
+        },
+        "item-4": {
+          "type": "item",
+          "settings": {
+            "text": "For Developers"
+          }
+        },
+        "item-5": {
+          "type": "item",
+          "settings": {
+            "text": "Textees"
+          }
+        },
+        "item-6": {
+          "type": "item",
+          "settings": {
+            "text": "240 GSM Cotton"
+          }
+        },
+        "item-7": {
+          "type": "item",
+          "settings": {
+            "text": "Free Prepaid Delivery"
+          }
+        }
+      },
+      "block_order": [
+        "item-1",
+        "item-2",
+        "item-3",
+        "item-4",
+        "item-5",
+        "item-6",
+        "item-7"
+      ]
+    },
+    "ticket": {
+      "type": "ticket-banner",
+      "settings": {
+        "title": "GET 20% CASHBACK",
+        "subtitle": "On All Orders Above ₹1000",
+        "code": "CASHBACK20",
+        "ends_at": "2026-10-12T23:59:59+05:30"
+      }
+    },
+    "categories": {
+      "type": "collection-categories",
+      "settings": {
+        "eyebrow": "Shop by category",
+        "title": "Find your fit",
+        "link": "/collections/all",
+        "link_label": "Shop all"
+      },
+      "blocks": {
+        "category-1": {
+          "type": "category",
+          "settings": {
+            "title": "Printed T-shirts",
+            "url": "/collections/printed",
+            "placeholder": "cat-printed.jpg"
+          }
+        },
+        "category-2": {
+          "type": "category",
+          "settings": {
+            "title": "Men Textees",
+            "url": "/collections/men",
+            "placeholder": "cat-men.jpg"
+          }
+        },
+        "category-3": {
+          "type": "category",
+          "settings": {
+            "title": "Female Textees",
+            "url": "/collections/women",
+            "placeholder": "cat-women.jpg"
+          }
+        },
+        "category-4": {
+          "type": "category",
+          "settings": {
+            "title": "Couple T-shirts",
+            "url": "/collections/couples",
+            "placeholder": "cat-couple-tees.jpg"
+          }
+        },
+        "category-5": {
+          "type": "category",
+          "settings": {
+            "title": "Couple Hoodies",
+            "url": "/collections/hoodies",
+            "placeholder": "cat-couple-hoodies.jpg"
+          }
+        },
+        "category-6": {
+          "type": "category",
+          "settings": {
+            "title": "For Developers",
+            "url": "/collections/developers",
+            "placeholder": "cat-developers.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "category-1",
+        "category-2",
+        "category-3",
+        "category-4",
+        "category-5",
+        "category-6"
+      ]
+    },
+    "recently-viewed": {
+      "type": "product-rail",
+      "settings": {
+        "title": "Pick up where you left off",
+        "subtitle": "The ones you were eyeing. Still here — for now.",
+        "source": "recently_viewed",
+        "limit": 8
+      }
+    },
+    "product-tabs": {
+      "type": "product-tabs",
+      "settings": {
+        "eyebrow": "Bestsellers",
+        "title": "Browse All You Need",
+        "sub": "The tees everyone’s talking about — restocked weekly."
+      },
+      "blocks": {
+        "tab-1": {
+          "type": "tab",
+          "settings": {
+            "label": "Bestseller",
+            "tag": "bestseller"
+          }
+        },
+        "tab-2": {
+          "type": "tab",
+          "settings": {
+            "label": "Men",
+            "tag": "men"
+          }
+        },
+        "tab-3": {
+          "type": "tab",
+          "settings": {
+            "label": "Women",
+            "tag": "women"
+          }
+        },
+        "tab-4": {
+          "type": "tab",
+          "settings": {
+            "label": "Textees",
+            "tag": "textees"
+          }
+        },
+        "tab-5": {
+          "type": "tab",
+          "settings": {
+            "label": "For Developers",
+            "tag": "developers"
+          }
+        },
+        "tab-6": {
+          "type": "tab",
+          "settings": {
+            "label": "For Couples",
+            "tag": "couples"
+          }
+        }
+      },
+      "block_order": [
+        "tab-1",
+        "tab-2",
+        "tab-3",
+        "tab-4",
+        "tab-5",
+        "tab-6"
+      ]
+    },
+    "deals": {
+      "type": "deal-tiles",
+      "settings": {
+        "eyebrow": "Offers",
+        "title": "Deals you can’t scroll past",
+        "sub": "Stack them. Seriously, they stack.",
+        "link": "/collections/all",
+        "link_label": "All offers"
+      },
+      "blocks": {
+        "deal-1": {
+          "type": "deal",
+          "settings": {
+            "kicker": "Combo",
+            "big": "3 for ₹1,999",
+            "text": "Any three Textees. Mix sizes, mix prints.",
+            "code": "",
+            "url": "/collections/textees",
+            "theme": "yellow"
+          }
+        },
+        "deal-2": {
+          "type": "deal",
+          "settings": {
+            "kicker": "Prepaid",
+            "big": "₹100 OFF",
+            "text": "On orders above ₹1,199 with PREPAID100.",
+            "code": "PREPAID100",
+            "url": "/collections/all",
+            "theme": "dark"
+          }
+        },
+        "deal-3": {
+          "type": "deal",
+          "settings": {
+            "kicker": "Couples",
+            "big": "Set @ ₹1,499",
+            "text": "Matching tees for two. Save ₹700.",
+            "code": "",
+            "url": "/collections/couples",
+            "theme": "grey"
+          }
+        },
+        "deal-4": {
+          "type": "deal",
+          "settings": {
+            "kicker": "Shipping",
+            "big": "FREE",
+            "text": "Delivery on every prepaid order, pan-India.",
+            "code": "",
+            "url": "/collections/all",
+            "theme": "outline"
+          }
+        }
+      },
+      "block_order": [
+        "deal-1",
+        "deal-2",
+        "deal-3",
+        "deal-4"
+      ]
+    },
+    "campaigns": {
+      "type": "campaign-grid",
+      "settings": {},
+      "blocks": {
+        "large-1": {
+          "type": "large",
+          "settings": {
+            "kicker": "The Winter Couple Edit",
+            "title": "Matching never looked this good.",
+            "cta": "Shop Couple Edit",
+            "url": "/collections/couples",
+            "placeholder": "https://images.unsplash.com/photo-1608145550502-f53571aa63e1?auto=format&fit=crop&w=1400&h=1600&q=75"
+          }
+        },
+        "large-2": {
+          "type": "large",
+          "settings": {
+            "kicker": "The Developer Drop",
+            "title": "It works on my machine. And on me.",
+            "cta": "Shop Dev Tees",
+            "url": "/collections/developers",
+            "placeholder": "https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=1400&h=1600&q=75"
+          }
+        },
+        "small-1": {
+          "type": "small",
+          "settings": {
+            "title": "Textees",
+            "meta": "120+ prints",
+            "url": "/collections/textees",
+            "placeholder": "https://images.unsplash.com/photo-1621446511130-0ed6519bfeb6?auto=format&fit=crop&w=900&h=1200&q=75"
+          }
+        },
+        "small-2": {
+          "type": "small",
+          "settings": {
+            "title": "Oversized",
+            "meta": "Drop-shoulder fits",
+            "url": "/collections/oversized",
+            "placeholder": "https://images.unsplash.com/photo-1616006897093-5e4635c0de35?auto=format&fit=crop&w=900&h=1200&q=75"
+          }
+        },
+        "small-3": {
+          "type": "small",
+          "settings": {
+            "title": "Hoodies",
+            "meta": "320 GSM fleece",
+            "url": "/collections/hoodies",
+            "placeholder": "https://images.unsplash.com/photo-1564557287817-3785e38ec1f5?auto=format&fit=crop&w=900&h=1200&q=75"
+          }
+        }
+      },
+      "block_order": [
+        "large-1",
+        "large-2",
+        "small-1",
+        "small-2",
+        "small-3"
+      ]
+    },
+    "shop-the-look": {
+      "type": "shop-the-look",
+      "settings": {
+        "eyebrow": "Shop the look",
+        "title": "Same fit. Different day.",
+        "text": "The parking-lot fit from our latest drop — tap the hotspot or grab the full look below.",
+        "placeholder": "hero-same-different-portrait.jpg",
+        "image_alt": "Model wearing the Same Sh*t Different Day tee"
+      },
+      "blocks": {
+        "hotspot-1": {
+          "type": "hotspot",
+          "settings": {
+            "product": "same-sht-different-day-tee",
+            "x": 48,
+            "y": 62
+          }
+        },
+        "item-1": {
+          "type": "item",
+          "settings": {
+            "product": "same-sht-different-day-tee"
+          }
+        },
+        "item-2": {
+          "type": "item",
+          "settings": {
+            "product": "manifest-more-love-hoodie"
+          }
+        },
+        "item-3": {
+          "type": "item",
+          "settings": {
+            "product": "error-404-developer-tee"
+          }
+        }
+      },
+      "block_order": [
+        "hotspot-1",
+        "item-1",
+        "item-2",
+        "item-3"
+      ]
+    },
+    "feature": {
+      "type": "feature-banner",
+      "settings": {
+        "title": "Explore our most selling winter couple collection",
+        "text": "Curated for couples who want to twin with their partners this winter.",
+        "cta": "Explore Couple Collection",
+        "url": "/collections/couples",
+        "placeholder": "feature-couple-winter.jpg",
+        "image_alt": "Couple wearing matching Manifest More Love hoodies"
+      },
+      "blocks": {
+        "point-1": {
+          "type": "point",
+          "settings": {
+            "text": "320 GSM brushed fleece that actually keeps you warm"
+          }
+        },
+        "point-2": {
+          "type": "point",
+          "settings": {
+            "text": "Puff-printed artwork that won’t crack or peel"
+          }
+        },
+        "point-3": {
+          "type": "point",
+          "settings": {
+            "text": "Sold as singles — mix sizes for both of you"
+          }
+        }
+      },
+      "block_order": [
+        "point-1",
+        "point-2",
+        "point-3"
+      ]
+    },
+    "combo": {
+      "type": "promo-band",
+      "settings": {
+        "kicker": "Limited-time combo",
+        "title": "Any 3 Textees",
+        "price": "₹1,999",
+        "compare": "₹3,597",
+        "text": "Pick any three. Mix prints, mix sizes. Applied automatically at checkout.",
+        "cta": "Build Your Combo",
+        "url": "/collections/textees"
+      },
+      "blocks": {
+        "card-1": {
+          "type": "card",
+          "settings": {
+            "placeholder": "tee-college-survivor.jpg"
+          }
+        },
+        "card-2": {
+          "type": "card",
+          "settings": {
+            "placeholder": "tee-football-fans.jpg"
+          }
+        },
+        "card-3": {
+          "type": "card",
+          "settings": {
+            "placeholder": "tee-conversation-starter.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "card-1",
+        "card-2",
+        "card-3"
+      ]
+    },
+    "ugc-tilt": {
+      "type": "ugc-tilt",
+      "settings": {
+        "title": "Every Atire Starts a Conversation.",
+        "subtitle": "Real people. Real reactions. Tag us to get featured.",
+        "cta_label": "Tag @atire.india to get featured"
+      },
+      "blocks": {
+        "photo-1": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "tee-college-survivor.jpg",
+            "handle": "@ananya.k"
+          }
+        },
+        "photo-2": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "tee-football-fans.jpg",
+            "handle": "@rohit_19"
+          }
+        },
+        "photo-3": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "tee-couple-roast.jpg",
+            "handle": "@thatcouple"
+          }
+        },
+        "photo-4": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-08.jpg",
+            "handle": "@meera.draws"
+          }
+        },
+        "photo-5": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "cat-women.jpg",
+            "handle": "@sana.m"
+          }
+        },
+        "photo-6": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-01.jpg",
+            "handle": "@kabir.fits"
+          }
+        },
+        "photo-7": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "tee-conversation-starter.jpg",
+            "handle": "@dev.ops.guy"
+          }
+        },
+        "photo-8": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-11.jpg",
+            "handle": "@skatewithtara"
+          }
+        }
+      },
+      "block_order": [
+        "photo-1",
+        "photo-2",
+        "photo-3",
+        "photo-4",
+        "photo-5",
+        "photo-6",
+        "photo-7",
+        "photo-8"
+      ]
+    },
+    "vibes": {
+      "type": "vibes-list",
+      "settings": {
+        "eyebrow": "Shop by vibe",
+        "title": "What’s your tee saying today?",
+        "link": "/collections/all",
+        "link_label": "Browse all prints"
+      },
+      "blocks": {
+        "vibe-1": {
+          "type": "vibe",
+          "settings": {
+            "title": "Sarcasm",
+            "count": 48,
+            "url": "/search?type=product&q=sarcasm",
+            "placeholder": "tee-conversation-starter.jpg"
+          }
+        },
+        "vibe-2": {
+          "type": "vibe",
+          "settings": {
+            "title": "Football",
+            "count": 22,
+            "url": "/search?type=product&q=football",
+            "placeholder": "tee-football-fans.jpg"
+          }
+        },
+        "vibe-3": {
+          "type": "vibe",
+          "settings": {
+            "title": "Developer",
+            "count": 31,
+            "url": "/search?type=product&q=developer",
+            "placeholder": "cat-developers.jpg"
+          }
+        },
+        "vibe-4": {
+          "type": "vibe",
+          "settings": {
+            "title": "Couple Goals",
+            "count": 26,
+            "url": "/search?type=product&q=couple+goals",
+            "placeholder": "tee-couple-roast.jpg"
+          }
+        },
+        "vibe-5": {
+          "type": "vibe",
+          "settings": {
+            "title": "Minimal",
+            "count": 19,
+            "url": "/search?type=product&q=minimal",
+            "placeholder": "tee-blue-graphic.jpg"
+          }
+        },
+        "vibe-6": {
+          "type": "vibe",
+          "settings": {
+            "title": "Winter",
+            "count": 14,
+            "url": "/search?type=product&q=winter",
+            "placeholder": "hoodie-manifest-love.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "vibe-1",
+        "vibe-2",
+        "vibe-3",
+        "vibe-4",
+        "vibe-5",
+        "vibe-6"
+      ]
+    },
+    "new-arrivals": {
+      "type": "product-rail",
+      "settings": {
+        "title": "Fresh off the press",
+        "subtitle": "New prints drop every Friday at 7 PM.",
+        "source": "collection",
+        "limit": 8,
+        "anchor": "new-arrivals"
+      }
+    },
+    "ugc-wall": {
+      "type": "ugc-wall",
+      "settings": {
+        "eyebrow": "#WearAtire",
+        "title": "Straight from the community",
+        "sub": "Tag @atire.india for a chance to be featured — and a ₹500 voucher.",
+        "link_label": "Follow on Instagram"
+      },
+      "blocks": {
+        "photo-1": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-01.jpg",
+            "column": 1
+          }
+        },
+        "photo-2": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-02.jpg",
+            "column": 1
+          }
+        },
+        "photo-3": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-03.jpg",
+            "column": 2
+          }
+        },
+        "photo-4": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-09.jpg",
+            "column": 2
+          }
+        },
+        "photo-5": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-04.jpg",
+            "column": 2
+          }
+        },
+        "photo-6": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-05.jpg",
+            "column": 3
+          }
+        },
+        "photo-7": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-06.jpg",
+            "column": 4
+          }
+        },
+        "photo-8": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-07.jpg",
+            "column": 5
+          }
+        },
+        "photo-9": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-08.jpg",
+            "column": 6
+          }
+        },
+        "photo-10": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-10.jpg",
+            "column": 7
+          }
+        },
+        "photo-11": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-11.jpg",
+            "column": 7
+          }
+        },
+        "photo-12": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-12.jpg",
+            "column": 8
+          }
+        },
+        "photo-13": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-13.jpg",
+            "column": 8
+          }
+        }
+      },
+      "block_order": [
+        "photo-1",
+        "photo-2",
+        "photo-3",
+        "photo-4",
+        "photo-5",
+        "photo-6",
+        "photo-7",
+        "photo-8",
+        "photo-9",
+        "photo-10",
+        "photo-11",
+        "photo-12",
+        "photo-13"
+      ]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "rating": 4.7,
+        "review_count": "12,400+",
+        "recommend": 96
+      },
+      "blocks": {
+        "testimonial-1": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Sarah M.",
+            "role": "Fashion & Lifestyle Blogger",
+            "text": "The ink on these shirts is incredibly durable. I’ve washed mine dozens of times and the print still looks brand new.",
+            "product": "college-survivor-oversized-tee"
+          }
+        },
+        "testimonial-2": {
+          "type": "testimonial",
+          "settings": {
+            "name": "James T.",
+            "role": "Creative Agency Founder",
+            "text": "Ordered custom merch for our studio. The screen printing alignment is perfect and the team keeps asking for more.",
+            "product": "conversation-starter-oversized-tee"
+          }
+        },
+        "testimonial-3": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Priya K.",
+            "role": "Event Director & Marketer",
+            "text": "Ordered 150 tees for our annual summit. Everyone kept talking about the print detail. Highly recommended.",
+            "product": "blue-graphic-printed-tee"
+          }
+        },
+        "testimonial-4": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Rohan D.",
+            "role": "Software Engineer",
+            "text": "The 404 tee got more reactions at standup than my last three PRs combined. Fabric is properly heavy too.",
+            "product": "error-404-developer-tee"
+          }
+        },
+        "testimonial-5": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Ananya S.",
+            "role": "College Student",
+            "text": "Wore the college survivor tee on result day. Iconic. Fits oversized exactly like the photos.",
+            "product": "college-survivor-oversized-tee"
+          }
+        },
+        "testimonial-6": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Kabir & Meher",
+            "role": "Couple, Mumbai",
+            "text": "Our matching hoodies are the warmest thing we own. Delivery was 3 days and the packaging was cute.",
+            "product": "manifest-more-love-hoodie"
+          }
+        },
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "value": 2.4,
+            "suffix": "L+",
+            "label": "Happy customers"
+          }
+        },
+        "stat-2": {
+          "type": "stat",
+          "settings": {
+            "value": 4.7,
+            "suffix": "★",
+            "label": "Average rating"
+          }
+        },
+        "stat-3": {
+          "type": "stat",
+          "settings": {
+            "value": 600,
+            "suffix": "+",
+            "label": "Original prints"
+          }
+        },
+        "stat-4": {
+          "type": "stat",
+          "settings": {
+            "value": 3,
+            "suffix": " days",
+            "label": "Avg. delivery"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial-1",
+        "testimonial-2",
+        "testimonial-3",
+        "testimonial-4",
+        "testimonial-5",
+        "testimonial-6",
+        "stat-1",
+        "stat-2",
+        "stat-3",
+        "stat-4"
+      ]
+    },
+    "trust": {
+      "type": "trust-strip",
+      "settings": {},
+      "blocks": {
+        "item-1": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Shipping",
+            "text": "On all prepaid orders"
+          }
+        },
+        "item-2": {
+          "type": "item",
+          "settings": {
+            "icon": "return",
+            "title": "7-Day Returns",
+            "text": "Easy return & exchange"
+          }
+        },
+        "item-3": {
+          "type": "item",
+          "settings": {
+            "icon": "cash",
+            "title": "COD Available",
+            "text": "Pay when it arrives"
+          }
+        },
+        "item-4": {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "title": "Secure Payments",
+            "text": "UPI, cards & wallets"
+          }
+        }
+      },
+      "block_order": [
+        "item-1",
+        "item-2",
+        "item-3",
+        "item-4"
+      ]
+    },
+    "closing": {
+      "type": "closing-banner",
+      "settings": {
+        "title": "Wear What Speaks for You.",
+        "text": "Every design is crafted to reflect your personality, spark conversations, and become your everyday favorite.",
+        "cta": "Discover Your Next Favorite",
+        "url": "/collections/all",
+        "placeholder": "banner-rack.jpg",
+        "image_alt": "Atire tees on a rack"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "marquee",
+    "ticket",
+    "categories",
+    "recently-viewed",
+    "product-tabs",
+    "deals",
+    "campaigns",
+    "shop-the-look",
+    "feature",
+    "combo",
+    "ugc-tilt",
+    "vibes",
+    "new-arrivals",
+    "ugc-wall",
+    "testimonials",
+    "trust",
+    "closing"
+  ]
+}

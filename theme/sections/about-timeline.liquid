@@ -1,0 +1,35 @@
+<section class="section container">
+  {% render 'section-head', eyebrow: section.settings.eyebrow, title: section.settings.title %}
+  <ol class="story-timeline">
+    {%- for block in section.blocks -%}
+      <li class="story-timeline__item" data-reveal {{ block.shopify_attributes }}>
+        <span class="story-timeline__year">{{ block.settings.year }}</span>
+        <h3 class="story-timeline__title">{{ block.settings.title }}</h3>
+        <p>{{ block.settings.text }}</p>
+      </li>
+    {%- endfor -%}
+  </ol>
+</section>
+
+{% schema %}
+{
+  "name": "Story timeline",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "How it started" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "From a group chat to 2 lakh+ wardrobes" }
+  ],
+  "blocks": [
+    {
+      "type": "milestone",
+      "name": "Milestone",
+      "settings": [
+        { "type": "text", "id": "year", "label": "Year", "default": "2022" },
+        { "type": "text", "id": "title", "label": "Title", "default": "The first print" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Fifty tees, screen printed in a borrowed studio." }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [{ "name": "Story timeline", "blocks": [{ "type": "milestone" }, { "type": "milestone" }] }]
+}
+{% endschema %}

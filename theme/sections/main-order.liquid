@@ -1,0 +1,45 @@
+<section class="container account">
+  <div class="dash__main">
+    <p><a class="section-head__link" href="{{ routes.account_url }}">Back to account<span>{% render 'icon', name: 'arrow-up-right' %}</span></a></p>
+    <h1 class="page-hero__title">Order {{ order.name }}</h1>
+    <p class="text-muted">Placed {{ order.created_at | date: '%-d %B %Y' }} · {{ order.fulfillment_status_label }} · {{ order.financial_status_label }}</p>
+
+    <ul class="cart-page__list">
+      {%- for line in order.line_items -%}
+        <li class="cp-line">
+          <a class="cp-line__media" href="{{ line.url }}">{%- if line.image -%}{{ line.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: line.title }}{%- endif -%}</a>
+          <div class="cp-line__info">
+            <div class="cp-line__top">
+              <div>
+                <a class="cp-line__title" href="{{ line.url }}">{{ line.product.title | default: line.title }}</a>
+                <p class="cp-line__variant">{{ line.variant.title }} · Qty {{ line.quantity }}</p>
+              </div>
+              <div class="price cp-line__price"><span class="price__current">{{ line.final_line_price | money_without_trailing_zeros }}</span></div>
+            </div>
+            {%- if line.fulfillment.tracking_url -%}<p class="cp-line__ship">{% render 'icon', name: 'truck' %} <a href="{{ line.fulfillment.tracking_url }}">Track shipment {{ line.fulfillment.tracking_number }}</a></p>{%- endif -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    <aside class="summary">
+      <div class="summary__box">
+        <p class="summary__title">Order summary</p>
+        <dl class="summary__rows">
+          <div><dt>Subtotal</dt><dd>{{ order.line_items_subtotal_price | money_without_trailing_zeros }}</dd></div>
+          {%- if order.total_discounts > 0 -%}<div class="is-save"><dt>Discount</dt><dd>− {{ order.total_discounts | money_without_trailing_zeros }}</dd></div>{%- endif -%}
+          <div><dt>Shipping</dt><dd>{{ order.shipping_price | money_without_trailing_zeros }}</dd></div>
+          <div class="summary__total"><dt>Total <small>Incl. of all taxes</small></dt><dd>{{ order.total_price | money_without_trailing_zeros }}</dd></div>
+        </dl>
+        {%- if order.shipping_address -%}
+          <p class="summary__title">Shipping to</p>
+          <p>{{ order.shipping_address | format_address }}</p>
+        {%- endif -%}
+      </div>
+    </aside>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Order" }
+{% endschema %}

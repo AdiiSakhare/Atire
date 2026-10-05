@@ -1,0 +1,413 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "lowest_price_delta": 100,
+        "social_proof": ""
+      },
+      "blocks": {
+        "offer-1": {
+          "type": "offer",
+          "settings": {
+            "title": "Get FLAT ₹100 OFF on all Prepaid orders above Rs.1,199.",
+            "code": "PREPAID100"
+          }
+        },
+        "offer-2": {
+          "type": "offer",
+          "settings": {
+            "title": "Get FLAT ₹500 OFF on all Prepaid orders above Rs.2,599.",
+            "code": ""
+          }
+        },
+        "offer-3": {
+          "type": "offer",
+          "settings": {
+            "title": "Get FREE delivery on all Prepaid orders.",
+            "code": ""
+          }
+        },
+        "offer-4": {
+          "type": "offer",
+          "settings": {
+            "title": "Buy any 3 Textees for ₹1,999. Mix & match sizes.",
+            "code": "TEXTEE3"
+          }
+        },
+        "trust-1": {
+          "type": "trust",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Shipping",
+            "text": "On all prepaid orders"
+          }
+        },
+        "trust-2": {
+          "type": "trust",
+          "settings": {
+            "icon": "return",
+            "title": "7-Day Returns",
+            "text": "Easy return & exchange"
+          }
+        },
+        "trust-3": {
+          "type": "trust",
+          "settings": {
+            "icon": "cash",
+            "title": "COD Available",
+            "text": "Pay when it arrives"
+          }
+        },
+        "trust-4": {
+          "type": "trust",
+          "settings": {
+            "icon": "shield",
+            "title": "Secure Payments",
+            "text": "UPI, cards & wallets"
+          }
+        },
+        "accordion-1": {
+          "type": "accordion",
+          "settings": {
+            "title": "Product Description",
+            "content": "<ul><li>Bio-washed for a soft, broken-in feel from day one</li><li>High-density print that won’t crack or fade</li><li>Ribbed crew neck that doesn’t stretch out</li></ul>",
+            "show_description": true,
+            "show_size_chart_link": false,
+            "show_sku": false
+          }
+        },
+        "accordion-2": {
+          "type": "accordion",
+          "settings": {
+            "title": "Size & Fit",
+            "content": "<p><strong>Oversized fit.</strong> Take your regular size for a relaxed look, or size down for a closer fit.</p><p>Model is 6'0\" / 183 cm and wears size M.</p>",
+            "show_description": false,
+            "show_size_chart_link": true,
+            "show_sku": false
+          }
+        },
+        "accordion-3": {
+          "type": "accordion",
+          "settings": {
+            "title": "Materials & Care",
+            "content": "<ul><li>100% combed cotton, 240 GSM</li><li>Machine wash cold, inside out</li><li>Do not iron directly on print</li><li>Tumble dry low or line dry in shade</li></ul>",
+            "show_description": false,
+            "show_size_chart_link": false,
+            "show_sku": false
+          }
+        },
+        "accordion-4": {
+          "type": "accordion",
+          "settings": {
+            "title": "Returns & Exchange",
+            "content": "<p>Easy 7-day returns and exchanges from the date of delivery. Items must be unworn with tags attached. Refunds to the original payment method within 5–7 business days.</p>",
+            "show_description": false,
+            "show_size_chart_link": false,
+            "show_sku": false
+          }
+        },
+        "accordion-5": {
+          "type": "accordion",
+          "settings": {
+            "title": "Manufacturer Details",
+            "content": "<p>Country of origin: India. Manufactured & marketed by Atire Inc. Net quantity: 1 N.</p>",
+            "show_description": false,
+            "show_size_chart_link": false,
+            "show_sku": true
+          }
+        }
+      },
+      "block_order": [
+        "offer-1",
+        "offer-2",
+        "offer-3",
+        "offer-4",
+        "trust-1",
+        "trust-2",
+        "trust-3",
+        "trust-4",
+        "accordion-1",
+        "accordion-2",
+        "accordion-3",
+        "accordion-4",
+        "accordion-5"
+      ]
+    },
+    "bundle": {
+      "type": "product-bundle",
+      "settings": {
+        "title": "Complete the look",
+        "sub": "Bought together by 1,200+ people. Save ₹200 when you take all three.",
+        "discount": 200
+      },
+      "blocks": {
+        "item-1": {
+          "type": "item",
+          "settings": {
+            "product": "manifest-more-love-hoodie"
+          }
+        },
+        "item-2": {
+          "type": "item",
+          "settings": {
+            "product": "error-404-developer-tee"
+          }
+        }
+      },
+      "block_order": [
+        "item-1",
+        "item-2"
+      ]
+    },
+    "story": {
+      "type": "product-story",
+      "settings": {},
+      "blocks": {
+        "fact-1": {
+          "type": "fact",
+          "settings": {
+            "value": "240",
+            "label": "GSM cotton"
+          }
+        },
+        "fact-2": {
+          "type": "fact",
+          "settings": {
+            "value": "3",
+            "label": "colourways"
+          }
+        },
+        "fact-3": {
+          "type": "fact",
+          "settings": {
+            "value": "0",
+            "label": "cracks after 30 washes"
+          }
+        }
+      },
+      "block_order": [
+        "fact-1",
+        "fact-2",
+        "fact-3"
+      ]
+    },
+    "reviews": {
+      "type": "product-reviews",
+      "settings": {
+        "average": 4.6,
+        "count": 102,
+        "distribution": "78,15,5,2,2",
+        "fit_percent": 82,
+        "fit_label": "True to size",
+        "fit_position": 52,
+        "more_photos": 24
+      },
+      "blocks": {
+        "photo-1": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-01.jpg"
+          }
+        },
+        "photo-2": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-07.jpg"
+          }
+        },
+        "photo-3": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-13.jpg"
+          }
+        },
+        "photo-4": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-06.jpg"
+          }
+        },
+        "photo-5": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-12.jpg"
+          }
+        },
+        "photo-6": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-02.jpg"
+          }
+        },
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "name": "Aarav M.",
+            "rating": 5,
+            "date": "2 weeks ago",
+            "variant": "Blue / M",
+            "title": "The print is even better in person",
+            "body": "Got stopped twice on the metro by people asking where it’s from. The raised print feels premium and hasn’t cracked after 6 washes.",
+            "helpful": 24,
+            "placeholder": "ugc-07.jpg"
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "name": "Riya S.",
+            "rating": 5,
+            "date": "1 month ago",
+            "variant": "Black / L",
+            "title": "Oversized done right",
+            "body": "Drops perfectly on the shoulders without looking sloppy. I’m usually an M and took L for the baggy look — exactly what I wanted.",
+            "helpful": 18,
+            "placeholder": ""
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "name": "Kunal D.",
+            "rating": 4,
+            "date": "1 month ago",
+            "variant": "Red / XL",
+            "title": "Thick fabric, great colour",
+            "body": "Proper heavyweight cotton, not the see-through kind. Colour is a little brighter than the photos but honestly I like it more.",
+            "helpful": 9,
+            "placeholder": ""
+          }
+        },
+        "review-4": {
+          "type": "review",
+          "settings": {
+            "name": "Sneha P.",
+            "rating": 5,
+            "date": "2 months ago",
+            "variant": "Blue / S",
+            "title": "Bought it for my brother, stole it back",
+            "body": "Soft, breathable and the blue is gorgeous. Delivery took 3 days to Pune. Already eyeing the hoodie.",
+            "helpful": 15,
+            "placeholder": "ugc-13.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "photo-1",
+        "photo-2",
+        "photo-3",
+        "photo-4",
+        "photo-5",
+        "photo-6",
+        "review-1",
+        "review-2",
+        "review-3",
+        "review-4"
+      ]
+    },
+    "ugc-tilt": {
+      "type": "ugc-tilt",
+      "settings": {
+        "title": "Spotted in the wild.",
+        "subtitle": "How the Atire fam styles it. Every tee starts a conversation.",
+        "cta_label": "Tag @atire.india to get featured"
+      },
+      "blocks": {
+        "photo-1": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "tee-college-survivor.jpg",
+            "handle": "@ananya.k"
+          }
+        },
+        "photo-2": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "tee-football-fans.jpg",
+            "handle": "@rohit_19"
+          }
+        },
+        "photo-3": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "tee-couple-roast.jpg",
+            "handle": "@thatcouple"
+          }
+        },
+        "photo-4": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-08.jpg",
+            "handle": "@meera.draws"
+          }
+        },
+        "photo-5": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "cat-women.jpg",
+            "handle": "@sana.m"
+          }
+        },
+        "photo-6": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-01.jpg",
+            "handle": "@kabir.fits"
+          }
+        },
+        "photo-7": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "tee-conversation-starter.jpg",
+            "handle": "@dev.ops.guy"
+          }
+        },
+        "photo-8": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-11.jpg",
+            "handle": "@skatewithtara"
+          }
+        }
+      },
+      "block_order": [
+        "photo-1",
+        "photo-2",
+        "photo-3",
+        "photo-4",
+        "photo-5",
+        "photo-6",
+        "photo-7",
+        "photo-8"
+      ]
+    },
+    "recommendations": {
+      "type": "product-rail",
+      "settings": {
+        "title": "You may also like",
+        "subtitle": "Picked for you based on this tee.",
+        "source": "related",
+        "limit": 8,
+        "anchor": "recommendations"
+      }
+    },
+    "recently-viewed": {
+      "type": "product-rail",
+      "settings": {
+        "title": "Recently viewed",
+        "source": "recently_viewed",
+        "limit": 8
+      }
+    }
+  },
+  "order": [
+    "main",
+    "bundle",
+    "story",
+    "reviews",
+    "ugc-tilt",
+    "recommendations",
+    "recently-viewed"
+  ]
+}

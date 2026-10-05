@@ -1,0 +1,43 @@
+{%- comment -%} Editorial "story behind the print". Content: product metafield custom.story (JSON: eyebrow, title, body). {%- endcomment -%}
+{%- assign story = product.metafields.custom.story.value -%}
+{%- if story != blank -%}
+<section class="section container story" data-story>
+  <div class="story__card">
+    <div class="story__media" data-parallax>
+      {%- assign second = product.images[1] | default: product.featured_image -%}
+      {%- if second -%}{{ second | image_url: width: 1000 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+    </div>
+    <div class="story__body">
+      <p class="eyebrow story__eyebrow">{{ story.eyebrow }}</p>
+      <h2 class="h-display-md story__title" data-split>{{ story.title }}</h2>
+      <p class="story__text" data-reveal>{{ story.body }}</p>
+      <ul class="story__facts" data-reveal>
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}><strong>{{ block.settings.value }}</strong><span>{{ block.settings.label }}</span></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+    <div class="story__inset" data-reveal>
+      {%- if product.featured_image -%}{{ product.featured_image | image_url: width: 500 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product story",
+  "blocks": [
+    {
+      "type": "fact",
+      "name": "Fact",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Number", "default": "240" },
+        { "type": "text", "id": "label", "label": "Label", "default": "GSM cotton" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [{ "name": "Product story", "blocks": [{ "type": "fact" }, { "type": "fact" }, { "type": "fact" }] }]
+}
+{% endschema %}

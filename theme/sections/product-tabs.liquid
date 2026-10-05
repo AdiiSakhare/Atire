@@ -1,0 +1,51 @@
+{%- comment -%}
+  Tabbed product grid. All cards render server-side; JS filters by product tag.
+  Tab "tag" must match a product tag (lowercase, hyphenated). JS: js/sections/product-tabs.js
+{%- endcomment -%}
+<section class="section container product-tabs" data-product-tabs>
+  {% render 'section-head', eyebrow: section.settings.eyebrow, title: section.settings.title, sub: section.settings.sub, center: true %}
+
+  <div class="tabs no-scrollbar" role="tablist" aria-label="Product categories" data-reveal>
+    <span class="tabs__pill" data-tabs-pill aria-hidden="true"></span>
+    {%- for block in section.blocks -%}
+      <button class="tabs__tab" type="button" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" data-tab="{{ block.settings.tag }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</button>
+    {%- endfor -%}
+  </div>
+
+  <div class="product-tabs__grid" data-tabs-grid>
+    {%- assign source_collection = section.settings.collection | default: collections.all -%}
+    {%- for product in source_collection.products limit: 24 -%}
+      <div class="product-tabs__item" data-tab-item data-tags="{% for tag in product.tags %}{{ tag | handleize }}{% unless forloop.last %} {% endunless %}{% endfor %}">
+        {% render 'product-card', product: product %}
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <div class="product-tabs__more">
+    {% render 'btn-arrow', url: routes.all_products_collection_url, label: 'Explore Full Collection', modifier: 'dark', attrs: 'data-tabs-more' %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product tabs",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Bestsellers" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Browse All You Need" },
+    { "type": "text", "id": "sub", "label": "Subheading", "default": "The tees everyone’s talking about — restocked weekly." },
+    { "type": "collection", "id": "collection", "label": "Products from", "info": "Empty = all products (first 24)." }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Bestseller" },
+        { "type": "text", "id": "tag", "label": "Product tag", "default": "bestseller" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [{ "name": "Product tabs", "blocks": [{ "type": "tab" }] }]
+}
+{% endschema %}

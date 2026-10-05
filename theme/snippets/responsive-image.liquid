@@ -1,0 +1,18 @@
+{%- comment -%}
+  Merchant image with a placeholder fallback (theme asset file name, or a full URL).
+  Usage: {% render 'responsive-image', image: block.settings.image, fallback: block.settings.placeholder, alt: '', width: 1600, sizes: '100vw', loading: 'lazy', class: 'x', style: 'object-position:50% 50%', fetchpriority: 'high' %}
+{%- endcomment -%}
+{%- liquid
+  assign width = width | default: 1200
+  assign widths = widths | default: '400, 800, 1200, 1600'
+  assign loading = loading | default: 'lazy'
+-%}
+{%- if image != blank -%}
+  {{- image | image_url: width: width | image_tag: widths: widths, sizes: sizes, loading: loading, alt: alt, class: class, style: style, fetchpriority: fetchpriority -}}
+{%- elsif fallback != blank -%}
+  {%- if fallback contains 'http' -%}
+    <img src="{{ fallback }}" alt="{{ alt | escape }}" loading="{{ loading }}"{% if class %} class="{{ class }}"{% endif %}{% if style %} style="{{ style }}"{% endif %}{% if fetchpriority %} fetchpriority="{{ fetchpriority }}"{% endif %}>
+  {%- else -%}
+    <img src="{{ fallback | asset_url }}" alt="{{ alt | escape }}" loading="{{ loading }}"{% if class %} class="{{ class }}"{% endif %}{% if style %} style="{{ style }}"{% endif %}{% if fetchpriority %} fetchpriority="{{ fetchpriority }}"{% endif %}>
+  {%- endif -%}
+{%- endif -%}

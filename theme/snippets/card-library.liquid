@@ -1,0 +1,9 @@
+{%- comment -%}
+  Pre-rendered cards that JS clones for client-side rails (recently viewed, cart upsell)
+  so card markup has one source of truth. Capped to keep the page light.
+{%- endcomment -%}
+<template data-card-library>
+  {%- for product in collections.all.products limit: 24 -%}
+    {% render 'product-card', product: product, modifier: 'compact' %}
+  {%- endfor -%}
+</template>

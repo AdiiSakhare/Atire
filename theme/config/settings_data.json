@@ -1,0 +1,12 @@
+{
+  "current": {
+    "instagram_handle": "@atire.india",
+    "free_shipping_threshold": 999,
+    "welcome_enabled": true,
+    "welcome_title": "Your first tee is on us. Well, 10% of it.",
+    "welcome_text": "Join the list for 10% off your first order, early access to Friday drops and members-only combos.",
+    "welcome_code": "WELCOME10",
+    "size_chart_columns": "Size, Chest, Length, Shoulder, Sleeve",
+    "size_chart_rows": "S,42,27.5,21,9\nM,44,28,22,9.5\nL,46,29,23,10\nXL,48,30,24,10.5\n2XL,50,31,25,11\n3XL,52,32,26,11.5"
+  }
+}

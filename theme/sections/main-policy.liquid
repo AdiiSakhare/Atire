@@ -1,0 +1,44 @@
+{%- comment -%} Policy template (shipping, returns, privacy, terms). Content comes from the Shopify page; nav from a link list. {%- endcomment -%}
+<header class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="{{ routes.root_url }}">Home</a>{% render 'icon', name: 'chevron-right' %}</li>
+        <li aria-current="page">{{ page.title }}</li>
+      </ol>
+    </nav>
+    <p class="eyebrow page-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+    <h1 class="page-hero__title" data-split>{{ page.title }}</h1>
+    <p class="page-hero__sub">Last updated {{ page.updated_at | date: '%B %-d, %Y' }}</p>
+  </div>
+</header>
+<section class="container policy">
+  <aside class="policy__nav">
+    <p class="summary__title">{{ section.settings.nav_title }}</p>
+    <nav>
+      {%- assign policy_menu = linklists[section.settings.menu] -%}
+      {%- for link in policy_menu.links -%}
+        <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+    <div class="policy__help summary__box"><strong>{{ section.settings.help_title }}</strong><p class="text-muted">{{ section.settings.help_text }}</p><a class="section-head__link" href="{{ section.settings.help_url | default: routes.root_url }}">{{ section.settings.help_link_label }}<span>{% render 'icon', name: 'arrow-up-right' %}</span></a></div>
+  </aside>
+  <div class="policy__body rte">
+    {{ page.content }}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Policy page",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Policies" },
+    { "type": "text", "id": "nav_title", "label": "Navigation title", "default": "Policies" },
+    { "type": "link_list", "id": "menu", "label": "Policy links", "default": "footer-legal" },
+    { "type": "text", "id": "help_title", "label": "Help box heading", "default": "Questions?" },
+    { "type": "text", "id": "help_text", "label": "Help box text", "default": "Our support team replies within 2 hours on WhatsApp." },
+    { "type": "text", "id": "help_link_label", "label": "Help box link label", "default": "Contact us" },
+    { "type": "url", "id": "help_url", "label": "Help box link" }
+  ]
+}
+{% endschema %}

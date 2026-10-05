@@ -1,0 +1,38 @@
+<section class="section container categories">
+  {% render 'section-head', eyebrow: section.settings.eyebrow, title: section.settings.title, link: section.settings.link, link_label: section.settings.link_label %}
+  <ul class="categories__list no-scrollbar">
+    {%- for block in section.blocks -%}
+      <li data-reveal {{ block.shopify_attributes }}>
+        <a class="category" href="{{ block.settings.url }}">
+          <span class="category__media">{% render 'responsive-image', image: block.settings.image, fallback: block.settings.placeholder, alt: '', width: 600, widths: '300, 450, 600', sizes: '(min-width: 990px) 16vw, 40vw' %}</span>
+          <span class="category__title">{{ block.settings.title }}</span>
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Category tiles",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop by category" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Find your fit" },
+    { "type": "url", "id": "link", "label": "“Shop all” link" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Shop all" }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Category" },
+        { "type": "url", "id": "url", "label": "Link" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "placeholder", "label": "Placeholder image (asset file name or URL)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Category tiles", "blocks": [{ "type": "category" }, { "type": "category" }, { "type": "category" }] }]
+}
+{% endschema %}

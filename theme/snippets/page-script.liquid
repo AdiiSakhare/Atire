@@ -1,0 +1,13 @@
+{%- comment -%}
+  Loads the per-template script bundle built by `npm run build:theme`
+  (styles are one shared theme.css). Usage: {% render 'page-script' %}
+  Templates without their own bundle fall back to the content bundle.
+{%- endcomment -%}
+{%- case template.name -%}
+  {%- when 'index' -%}{%- assign bundle = 'home' -%}
+  {%- when 'product' -%}{%- assign bundle = 'product' -%}
+  {%- when 'collection', 'search', 'list-collections' -%}{%- assign bundle = 'shop' -%}
+  {%- when 'cart' -%}{%- assign bundle = 'cart' -%}
+  {%- else -%}{%- assign bundle = 'content' -%}
+{%- endcase -%}
+<script type="module" src="{{ 'page-' | append: bundle | append: '.js' | asset_url }}"></script>

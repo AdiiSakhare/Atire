@@ -1,0 +1,49 @@
+<section class="values-band">
+  <div class="container">
+    {% render 'section-head', eyebrow: section.settings.eyebrow, title: section.settings.title %}
+    <ul class="values">
+      {%- for block in section.blocks -%}
+        <li class="value" data-reveal {{ block.shopify_attributes }}>
+          <span class="value__icon">{% render 'icon', name: block.settings.icon %}</span>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Values",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "What we stand for" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Four rules we don’t break" }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        {
+          "type": "select", "id": "icon", "label": "Icon", "default": "sparkle",
+          "options": [
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "return", "label": "Return" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "star", "label": "Star" },
+            { "value": "bolt", "label": "Bolt" },
+            { "value": "fire", "label": "Fire" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Original, always" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Every print is drawn in-house." }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [{ "name": "Values", "blocks": [{ "type": "value" }, { "type": "value" }, { "type": "value" }, { "type": "value" }] }]
+}
+{% endschema %}

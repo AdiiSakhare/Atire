@@ -1,0 +1,33 @@
+{%- comment -%} Grey feature card: image + copy + checklist. {%- endcomment -%}
+<section class="section container">
+  <div class="feature">
+    <div class="feature__media" data-parallax>
+      {% render 'responsive-image', image: section.settings.image, fallback: section.settings.placeholder, alt: section.settings.image_alt, width: 1200, sizes: '(min-width: 990px) 50vw, 100vw' %}
+    </div>
+    <div class="feature__body">
+      <h2 class="h-display-sm feature__title" data-split>{{ section.settings.title }}</h2>
+      <p class="feature__text" data-reveal>{{ section.settings.text }}</p>
+      <ul class="feature__points" data-reveal>
+        {%- for block in section.blocks -%}<li {{ block.shopify_attributes }}>{% render 'icon', name: 'check-circle' %}{{ block.settings.text }}</li>{%- endfor -%}
+      </ul>
+      {% render 'btn-arrow', url: section.settings.url, label: section.settings.cta, attrs: 'data-reveal' %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Feature banner",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder image (asset file name or URL)" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Explore our most selling winter couple collection" },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "text", "id": "cta", "label": "Button label", "default": "Explore Couple Collection" },
+    { "type": "url", "id": "url", "label": "Button link" }
+  ],
+  "blocks": [{ "type": "point", "name": "Checklist item", "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "A selling point" }] }],
+  "presets": [{ "name": "Feature banner", "blocks": [{ "type": "point" }, { "type": "point" }] }]
+}
+{% endschema %}

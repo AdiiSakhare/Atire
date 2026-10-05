@@ -1,0 +1,13 @@
+<section class="section container manifesto">
+  <p class="manifesto__text" data-manifesto>{{ section.settings.text }}</p>
+</section>
+
+{% schema %}
+{
+  "name": "Manifesto",
+  "settings": [
+    { "type": "textarea", "id": "text", "label": "Manifesto text", "default": "Clothes should start conversations. Not small talk — real ones." }
+  ],
+  "presets": [{ "name": "Manifesto" }]
+}
+{% endschema %}

@@ -1,0 +1,17 @@
+{
+  "name": "Footer",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "c1": { "type": "column", "settings": { "title": "Shop", "menu": "footer" } },
+        "c2": { "type": "column", "settings": { "title": "Help", "menu": "footer-help" } },
+        "c3": { "type": "column", "settings": { "title": "Atire", "menu": "footer-company" } }
+      },
+      "block_order": ["c1", "c2", "c3"],
+      "settings": {}
+    }
+  },
+  "order": ["footer"]
+}

@@ -1,0 +1,58 @@
+{%- comment -%} Account dashboard: overview + orders. Addresses live at /account/addresses. {%- endcomment -%}
+<section class="container account">
+  <div class="dash">
+    <aside class="dash__nav">
+      <div class="dash__user">
+        <span class="dash__avatar">{{ customer.first_name | slice: 0 | upcase }}{{ customer.last_name | slice: 0 | upcase }}</span>
+        <div><strong>{{ customer.name }}</strong><small>{{ customer.email }}</small></div>
+      </div>
+      <nav aria-label="Account sections">
+        <a href="{{ routes.account_url }}" aria-current="page">{% render 'icon', name: 'home' %} Overview</a>
+        <a href="{{ routes.account_addresses_url }}">{% render 'icon', name: 'pin' %} Addresses</a>
+        <a href="{{ pages.wishlist.url | default: '/pages/wishlist' }}">{% render 'icon', name: 'heart' %} Wishlist</a>
+        <a href="{{ routes.account_logout_url }}">{% render 'icon', name: 'arrow-right' %} Sign out</a>
+      </nav>
+    </aside>
+
+    <div class="dash__main">
+      <section>
+        <h1 class="page-hero__title">Hey {{ customer.first_name | default: 'there' }} 👋</h1>
+        <div class="dash__cards">
+          <div class="dash__card"><small>Orders</small><strong>{{ customer.orders_count }}</strong></div>
+          <div class="dash__card"><small>Total spent</small><strong>{{ customer.total_spent | money_without_trailing_zeros }}</strong></div>
+        </div>
+
+        <h2 class="dash__h2">Your orders</h2>
+        {%- paginate customer.orders by 10 -%}
+          {%- if customer.orders.size > 0 -%}
+            {%- for order in customer.orders -%}
+              <article class="order-card">
+                <div class="order-card__head">
+                  <div><strong>{{ order.name }}</strong><small>Placed {{ order.created_at | date: '%-d %b %Y' }}</small></div>
+                  <span class="order-card__status">{% render 'icon', name: 'truck' %} {{ order.fulfillment_status_label }} · {{ order.financial_status_label }}</span>
+                </div>
+                <div class="order-card__items">
+                  {%- for line in order.line_items limit: 4 -%}
+                    {%- if line.image -%}{{ line.image | image_url: width: 120 | image_tag: loading: 'lazy', alt: line.title }}{%- endif -%}
+                  {%- endfor -%}
+                  {%- if order.line_items.size > 4 -%}<span>+{{ order.line_items.size | minus: 4 }}</span>{%- endif -%}
+                </div>
+                <div class="order-card__foot">
+                  <span>{{ order.line_items.size }} item{% if order.line_items.size != 1 %}s{% endif %} · <strong>{{ order.total_price | money_without_trailing_zeros }}</strong></span>
+                  <a class="section-head__link" href="{{ order.customer_url }}">View order<span>{% render 'icon', name: 'arrow-up-right' %}</span></a>
+                </div>
+              </article>
+            {%- endfor -%}
+            {%- if paginate.pages > 1 -%}{{ paginate | default_pagination }}{%- endif -%}
+          {%- else -%}
+            <div class="dash__empty">{% render 'icon', name: 'bag' %}<p>No orders yet. Your first fit is a tap away.</p><a class="btn btn--primary btn--sm" href="{{ routes.all_products_collection_url }}">Start shopping</a></div>
+          {%- endif -%}
+        {%- endpaginate -%}
+      </section>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Account" }
+{% endschema %}

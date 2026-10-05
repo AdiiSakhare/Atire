@@ -1,0 +1,20 @@
+{%- capture label -%}{%- for block in section.blocks -%}{{ block.settings.text }}{% unless forloop.last %} · {% endunless %}{%- endfor -%}{%- endcapture -%}
+<div class="marquee" data-marquee aria-label="{{ label | strip | escape }}">
+  <div class="marquee__track" aria-hidden="true">
+    {%- for i in (1..2) -%}
+      <ul class="marquee__group">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>{{ block.settings.text }}<span class="marquee__star">{% render 'icon', name: 'sparkle' %}</span></li>
+        {%- endfor -%}
+      </ul>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Marquee",
+  "blocks": [{ "type": "item", "name": "Text", "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "New Drop Every Friday" }] }],
+  "presets": [{ "name": "Marquee", "blocks": [{ "type": "item" }, { "type": "item" }] }]
+}
+{% endschema %}

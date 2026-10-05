@@ -1,0 +1,7 @@
+{%- comment -%} {% render 'empty-state', icon: 'bag', title: '', text: '', cta: '', url: '' %} {%- endcomment -%}
+<div class="empty-state">
+  <span class="empty-state__icon">{% render 'icon', name: icon %}</span>
+  <h2 class="empty-state__title">{{ title }}</h2>
+  <p class="empty-state__text">{{ text }}</p>
+  {%- if cta != blank -%}{% render 'btn-arrow', url: url, label: cta %}{%- endif -%}
+</div>

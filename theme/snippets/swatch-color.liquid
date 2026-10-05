@@ -1,0 +1,29 @@
+{%- comment -%}
+  Resolves a colour option value to a CSS colour: native swatch first, then the
+  brand palette by name, then neutral grey.  Usage: {% render 'swatch-color', value: option_value %}
+{%- endcomment -%}
+{%- liquid
+  assign name = value.name | default: value | downcase
+  if value.swatch.color
+    echo value.swatch.color
+  else
+    case name
+      when 'blue'
+        echo '#1F5BE0'
+      when 'red'
+        echo '#E4161B'
+      when 'black'
+        echo '#111111'
+      when 'off white'
+        echo '#F3F1EA'
+      when 'beige'
+        echo '#E6D9C2'
+      when 'grey melange'
+        echo '#D2D2D2'
+      when 'maroon'
+        echo '#6E1E2B'
+      else
+        echo '#D2D2D2'
+    endcase
+  endif
+-%}

@@ -1,0 +1,101 @@
+{%- comment -%} Contact page: hero, channels, real Shopify contact form, quick answers. {%- endcomment -%}
+{% render 'page-hero', eyebrow: section.settings.eyebrow, title: section.settings.title, sub: section.settings.sub, crumb: 'Contact', center: false %}
+<section class="container contact">
+  <ul class="contact__channels">
+    {%- for block in section.blocks -%}{%- if block.type == 'channel' -%}
+      <li {{ block.shopify_attributes }}>
+        <a class="channel" href="{{ block.settings.url }}" data-reveal>
+          <span class="channel__icon">{% render 'icon', name: block.settings.icon %}</span>
+          <strong>{{ block.settings.title }}</strong>
+          <small>{{ block.settings.text }}</small>
+          <span class="channel__value">{{ block.settings.value }} {% render 'icon', name: 'arrow-up-right' %}</span>
+        </a>
+      </li>
+    {%- endif -%}{%- endfor -%}
+  </ul>
+
+  <div class="contact__grid">
+    {%- assign topics = section.settings.topics | newline_to_br | strip_newlines | split: '<br />' -%}
+    {%- form 'contact', class: 'contact__form summary__box', id: 'contact-form' -%}
+      {%- if form.posted_successfully? -%}
+        <div class="form-success" role="status">{% render 'icon', name: 'check-circle' %}<h3>Message received</h3><p>{{ section.settings.success_text }}</p></div>
+      {%- else -%}
+        <h2 class="dash__h2">{{ section.settings.form_title }}</h2>
+        {%- if form.errors -%}<p class="summary__msg is-error" role="alert">{{ form.errors | default_errors }}</p>{%- endif -%}
+        <div class="form-grid">
+          <label class="input"><span>Name</span><input name="contact[name]" required autocomplete="name" value="{{ form.name }}" /></label>
+          <label class="input"><span>Email</span><input name="contact[email]" type="email" required autocomplete="email" value="{{ form.email }}" /></label>
+          <label class="input"><span>Order number <small>(optional)</small></span><input name="contact[order_number]" placeholder="ATR123456" value="{{ form.order_number }}" /></label>
+          <label class="input"><span>Topic</span><select name="contact[topic]" required><option value="">Choose a topic</option>{% for topic in topics %}{% assign topic_name = topic | strip %}{% if topic_name != blank %}<option{% if form.topic == topic_name %} selected{% endif %}>{{ topic_name }}</option>{% endif %}{% endfor %}</select></label>
+          <label class="input input--full"><span>Message</span><textarea name="contact[body]" rows="5" required placeholder="Tell us what’s up…">{{ form.body }}</textarea></label>
+        </div>
+        <button class="btn btn--dark btn--lg" type="submit">Send Message</button>
+        <p class="contact__hours">{% render 'icon', name: 'check-circle' %} {{ section.settings.hours }} · Average reply time: {{ section.settings.reply_time }}</p>
+      {%- endif -%}
+    {%- endform -%}
+
+    <aside class="contact__faq">
+      <h2 class="dash__h2">{{ section.settings.faq_title }}</h2>
+      {%- for block in section.blocks -%}{%- if block.type == 'faq' -%}
+        <details class="accordion" {{ block.shopify_attributes }}>
+          <summary class="accordion__summary">{{ block.settings.question }}<span class="icon">{% render 'icon', name: 'chevron-down' %}</span></summary>
+          <div class="accordion__content"><div class="accordion__inner"><p>{{ block.settings.answer }}</p></div></div>
+        </details>
+      {%- endif -%}{%- endfor -%}
+      {%- if section.settings.more_url != blank -%}
+        <a class="section-head__link contact__more" href="{{ section.settings.more_url }}">{{ section.settings.more_label }}<span>{% render 'icon', name: 'arrow-up-right' %}</span></a>
+      {%- endif -%}
+    </aside>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact page",
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "We’re here to help" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Talk to a real human" },
+    { "type": "textarea", "id": "sub", "label": "Subheading", "default": "Questions about an order, sizing or a collab? Pick the fastest way to reach us." },
+    { "type": "header", "content": "Form" },
+    { "type": "text", "id": "form_title", "label": "Form heading", "default": "Send us a message" },
+    { "type": "textarea", "id": "topics", "label": "Topics (one per line)", "default": "Order status\nReturn or exchange\nSize help\nPayment issue\nBulk / custom order\nCollaboration\nSomething else" },
+    { "type": "text", "id": "hours", "label": "Support hours", "default": "Mon – Sat · 10 AM to 7 PM IST" },
+    { "type": "text", "id": "reply_time", "label": "Average reply time", "default": "2 hours" },
+    { "type": "textarea", "id": "success_text", "label": "Success message", "default": "Thanks! We’ll get back to you within 24 hours (usually much sooner)." },
+    { "type": "header", "content": "Quick answers" },
+    { "type": "text", "id": "faq_title", "label": "Heading", "default": "Quick answers" },
+    { "type": "text", "id": "more_label", "label": "Link label", "default": "Visit Help Center" },
+    { "type": "url", "id": "more_url", "label": "Link" }
+  ],
+  "blocks": [
+    {
+      "type": "channel",
+      "name": "Contact channel",
+      "limit": 6,
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "bolt", "options": [
+          { "value": "bolt", "label": "Bolt" }, { "value": "tag", "label": "Tag" }, { "value": "instagram", "label": "Instagram" },
+          { "value": "pin", "label": "Pin" }, { "value": "heart", "label": "Heart" }, { "value": "camera", "label": "Camera" }, { "value": "user", "label": "User" }
+        ] },
+        { "type": "text", "id": "title", "label": "Title", "default": "WhatsApp" },
+        { "type": "text", "id": "text", "label": "Description", "default": "Fastest replies, usually under 10 minutes." },
+        { "type": "text", "id": "value", "label": "Value", "default": "+91 90000 00000" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "Quick answer",
+      "limit": 8,
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "How long does delivery take?" },
+        { "type": "textarea", "id": "answer", "label": "Answer" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Contact page", "blocks": [{ "type": "channel" }, { "type": "faq" }] }
+  ]
+}
+{% endschema %}

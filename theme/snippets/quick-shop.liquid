@@ -1,0 +1,36 @@
+{%- comment -%} Quick shop modal shell. Filled by js/components/quick-shop.js from the catalogue JSON. {%- endcomment -%}
+<div class="quick-shop" id="quick-shop" data-quick-shop-modal role="dialog" aria-modal="true" aria-labelledby="qs-title" aria-hidden="true">
+  <div class="quick-shop__panel" data-lenis-prevent>
+    <button class="icon-btn icon-btn--sm quick-shop__close" type="button" data-quick-shop-close aria-label="Close">{% render 'icon', name: 'close' %}</button>
+    <div class="quick-shop__media" data-qs-media></div>
+    <div class="quick-shop__body">
+      <p class="quick-shop__badge" data-qs-badge></p>
+      <h2 class="quick-shop__title" id="qs-title" data-qs-title></h2>
+      <p class="quick-shop__rating" data-qs-rating></p>
+      <div class="price quick-shop__price" data-qs-price></div>
+
+      <div class="pdp-option">
+        <p class="pdp-option__label">Colour <span class="pdp-option__value" data-qs-color-name></span></p>
+        <div class="swatches" role="radiogroup" aria-label="Colour" data-qs-colors></div>
+      </div>
+
+      <div class="pdp-option">
+        <div class="pdp-option__row">
+          <p class="pdp-option__label">Size <span class="pdp-option__value" data-qs-size-name></span></p>
+          <span class="quick-shop__fit">{% render 'icon', name: 'ruler' %} True to size · Oversized fit</span>
+        </div>
+        <div class="sizes" role="radiogroup" aria-label="Size" data-qs-sizes></div>
+        <p class="pdp-option__hint" data-qs-hint aria-live="polite"></p>
+      </div>
+
+      <button class="btn btn--primary btn--block btn--lg" type="button" data-qs-add>Select a size</button>
+      <a class="quick-shop__details" href="#" data-qs-link>View full details {% render 'icon', name: 'arrow-right' %}</a>
+
+      <ul class="quick-shop__perks">
+        <li>{% render 'icon', name: 'truck' %} Free delivery on prepaid</li>
+        <li>{% render 'icon', name: 'return' %} 7-day easy returns</li>
+        <li>{% render 'icon', name: 'cash' %} COD available</li>
+      </ul>
+    </div>
+  </div>
+</div>

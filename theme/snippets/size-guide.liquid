@@ -1,0 +1,50 @@
+{%- comment -%}
+  Size guide drawer. Chart comes from Theme settings → Size chart (one row per line, comma separated).
+  Usage: {% render 'size-guide', product: product %}
+{%- endcomment -%}
+<aside class="drawer size-guide" id="size-guide" data-drawer data-size-guide aria-label="Size guide" aria-hidden="true">
+  <div class="drawer__head">
+    <h2 class="drawer__title">Size Guide</h2>
+    <button class="icon-btn icon-btn--sm" type="button" data-drawer-close aria-label="Close size guide">{% render 'icon', name: 'close' %}</button>
+  </div>
+  <div class="drawer__body" data-lenis-prevent>
+    <div class="size-guide__top">
+      <p class="size-guide__fit"><strong>Oversized fit</strong> · Garment measurements</p>
+      <div class="size-guide__units" role="group" aria-label="Units">
+        <button type="button" aria-pressed="true" data-unit="in">in</button>
+        <button type="button" aria-pressed="false" data-unit="cm">cm</button>
+      </div>
+    </div>
+
+    <div class="size-guide__table-wrap">
+      {% render 'size-chart-table' %}
+    </div>
+
+    <div class="size-guide__how">
+      <p class="pdp-section-title">How to measure</p>
+      <div class="size-guide__how-grid">
+        <svg class="size-guide__figure" viewBox="0 0 160 170" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M52 14 28 26 8 62l22 12 10-16v98h80V58l10 16 22-12-20-36-24-12c-4 10-14 16-28 16S56 24 52 14Z" fill="#f3f3f3" />
+          <path d="M44 66h72" stroke="#d99800" stroke-dasharray="4 3" />
+          <path d="M140 30v126" stroke="#d99800" stroke-dasharray="4 3" />
+          <path d="M52 14h56" stroke="#d99800" stroke-dasharray="4 3" />
+          <text x="66" y="61" font-size="9" fill="#111" stroke="none">Chest</text>
+          <text x="144" y="96" font-size="9" fill="#111" stroke="none" transform="rotate(90 144 96)">Length</text>
+          <text x="62" y="10" font-size="9" fill="#111" stroke="none">Shoulder</text>
+        </svg>
+        <ul class="size-guide__tips">
+          <li><strong>Chest</strong> Measure across the chest, 1" below the armhole.</li>
+          <li><strong>Length</strong> From the highest shoulder point down to the hem.</li>
+          <li><strong>Shoulder</strong> Straight across from one seam to the other.</li>
+        </ul>
+      </div>
+    </div>
+
+    {%- if product.images[3] -%}
+      <div class="size-guide__model">
+        {{ product.images[3] | image_url: width: 400 | image_tag: loading: 'lazy', alt: '' }}
+        <p><strong>Model wears size M</strong>Height 6'0" · Chest 38"<br>Size up for a baggier drape.</p>
+      </div>
+    {%- endif -%}
+  </div>
+</aside>

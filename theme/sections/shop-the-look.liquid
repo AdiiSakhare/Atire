@@ -1,0 +1,76 @@
+{%- comment -%} Lifestyle image with hotspots + "complete the fit" list. JS: js/sections/hotspots.js {%- endcomment -%}
+<section class="section container stl" data-stl>
+  <div class="stl__grid">
+    <div class="stl__media" data-reveal>
+      {% render 'responsive-image', image: section.settings.image, fallback: section.settings.placeholder, alt: section.settings.image_alt, width: 1200, sizes: '(min-width: 990px) 50vw, 100vw' %}
+      {%- for block in section.blocks -%}{%- if block.type == 'hotspot' and block.settings.product != blank -%}
+        {%- assign p = block.settings.product -%}
+        <div class="hotspot" style="--x: {{ block.settings.x }}%; --y: {{ block.settings.y }}%" {{ block.shopify_attributes }}>
+          <button class="hotspot__dot" type="button" aria-label="Show {{ p.title | escape }}" aria-expanded="false" data-hotspot></button>
+          <div class="hotspot__card">
+            {%- if p.featured_image -%}{{ p.featured_image | image_url: width: 160 | image_tag: alt: '' }}{%- endif -%}
+            <span>
+              <span class="hotspot__title">{% render 'product-title', product: p %}</span>
+              {% render 'price', product: p %}
+            </span>
+            <button class="icon-btn icon-btn--sm" type="button" data-quick-shop="{{ p.handle }}" aria-label="Quick add {{ p.title | escape }}">{% render 'icon', name: 'plus' %}</button>
+          </div>
+        </div>
+      {%- endif -%}{%- endfor -%}
+    </div>
+
+    <div class="stl__body">
+      {% render 'section-head', eyebrow: section.settings.eyebrow, title: section.settings.title, sub: section.settings.text %}
+      <ul class="stl__list">
+        {%- assign total = 0 -%}
+        {%- assign compare_total = 0 -%}
+        {%- for block in section.blocks -%}{%- if block.type == 'item' and block.settings.product != blank -%}
+          {%- assign p = block.settings.product -%}
+          {%- assign total = total | plus: p.price -%}
+          {%- assign compare_total = compare_total | plus: p.compare_at_price | at_least: p.price -%}
+          <li class="stl__item" data-reveal {{ block.shopify_attributes }}>
+            <a class="stl__thumb" href="{{ p.url }}">{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</a>
+            <div class="stl__info">
+              <a class="stl__title" href="{{ p.url }}">{% render 'product-title', product: p %}</a>
+              {%- if p.metafields.custom.rating_value.value != blank -%}
+                <p class="stl__meta">{% render 'stars', rating: p.metafields.custom.rating_value.value %} <span>{{ p.metafields.custom.rating_value.value }} ({{ p.metafields.custom.rating_count.value }})</span></p>
+              {%- endif -%}
+              {% render 'price', product: p, off_suffix: '% OFF', tag: 'div' %}
+            </div>
+            <button class="btn btn--primary btn--sm stl__add" type="button" data-quick-shop="{{ p.handle }}">Add</button>
+          </li>
+        {%- endif -%}{%- endfor -%}
+      </ul>
+      {%- if compare_total > total -%}
+        <p class="stl__total">Get the full look for <strong>{{ total | money_without_trailing_zeros }}</strong> <s>{{ compare_total | money_without_trailing_zeros }}</s> <span class="chip chip--amber">Save {{ compare_total | minus: total | money_without_trailing_zeros }}</span></p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shop the look",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder image (asset file name or URL)" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop the look" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Same fit. Different day." },
+    { "type": "textarea", "id": "text", "label": "Text" }
+  ],
+  "blocks": [
+    {
+      "type": "hotspot",
+      "name": "Hotspot",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "range", "id": "x", "label": "Horizontal position (%)", "min": 0, "max": 100, "step": 1, "default": 50 },
+        { "type": "range", "id": "y", "label": "Vertical position (%)", "min": 0, "max": 100, "step": 1, "default": 50 }
+      ]
+    },
+    { "type": "item", "name": "Look item", "settings": [{ "type": "product", "id": "product", "label": "Product" }] }
+  ],
+  "presets": [{ "name": "Shop the look", "blocks": [{ "type": "hotspot" }, { "type": "item" }] }]
+}
+{% endschema %}

@@ -1,0 +1,87 @@
+{%- comment -%} Two-row opposing testimonial marquee + stat counters. {%- endcomment -%}
+<section class="section testimonials">
+  <div class="container section-head section-head--center">
+    <p class="chip testimonials__chip" data-reveal>{{ section.settings.chip }}</p>
+    <h2 class="h-display-sm" data-reveal>{{ section.settings.title }} <span class="text-amber">{{ section.settings.title_accent }}</span></h2>
+    <p class="section-head__sub" data-reveal>{{ section.settings.sub }}</p>
+    <div class="review-summary" data-reveal>
+      <strong>{{ section.settings.rating }}</strong>
+      <span>{% render 'stars', rating: section.settings.rating %}<small>{{ section.settings.review_count }} verified reviews</small></span>
+      <span class="review-summary__sep" aria-hidden="true"></span>
+      <span class="review-summary__pct"><strong>{{ section.settings.recommend }}%</strong><small>would recommend</small></span>
+    </div>
+  </div>
+
+  {%- for row in (1..2) -%}
+    <div class="testimonials__row{% unless forloop.first %} testimonials__row--reverse{% endunless %}" aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}">
+      <ul class="testimonials__track">
+        {%- for pass in (1..2) -%}
+          {%- for block in section.blocks -%}{%- if block.type == 'testimonial' -%}
+            <li class="testimonial" {% if forloop.parentloop.first and forloop.parentloop.parentloop.first %}{{ block.shopify_attributes }}{% endif %}>
+              <p class="testimonial__text">“{{ block.settings.text }}”</p>
+              {% render 'stars', rating: 5 %}
+              <div class="testimonial__author">
+                <span class="testimonial__avatar">{{ block.settings.name | split: ' ' | first | slice: 0 }}{{ block.settings.name | split: ' ' | last | slice: 0 }}</span>
+                <span><strong>{{ block.settings.name }} <span class="testimonial__verified">{% render 'icon', name: 'verified' %}</span></strong><small>{{ block.settings.role }}</small></span>
+              </div>
+              {%- assign p = block.settings.product -%}
+              {%- if p != blank -%}
+                <a class="testimonial__product" href="{{ p.url }}">
+                  {%- if p.featured_image -%}{{ p.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+                  <span><small>Purchased</small>{% render 'product-title', product: p %}</span>
+                  {% render 'icon', name: 'chevron-right' %}
+                </a>
+              {%- endif -%}
+            </li>
+          {%- endif -%}{%- endfor -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endfor -%}
+
+  <ul class="container stats" data-stats>
+    {%- for block in section.blocks -%}{%- if block.type == 'stat' -%}
+      <li data-reveal {{ block.shopify_attributes }}>
+        <strong><span data-count-to="{{ block.settings.value }}">0</span>{{ block.settings.suffix }}</strong>
+        <span>{{ block.settings.label }}</span>
+      </li>
+    {%- endif -%}{%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    { "type": "text", "id": "chip", "label": "Chip", "default": "Testimonials" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Loved by thousands of" },
+    { "type": "text", "id": "title_accent", "label": "Heading (highlighted)", "default": "happy creators" },
+    { "type": "text", "id": "sub", "label": "Subheading", "default": "across creative communities" },
+    { "type": "number", "id": "rating", "label": "Average rating", "default": 4.7 },
+    { "type": "text", "id": "review_count", "label": "Review count", "default": "12,400+" },
+    { "type": "range", "id": "recommend", "label": "Would recommend (%)", "min": 0, "max": 100, "step": 1, "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Sarah M." },
+        { "type": "text", "id": "role", "label": "Role" },
+        { "type": "textarea", "id": "text", "label": "Quote" },
+        { "type": "product", "id": "product", "label": "Purchased product" }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "number", "id": "value", "label": "Number", "default": 600 },
+        { "type": "text", "id": "suffix", "label": "Suffix", "default": "+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Original prints" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Testimonials", "blocks": [{ "type": "testimonial" }, { "type": "testimonial" }, { "type": "stat" }] }]
+}
+{% endschema %}

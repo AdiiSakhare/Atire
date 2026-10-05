@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-policy",
+      "settings": {
+        "menu": "footer-legal",
+        "help_url": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

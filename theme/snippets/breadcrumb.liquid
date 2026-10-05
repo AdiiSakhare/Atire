@@ -1,0 +1,7 @@
+{%- comment -%} Breadcrumb trail: Home › current page. Usage: {% render 'breadcrumb', title: 'Contact' %} {%- endcomment -%}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="{{ routes.root_url }}">Home</a>{% render 'icon', name: 'chevron-right' %}</li>
+    <li aria-current="page">{{ title | default: page.title }}</li>
+  </ol>
+</nav>

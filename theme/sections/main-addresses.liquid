@@ -1,0 +1,53 @@
+<section class="container account">
+  <div class="dash">
+    <aside class="dash__nav">
+      <div class="dash__user">
+        <span class="dash__avatar">{{ customer.first_name | slice: 0 | upcase }}{{ customer.last_name | slice: 0 | upcase }}</span>
+        <div><strong>{{ customer.name }}</strong><small>{{ customer.email }}</small></div>
+      </div>
+      <nav aria-label="Account sections">
+        <a href="{{ routes.account_url }}">{% render 'icon', name: 'home' %} Overview</a>
+        <a href="{{ routes.account_addresses_url }}" aria-current="page">{% render 'icon', name: 'pin' %} Addresses</a>
+        <a href="{{ routes.account_logout_url }}">{% render 'icon', name: 'arrow-right' %} Sign out</a>
+      </nav>
+    </aside>
+
+    <div class="dash__main">
+      <h1 class="page-hero__title">Saved addresses</h1>
+      <div class="dash__addresses">
+        {%- for address in customer.addresses -%}
+          <div class="address-card">
+            {%- if address == customer.default_address -%}<span class="address-card__tag">Default</span>{%- endif -%}
+            <strong>{{ address.name }}</strong>
+            <p>{{ address.address1 }}{% if address.address2 != blank %}, {{ address.address2 }}{% endif %}<br>{{ address.city }}, {{ address.province }} {{ address.zip }}</p>
+            <small>{{ address.phone }}</small>
+            {%- form 'customer_address', address -%}
+              <input type="hidden" name="_method" value="delete">
+              <button class="cp-line__link" type="submit">{% render 'icon', name: 'trash' %} Delete</button>
+            {%- endform -%}
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <h2 class="dash__h2">Add a new address</h2>
+      {%- form 'customer_address', customer.new_address, class: 'dash__profile' -%}
+        {%- if form.errors -%}<p class="summary__msg is-error" role="alert">{{ form.errors | default_errors }}</p>{%- endif -%}
+        <label class="input"><span>First name</span><input name="address[first_name]" required autocomplete="given-name"></label>
+        <label class="input"><span>Last name</span><input name="address[last_name]" required autocomplete="family-name"></label>
+        <label class="input"><span>Address</span><input name="address[address1]" required autocomplete="address-line1"></label>
+        <label class="input"><span>Apartment, suite, etc.</span><input name="address[address2]" autocomplete="address-line2"></label>
+        <label class="input"><span>City</span><input name="address[city]" required autocomplete="address-level2"></label>
+        <label class="input"><span>State</span><input name="address[province]" required autocomplete="address-level1"></label>
+        <label class="input"><span>PIN code</span><input name="address[zip]" required inputmode="numeric" autocomplete="postal-code"></label>
+        <input type="hidden" name="address[country]" value="India">
+        <label class="input"><span>Phone</span><input name="address[phone]" type="tel" autocomplete="tel"></label>
+        <label class="check"><input type="checkbox" name="address[default]" value="1"><span class="check__box">{% render 'icon', name: 'check' %}</span>Set as default address</label>
+        <button class="btn btn--dark" type="submit">Add address</button>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Addresses" }
+{% endschema %}

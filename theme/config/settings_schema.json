@@ -1,0 +1,84 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Atire",
+    "theme_version": "0.1.0",
+    "theme_author": "Atire",
+    "theme_documentation_url": "https://github.com/AdiiSakhare/Atire",
+    "theme_support_url": "https://github.com/AdiiSakhare/Atire/issues"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      },
+      {
+        "type": "text",
+        "id": "instagram_handle",
+        "label": "Instagram handle",
+        "default": "@atire.india"
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping above (₹)",
+        "default": 999
+      }
+    ]
+  },
+  {
+    "name": "Welcome popup",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "welcome_enabled",
+        "label": "Show first-visit popup",
+        "default": true
+      },
+      {
+        "type": "image_picker",
+        "id": "welcome_image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "welcome_title",
+        "label": "Heading",
+        "default": "Your first tee is on us. Well, 10% of it."
+      },
+      {
+        "type": "textarea",
+        "id": "welcome_text",
+        "label": "Text",
+        "default": "Join the list for 10% off your first order, early access to Friday drops and members-only combos."
+      },
+      {
+        "type": "text",
+        "id": "welcome_code",
+        "label": "Discount code shown after sign-up",
+        "default": "WELCOME10",
+        "info": "Create this code in Shopify admin → Discounts."
+      }
+    ]
+  },
+  {
+    "name": "Size chart",
+    "settings": [
+      {
+        "type": "text",
+        "id": "size_chart_columns",
+        "label": "Columns (comma separated)",
+        "default": "Size, Chest, Length, Shoulder, Sleeve"
+      },
+      {
+        "type": "textarea",
+        "id": "size_chart_rows",
+        "label": "Rows (one per line, comma separated, inches)",
+        "default": "S,42,27.5,21,9\nM,44,28,22,9.5\nL,46,29,23,10\nXL,48,30,24,10.5\n2XL,50,31,25,11\n3XL,52,32,26,11.5"
+      }
+    ]
+  }
+]

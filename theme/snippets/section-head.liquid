@@ -1,0 +1,14 @@
+{%- comment -%}
+  Section heading: eyebrow → title → subtitle, optional "View all" link.
+  Usage: {% render 'section-head', eyebrow: '', title: '', sub: '', link: '', link_label: '', center: true %}
+{%- endcomment -%}
+<div class="section-head{% if center %} section-head--center{% endif %}">
+  <div class="section-head__text">
+    {%- if eyebrow != blank -%}<p class="eyebrow section-head__eyebrow" data-reveal>{{ eyebrow }}</p>{%- endif -%}
+    <h2 class="h-display-sm" data-reveal>{{ title }}</h2>
+    {%- if sub != blank -%}<p class="section-head__sub" data-reveal>{{ sub }}</p>{%- endif -%}
+  </div>
+  {%- if link != blank -%}
+    <a class="section-head__link" href="{{ link }}" data-reveal>{{ link_label | default: 'View all' }}<span>{% render 'icon', name: 'arrow-up-right' %}</span></a>
+  {%- endif -%}
+</div>

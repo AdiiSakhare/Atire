@@ -1,0 +1,23 @@
+{
+  "name": "Header",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "m1": { "type": "message", "settings": { "icon": "sparkle", "text": "Get free delivery on all prepaid orders" } },
+        "m2": { "type": "message", "settings": { "icon": "tag", "text": "Flat ₹100 off with code PREPAID100" } },
+        "m3": { "type": "message", "settings": { "icon": "return", "text": "7-day easy returns & exchange" } }
+      },
+      "block_order": ["m1", "m2", "m3"],
+      "settings": {}
+    },
+    "header": {
+      "type": "header",
+      "blocks": {},
+      "block_order": [],
+      "settings": { "menu": "main-menu", "trending_searches": "Oversized tees, Couple hoodies, Developer tees, Textees" }
+    }
+  },
+  "order": ["announcement-bar", "header"]
+}

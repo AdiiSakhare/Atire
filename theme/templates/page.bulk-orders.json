@@ -1,0 +1,169 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-bulk-orders",
+      "settings": {
+        "placeholder": "https://images.unsplash.com/photo-1559697242-7c922c6198c6?auto=format&fit=crop&w=1600&h=1100&q=75",
+        "eyebrow": "Bulk & Custom Orders",
+        "title": "Merch your team will actually wear.",
+        "text": "Custom tees and hoodies for startups, colleges, events and creators — designed with you, printed in-house, delivered pan-India."
+      },
+      "blocks": {
+        "use_case-1": {
+          "type": "use_case",
+          "settings": {
+            "text": "Startup & team merch"
+          }
+        },
+        "use_case-2": {
+          "type": "use_case",
+          "settings": {
+            "text": "College fests & clubs"
+          }
+        },
+        "use_case-3": {
+          "type": "use_case",
+          "settings": {
+            "text": "Events & conferences"
+          }
+        },
+        "use_case-4": {
+          "type": "use_case",
+          "settings": {
+            "text": "Creator drops"
+          }
+        },
+        "use_case-5": {
+          "type": "use_case",
+          "settings": {
+            "text": "Weddings & groups"
+          }
+        },
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "title": "Share your idea",
+            "text": "Tell us quantity, timeline and vibe. Logos and rough sketches welcome."
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "title": "Free mockups",
+            "text": "Our designers send digital mockups within 48 hours. Revise till it’s right."
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "title": "Sample & approve",
+            "text": "Optional physical sample for orders above 100 pieces."
+          }
+        },
+        "step-4": {
+          "type": "step",
+          "settings": {
+            "title": "Print & deliver",
+            "text": "Printed in-house in 7–10 days and shipped to one or many addresses."
+          }
+        },
+        "tier-1": {
+          "type": "tier",
+          "settings": {
+            "qty": "25 – 49",
+            "price": "₹649",
+            "note": "per tee",
+            "popular": false
+          }
+        },
+        "tier-2": {
+          "type": "tier",
+          "settings": {
+            "qty": "50 – 99",
+            "price": "₹579",
+            "note": "per tee",
+            "popular": true
+          }
+        },
+        "tier-3": {
+          "type": "tier",
+          "settings": {
+            "qty": "100 – 249",
+            "price": "₹519",
+            "note": "per tee",
+            "popular": false
+          }
+        },
+        "tier-4": {
+          "type": "tier",
+          "settings": {
+            "qty": "250+",
+            "price": "Custom",
+            "note": "best pricing",
+            "popular": false
+          }
+        },
+        "perk-1": {
+          "type": "perk",
+          "settings": {
+            "text": "240 GSM premium cotton"
+          }
+        },
+        "perk-2": {
+          "type": "perk",
+          "settings": {
+            "text": "Free design support"
+          }
+        },
+        "perk-3": {
+          "type": "perk",
+          "settings": {
+            "text": "Up to 4 print locations"
+          }
+        },
+        "perk-4": {
+          "type": "perk",
+          "settings": {
+            "text": "Individual name personalisation"
+          }
+        },
+        "perk-5": {
+          "type": "perk",
+          "settings": {
+            "text": "Pan-India multi-address shipping"
+          }
+        },
+        "perk-6": {
+          "type": "perk",
+          "settings": {
+            "text": "GST invoice"
+          }
+        }
+      },
+      "block_order": [
+        "use_case-1",
+        "use_case-2",
+        "use_case-3",
+        "use_case-4",
+        "use_case-5",
+        "step-1",
+        "step-2",
+        "step-3",
+        "step-4",
+        "tier-1",
+        "tier-2",
+        "tier-3",
+        "tier-4",
+        "perk-1",
+        "perk-2",
+        "perk-3",
+        "perk-4",
+        "perk-5",
+        "perk-6"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,15 @@
+/assets/images/placeholders/tee-blue-graphic.jpg
+/assets/images/placeholders/cat-printed.jpg
+/assets/images/placeholders/tee-college-survivor.jpg
+/assets/images/placeholders/tee-football-fans.jpg
+/assets/images/placeholders/tee-conversation-starter.jpg
+/assets/images/placeholders/tee-couple-roast.jpg
+/assets/images/placeholders/hoodie-manifest-love.jpg
+/assets/images/placeholders/cat-couple-hoodies.jpg
+/assets/images/placeholders/tee-same-different.jpg
+/assets/images/placeholders/cat-developers.jpg
+/assets/images/placeholders/cat-women.jpg
+/assets/images/placeholders/cat-couple-tees.jpg
+/assets/images/placeholders/cat-men.jpg
+/assets/images/placeholders/ugc-12.jpg
+/assets/images/placeholders/ugc-04.jpg

@@ -1,0 +1,41 @@
+<section class="container trust" aria-label="Why shop with {{ shop.name }}">
+  <ul class="trust__list">
+    {%- for block in section.blocks -%}
+      <li class="trust__item" data-reveal {{ block.shopify_attributes }}>
+        <span class="trust__icon">{% render 'icon', name: block.settings.icon %}</span>
+        <span><strong>{{ block.settings.title }}</strong><small>{{ block.settings.text }}</small></span>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Trust strip",
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "truck",
+          "options": [
+            { "value": "truck", "label": "Delivery" },
+            { "value": "return", "label": "Returns" },
+            { "value": "cash", "label": "Cash" },
+            { "value": "shield", "label": "Secure" },
+            { "value": "sparkle", "label": "Sparkle" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Free Shipping" },
+        { "type": "text", "id": "text", "label": "Text", "default": "On all prepaid orders" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Trust strip", "blocks": [{ "type": "item" }, { "type": "item" }, { "type": "item" }, { "type": "item" }] }]
+}
+{% endschema %}

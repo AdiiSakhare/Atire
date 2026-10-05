@@ -1,0 +1,25 @@
+name: Theme checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  theme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Build prototype
+        run: npm run build
+      - name: Build theme assets
+        run: npm run build:theme
+      - name: Theme assets are committed and current
+        run: git diff --exit-code -- theme/assets || (echo "theme/assets is out of date: run npm run build:theme and commit" && exit 1)
+      - name: Lint Liquid
+        run: npm run theme:check

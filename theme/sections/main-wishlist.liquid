@@ -1,0 +1,36 @@
+{%- comment -%}
+  Wishlist. Client-rendered from localStorage by js/sections/account.js (initWishlist), which clones
+  cards from <template data-card-library> (snippets/card-library.liquid, rendered in the layout).
+{%- endcomment -%}
+{% render 'page-hero', eyebrow: section.settings.eyebrow, title: section.settings.title, sub: section.settings.sub %}
+<section class="container wishlist" data-wishlist-page>
+  <div class="wishlist__bar" data-wl-bar hidden>
+    <p><strong data-wl-count>0</strong> saved items</p>
+    <div class="wishlist__actions">
+      <button class="btn btn--outline btn--sm btn--pill" type="button" data-wl-share>{% render 'icon', name: 'share' %} Share list</button>
+      <button class="btn btn--ghost btn--sm" type="button" data-wl-clear>Clear all</button>
+    </div>
+  </div>
+  <div class="wishlist__grid" data-wl-grid></div>
+  <div data-wl-empty hidden>
+    {%- assign empty_url = section.settings.empty_url | default: routes.all_products_collection_url -%}
+    {% render 'empty-state', icon: 'heart', title: section.settings.empty_title, text: section.settings.empty_text, cta: section.settings.empty_cta, url: empty_url %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Wishlist",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Saved for later" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Your Wishlist" },
+    { "type": "textarea", "id": "sub", "label": "Subheading", "default": "Hearted it? It lives here. Prices and stock update live." },
+    { "type": "header", "content": "Empty state" },
+    { "type": "text", "id": "empty_title", "label": "Heading", "default": "Nothing saved yet" },
+    { "type": "textarea", "id": "empty_text", "label": "Text", "default": "Tap the heart on anything you love and it’ll wait for you here — even if you leave." },
+    { "type": "text", "id": "empty_cta", "label": "Button label", "default": "Discover Bestsellers" },
+    { "type": "url", "id": "empty_url", "label": "Button link" }
+  ],
+  "presets": [{ "name": "Wishlist" }]
+}
+{% endschema %}

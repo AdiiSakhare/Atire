@@ -1,0 +1,41 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-404",
+      "settings": {
+        "placeholder": "cat-developers.jpg"
+      },
+      "blocks": {
+        "link-1": {
+          "type": "link",
+          "settings": {
+            "label": "Bestsellers",
+            "url": "/collections/bestseller"
+          }
+        },
+        "link-2": {
+          "type": "link",
+          "settings": {
+            "label": "New drops",
+            "url": "/collections/new"
+          }
+        },
+        "link-3": {
+          "type": "link",
+          "settings": {
+            "label": "Help center",
+            "url": "/pages/faq"
+          }
+        }
+      },
+      "block_order": [
+        "link-1",
+        "link-2",
+        "link-3"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

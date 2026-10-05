@@ -1,0 +1,283 @@
+{%- comment -%}
+  Main product section. Above the fold is a 1:1 build of the mockup.
+  JS: js/sections/main-product.js (reads the product JSON printed at the bottom).
+  Colour = option "Color", size = option "Size". Gallery images are linked to colours via variant images.
+{%- endcomment -%}
+{%- liquid
+  assign product = section.settings.product | default: product
+  assign color_option = product.options_with_values | where: 'name', 'Color' | first
+  assign size_option = product.options_with_values | where: 'name', 'Size' | first
+  assign discount = 0
+  if product.compare_at_price > product.price
+    assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
+  endif
+  assign rating = product.metafields.custom.rating_value.value
+  assign badge = product.metafields.custom.badge.value
+  assign chips = product.metafields.custom.chips.value
+  assign highlights = product.metafields.custom.highlights.value
+  assign low_delta = section.settings.lowest_price_delta | times: 100
+-%}
+<section class="main-product container" data-main-product data-handle="{{ product.handle }}" data-section-id="{{ section.id }}">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="{{ routes.root_url }}">Home</a>{% render 'icon', name: 'chevron-right' %}</li>
+      {%- assign crumb_collection = collection | default: product.collections.first -%}
+      {%- if crumb_collection -%}<li><a href="{{ crumb_collection.url }}">{{ crumb_collection.title }}</a>{% render 'icon', name: 'chevron-right' %}</li>{%- endif -%}
+      <li aria-current="page" data-product-breadcrumb>{% render 'product-title', product: product %}</li>
+    </ol>
+  </nav>
+
+  <div class="main-product__grid">
+    <div class="pdp-gallery" data-gallery>
+      <div class="pdp-gallery__frame">
+        <div class="pdp-gallery__viewport" data-gallery-viewport>
+          <ul class="pdp-gallery__track" data-gallery-track>
+            {%- for image in product.images -%}
+              <li class="pdp-gallery__slide" data-gallery-slide aria-roledescription="slide" aria-label="{{ forloop.index }} of {{ product.images.size }}">
+                {%- if forloop.first -%}
+                  {{ image | image_url: width: 1200 | image_tag: widths: '600, 900, 1200', sizes: '(min-width: 990px) 50vw, 100vw', fetchpriority: 'high', decoding: 'async', draggable: 'false', alt: image.alt }}
+                {%- else -%}
+                  {{ image | image_url: width: 1200 | image_tag: widths: '600, 900, 1200', sizes: '(min-width: 990px) 50vw, 100vw', loading: 'lazy', decoding: 'async', draggable: 'false', alt: image.alt }}
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+
+        {%- if badge != blank -%}<span class="chip chip--badge pdp-gallery__badge">{{ badge }}</span>{%- endif -%}
+
+        <div class="pdp-gallery__tools">
+          <button class="icon-btn icon-btn--sm icon-btn--nav" type="button" data-wishlist-toggle="{{ product.handle }}" aria-pressed="false" aria-label="Add to wishlist">{% render 'icon', name: 'heart' %}</button>
+          <button class="icon-btn icon-btn--sm icon-btn--nav" type="button" data-share aria-label="Share">{% render 'icon', name: 'share' %}</button>
+        </div>
+
+        <button class="icon-btn icon-btn--nav pdp-gallery__nav pdp-gallery__nav--prev" type="button" data-gallery-prev aria-label="Previous image">{% render 'icon', name: 'arrow-left' %}</button>
+        <button class="icon-btn icon-btn--nav pdp-gallery__nav pdp-gallery__nav--next" type="button" data-gallery-next aria-label="Next image">{% render 'icon', name: 'arrow-right' %}</button>
+
+        <div class="pdp-gallery__dots" role="tablist" aria-label="Choose image" data-gallery-dots>
+          {%- for image in product.images -%}
+            <button class="pdp-gallery__dot{% if forloop.first %} is-active{% endif %}" type="button" role="tab" aria-label="Image {{ forloop.index }}" data-gallery-dot="{{ forloop.index0 }}"></button>
+          {%- endfor -%}
+        </div>
+
+        <button class="pdp-gallery__zoom" type="button" data-gallery-zoom aria-label="View full screen">{% render 'icon', name: 'zoom' %}</button>
+      </div>
+
+      <ul class="pdp-gallery__thumbs" data-gallery-thumbs>
+        {%- for image in product.images -%}
+          <li>
+            <button class="pdp-gallery__thumb{% if forloop.first %} is-active{% endif %}" type="button" data-gallery-dot="{{ forloop.index0 }}" aria-label="Show image {{ forloop.index }}">
+              {{ image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}
+            </button>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div class="pdp-info" data-product-form>
+      <div class="pdp-info__head">
+        <p class="pdp-info__vendor">{{ product.vendor }}</p>
+        <h1 class="pdp-info__title" data-product-title>{{ product.title }}</h1>
+
+        <div class="price pdp-info__price" data-product-price>
+          <span class="price__current" data-price-current>{{ product.price | money_without_trailing_zeros }}</span>
+          <s class="price__compare" data-price-compare>{{ product.compare_at_price | money_without_trailing_zeros }}</s>
+          <span class="price__off" data-price-off>{{ discount }}% OFF</span>
+          <span class="price__note">Inclusive of all taxes</span>
+        </div>
+
+        <div class="pdp-info__meta">
+          {%- if section.settings.lowest_price_delta > 0 -%}
+            <span class="chip chip--amber" data-lowest-price>Get it for as low as {{ product.price | minus: low_delta | money_without_trailing_zeros }}</span>
+          {%- endif -%}
+          {%- if rating != blank -%}
+            <a class="pdp-info__rating" href="#reviews" data-scroll-to>
+              {% render 'stars', rating: rating %}
+              <span>{{ rating }}</span>
+              <span class="pdp-info__dot" aria-hidden="true"></span>
+              <span class="pdp-info__reviews">{{ product.metafields.custom.rating_count.value }} reviews</span>
+            </a>
+          {%- endif -%}
+        </div>
+
+        <ul class="pdp-info__chips">
+          {%- for chip in chips -%}<li class="chip">{{ chip }}</li>{%- endfor -%}
+        </ul>
+      </div>
+
+      <hr class="divider">
+
+      {%- if color_option -%}
+        <div class="pdp-option" role="group" aria-labelledby="opt-color">
+          <p class="pdp-option__label" id="opt-color">Select Color <span class="pdp-option__value" data-option-value="Color">{{ color_option.values.first.name | default: color_option.values.first }}</span></p>
+          <div class="swatches" role="radiogroup" aria-label="Color">
+            {%- for value in color_option.values -%}
+              {%- assign lower = value.name | downcase -%}
+              <button class="swatch" type="button" role="radio" style="--swatch: {% render 'swatch-color', value: value %}" aria-checked="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="{{ value.name }}" data-option="Color" data-value="{{ value.name }}"{% if lower == 'off white' or lower == 'beige' or lower == 'grey melange' or lower == 'white' %} data-light{% endif %}>{% render 'icon', name: 'check' %}</button>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if size_option -%}
+        <div class="pdp-option" role="group" aria-labelledby="opt-size">
+          <div class="pdp-option__row">
+            <p class="pdp-option__label" id="opt-size">Select Size <span class="pdp-option__value" data-option-value="Size"></span></p>
+            <button class="pdp-option__link" type="button" data-drawer-open="size-guide">{% render 'icon', name: 'ruler' %}Size guide</button>
+          </div>
+          <div class="sizes" role="radiogroup" aria-label="Size" data-size-group>
+            {%- for value in size_option.values -%}
+              <button class="size-pill" type="button" role="radio" aria-checked="{% if value == 'M' %}true{% else %}false{% endif %}" data-option="Size" data-value="{{ value }}">{{ value }}</button>
+            {%- endfor -%}
+          </div>
+          <p class="pdp-option__hint" data-stock-hint aria-live="polite"></p>
+        </div>
+      {%- endif -%}
+
+      <div class="pdp-info__ctas" data-main-ctas>
+        <div data-atc-slot>
+          <button class="btn btn--primary btn--block btn--lg" type="button" data-pdp-atc>Add to Cart</button>
+        </div>
+        <button class="btn btn--outline btn--block btn--lg" type="button" data-pdp-buy>Buy Now</button>
+      </div>
+
+      {%- if section.settings.social_proof != blank -%}
+        <p class="pdp-info__proof">
+          <span class="pdp-info__proof-icon">{% render 'icon', name: 'bolt' %}</span>
+          <span>{{ section.settings.social_proof }}</span>
+        </p>
+      {%- endif -%}
+
+      {%- assign offer_blocks = section.blocks | where: 'type', 'offer' -%}
+      {%- if offer_blocks.size > 0 -%}
+        <div class="pdp-offers">
+          <p class="pdp-section-title">Save extra with these offers</p>
+          <div class="pdp-offers__scroller no-scrollbar" data-lenis-prevent>
+            {%- for block in offer_blocks -%}
+              <div class="offer-card" {{ block.shopify_attributes }}>
+                <p class="offer-card__title">{{ block.settings.title }}</p>
+                <div class="offer-card__foot">
+                  <span class="offer-card__code">{% if block.settings.code != blank %}{{ block.settings.code }}{% else %}No code required!{% endif %}</span>
+                  {%- if block.settings.code != blank -%}
+                    <button class="offer-card__copy" type="button" data-copy="{{ block.settings.code }}" aria-label="Copy code {{ block.settings.code }}">{% render 'icon', name: 'copy' %}</button>
+                  {%- else -%}
+                    <span class="offer-card__copy" aria-hidden="true">{% render 'icon', name: 'check' %}</span>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      <div class="pdp-delivery">
+        <p class="pdp-section-title">Check delivery</p>
+        <form class="field" data-pincode-form novalidate>
+          <span class="field__icon">{% render 'icon', name: 'pin' %}</span>
+          <label class="visually-hidden" for="pincode">Pincode</label>
+          <input class="field__input" id="pincode" name="pincode" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit pincode" autocomplete="postal-code">
+          <button class="field__action" type="submit">Check</button>
+        </form>
+        <p class="pdp-delivery__result" data-pincode-result aria-live="polite"></p>
+      </div>
+
+      <ul class="pdp-trust">
+        {%- for block in section.blocks -%}{%- if block.type == 'trust' -%}
+          <li class="pdp-trust__item" {{ block.shopify_attributes }}>
+            <span class="pdp-trust__icon">{% render 'icon', name: block.settings.icon %}</span>
+            <span><strong>{{ block.settings.title }}</strong><small>{{ block.settings.text }}</small></span>
+          </li>
+        {%- endif -%}{%- endfor -%}
+      </ul>
+
+      <div class="pdp-details" data-accordion-group>
+        {%- if highlights != blank -%}
+          <details class="accordion" open>
+            <summary class="accordion__summary">Key Highlights<span class="icon">{% render 'icon', name: 'chevron-down' %}</span></summary>
+            <div class="accordion__content">
+              <dl class="pdp-highlights accordion__inner">
+                {%- for item in highlights -%}<div><dt>{{ item.label }}</dt><dd>{{ item.value }}</dd></div>{%- endfor -%}
+              </dl>
+            </div>
+          </details>
+        {%- endif -%}
+
+        {%- for block in section.blocks -%}{%- if block.type == 'accordion' -%}
+          <details class="accordion" {{ block.shopify_attributes }}>
+            <summary class="accordion__summary">{{ block.settings.title }}<span class="icon">{% render 'icon', name: 'chevron-down' %}</span></summary>
+            <div class="accordion__content">
+              <div class="accordion__inner">
+                {%- if block.settings.show_description -%}<p>{{ product.metafields.custom.tagline.value }}</p>{{ product.description }}{%- endif -%}
+                {{ block.settings.content }}
+                {%- if block.settings.show_size_chart_link -%}
+                  <button class="pdp-option__link" type="button" data-drawer-open="size-guide">{% render 'icon', name: 'ruler' %}View size chart</button>
+                {%- endif -%}
+                {%- if block.settings.show_sku -%}<p>SKU: <span data-variant-sku></span></p>{%- endif -%}
+              </div>
+            </div>
+          </details>
+        {%- endif -%}{%- endfor -%}
+      </div>
+
+      {%- for block in section.blocks -%}{%- if block.type == '@app' -%}{% render block %}{%- endif -%}{%- endfor -%}
+    </div>
+  </div>
+
+  <script type="application/json" data-product-json>{% render 'product-json', product: product %}</script>
+</section>
+
+{% render 'sticky-atc', product: product %}
+{% render 'size-guide', product: product %}
+
+{% schema %}
+{
+  "name": "Main product",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product (leave empty on product pages)" },
+    { "type": "number", "id": "lowest_price_delta", "label": "“As low as” discount (₹ off)", "default": 100, "info": "Shows “Get it for as low as …” with this much off. 0 hides it." },
+    { "type": "text", "id": "social_proof", "label": "Social proof line", "info": "e.g. 38 people bought this in the last 24 hours. Only use a real figure; empty hides it." }
+  ],
+  "blocks": [
+    {
+      "type": "offer",
+      "name": "Offer card",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Offer text", "default": "Get FLAT ₹100 OFF on all Prepaid orders above Rs.1,199." },
+        { "type": "text", "id": "code", "label": "Code (optional)" }
+      ]
+    },
+    {
+      "type": "trust",
+      "name": "Trust badge",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "truck",
+          "options": [
+            { "value": "truck", "label": "Delivery" },
+            { "value": "return", "label": "Returns" },
+            { "value": "cash", "label": "Cash" },
+            { "value": "shield", "label": "Secure" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Free Shipping" },
+        { "type": "text", "id": "text", "label": "Text", "default": "On all prepaid orders" }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Details accordion",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Heading", "default": "Product Description" },
+        { "type": "richtext", "id": "content", "label": "Content" },
+        { "type": "checkbox", "id": "show_description", "label": "Show the product description", "default": false },
+        { "type": "checkbox", "id": "show_size_chart_link", "label": "Show “View size chart” link", "default": false },
+        { "type": "checkbox", "id": "show_sku", "label": "Show the selected variant’s SKU", "default": false }
+      ]
+    },
+    { "type": "@app" }
+  ]
+}
+{% endschema %}

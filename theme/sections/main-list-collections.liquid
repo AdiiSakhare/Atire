@@ -1,0 +1,24 @@
+<header class="page-hero">
+  <div class="container">
+    <h1 class="page-hero__title" data-split>{{ section.settings.title }}</h1>
+  </div>
+</header>
+<section class="section container categories">
+  <ul class="categories__list">
+    {%- for collection in collections -%}
+      <li data-reveal>
+        <a class="category" href="{{ collection.url }}">
+          <span class="category__media">{%- if collection.image -%}{{ collection.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</span>
+          <span class="category__title">{{ collection.title }}</span>
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Collection list",
+  "settings": [{ "type": "text", "id": "title", "label": "Heading", "default": "All collections" }]
+}
+{% endschema %}

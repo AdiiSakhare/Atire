@@ -1,0 +1,12 @@
+{%- comment -%}
+  Prints the product catalogue the storefront scripts read (src/shopify/catalog.js).
+  Capped at 50 products (Liquid loop limit) — see docs/shopify-conversion-plan.md R1.
+  Object shape: snippets/product-json.liquid
+{%- endcomment -%}
+<script type="application/json" id="atire-catalog">
+[
+{%- for product in collections.all.products limit: 50 -%}
+  {% render 'product-json', product: product %}{% unless forloop.last %},{% endunless %}
+{%- endfor -%}
+]
+</script>

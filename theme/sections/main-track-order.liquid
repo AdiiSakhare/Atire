@@ -1,0 +1,118 @@
+{%- comment -%}
+  Track order (Shopify-native). The prototype tracked demo orders from localStorage; on Shopify, real tracking
+  lives on the order status page / customer account. Logged-in customers see their orders + carrier tracking
+  links; everyone else is pointed to the link in their confirmation email, or to an optional third-party
+  tracker (courier / Shiprocket) which the form submits to (GET: order, contact).
+  The demo hooks data-track / data-track-form are intentionally omitted so the demo JS does not intercept the form.
+{%- endcomment -%}
+{%- liquid
+  assign tracker_url = section.settings.tracking_url
+  assign form_action = tracker_url | default: routes.account_url
+  assign sub = section.settings.sub
+  assign help_url = section.settings.help_url | default: routes.root_url
+-%}
+{% render 'page-hero', eyebrow: section.settings.eyebrow, title: section.settings.title, sub: sub, center: true %}
+<section class="container track">
+  <form class="track__form" action="{{ form_action }}" method="get"{% if tracker_url != blank %} target="_blank" rel="noopener"{% endif %}>
+    <label class="input"><span>Order number</span><input name="order" placeholder="e.g. #1001" required></label>
+    <label class="input"><span>Mobile or email</span><input name="contact" required value="{{ customer.email }}"></label>
+    <button class="btn btn--dark btn--lg" type="submit">{% if tracker_url != blank %}Track{% else %}Find my order{% endif %}</button>
+  </form>
+  <p class="track__hint">
+    {%- if tracker_url != blank -%}
+      {{ section.settings.hint_tracker }}
+    {%- else -%}
+      {{ section.settings.hint_default }}
+    {%- endif -%}
+  </p>
+
+  <div class="track__result">
+    {%- if customer -%}
+      <div class="track__head">
+        <div>
+          <p class="eyebrow">Your orders</p>
+          <h2 class="track__status">Hi {{ customer.first_name | default: 'there' }}, here’s where they are</h2>
+        </div>
+        <div class="track__actions">
+          <a class="btn btn--outline btn--sm btn--pill" href="{{ help_url }}">Need help?</a>
+          <a class="btn btn--dark btn--sm btn--pill" href="{{ routes.account_url }}">Open my account</a>
+        </div>
+      </div>
+      {%- if customer.orders.size > 0 -%}
+        {%- for order in customer.orders limit: 5 -%}
+          <article class="order-card">
+            <div class="order-card__head">
+              <div><strong>{{ order.name }}</strong><small>Placed {{ order.created_at | date: '%-d %b %Y' }}</small></div>
+              <span class="order-card__status">{% render 'icon', name: 'truck' %} {{ order.fulfillment_status_label }}</span>
+            </div>
+            <div class="order-card__foot">
+              <span>
+                {%- assign tracked = false -%}
+                {%- for fulfillment in order.fulfillments -%}
+                  {%- if fulfillment.tracking_url != blank -%}
+                    {%- assign tracked = true -%}
+                    <a class="section-head__link" href="{{ fulfillment.tracking_url }}" target="_blank" rel="noopener">Track{% if fulfillment.tracking_company != blank %} with {{ fulfillment.tracking_company }}{% endif %}{% if fulfillment.tracking_number != blank %} · {{ fulfillment.tracking_number }}{% endif %}<span>{% render 'icon', name: 'arrow-up-right' %}</span></a>
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- unless tracked -%}Tracking appears here once your order ships.{%- endunless -%}
+              </span>
+              <a class="section-head__link" href="{{ order.customer_url }}">View order<span>{% render 'icon', name: 'arrow-up-right' %}</span></a>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- else -%}
+        <p class="text-muted">No orders on your account yet.</p>
+      {%- endif -%}
+    {%- else -%}
+      <div class="track__head">
+        <div>
+          <p class="eyebrow">Where’s my order?</p>
+          <h2 class="track__status">{{ section.settings.guest_title }}</h2>
+          <p class="text-muted">{{ section.settings.guest_text }}</p>
+        </div>
+        <div class="track__actions">
+          <a class="btn btn--outline btn--sm btn--pill" href="{{ help_url }}">Need help?</a>
+          <a class="btn btn--dark btn--sm btn--pill" href="{{ routes.account_login_url }}">Sign in to see orders</a>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="track__help">
+    {%- for block in section.blocks -%}
+      <div {{ block.shopify_attributes }}>{% render 'icon', name: block.settings.icon %}<span><strong>{{ block.settings.title }}</strong> {{ block.settings.text }}</span></div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Track order",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Order status" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Track your order" },
+    { "type": "textarea", "id": "sub", "label": "Subheading", "default": "Enter your order number and the mobile number or email used at checkout." },
+    { "type": "url", "id": "tracking_url", "label": "Third-party tracking URL (optional)", "info": "Courier / Shiprocket tracking page. When set, the form submits to it (GET: order, contact). Empty = the form opens the customer account." },
+    { "type": "url", "id": "help_url", "label": "“Need help?” link" },
+    { "type": "text", "id": "hint_default", "label": "Hint (no tracking URL)", "default": "Tip: your order confirmation email has a “View your order” link with live status. Or sign in to see all your orders." },
+    { "type": "text", "id": "hint_tracker", "label": "Hint (with tracking URL)", "default": "You’ll find the order number in your confirmation email." },
+    { "type": "header", "content": "Signed-out customers" },
+    { "type": "text", "id": "guest_title", "label": "Heading", "default": "Find your order status link" },
+    { "type": "textarea", "id": "guest_text", "label": "Text", "default": "Open your order confirmation or shipping email and tap “View your order” (or the tracking number) for live status. Signed-in customers can see every order and its tracking in their account." }
+  ],
+  "blocks": [
+    {
+      "type": "help",
+      "name": "Help item",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "bolt", "options": [
+          { "value": "bolt", "label": "Bolt" }, { "value": "return", "label": "Return" }, { "value": "truck", "label": "Truck" }, { "value": "shield", "label": "Shield" }
+        ] },
+        { "type": "text", "id": "title", "label": "Title", "default": "Fastest help" },
+        { "type": "text", "id": "text", "label": "Text", "default": "WhatsApp us your order number — we reply in under 10 minutes." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Track order" }]
+}
+{% endschema %}

@@ -1,0 +1,55 @@
+{%- comment -%} Tilted, overlapping photo strip with scroll-linked drift. JS: js/sections/ugc-tilt.js {%- endcomment -%}
+<section class="section ugc-tilt" data-ugc-tilt>
+  <div class="container section-head section-head--center">
+    <h2 class="h-display-sm" data-reveal>{{ section.settings.title }}</h2>
+    {%- if section.settings.subtitle != blank -%}<p class="section-head__sub" data-reveal>{{ section.settings.subtitle }}</p>{%- endif -%}
+  </div>
+
+  <div class="ugc-tilt__viewport">
+    <ul class="ugc-tilt__track" data-ugc-track>
+      {%- for block in section.blocks -%}
+        {%- assign photo_alt = 'Customer photo by ' | append: block.settings.handle -%}
+        <li class="ugc-tilt__card" style="--i: {{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          {% render 'responsive-image', image: block.settings.image, fallback: block.settings.placeholder, alt: photo_alt, width: 600, widths: '300, 450, 600', sizes: '280px' %}
+          <span class="ugc-tilt__handle">{% render 'icon', name: 'instagram' %}{{ block.settings.handle }}</span>
+        </li>
+      {%- endfor -%}
+      {%- comment -%} Duplicate set keeps the drift seamless {%- endcomment -%}
+      {%- for block in section.blocks -%}
+        <li class="ugc-tilt__card" style="--i: {{ forloop.index0 | plus: section.blocks.size }}" aria-hidden="true">
+          {% render 'responsive-image', image: block.settings.image, fallback: block.settings.placeholder, alt: '', width: 600, widths: '300, 450, 600', sizes: '280px' %}
+          <span class="ugc-tilt__handle">{% render 'icon', name: 'instagram' %}{{ block.settings.handle }}</span>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+
+  <div class="container ugc-tilt__cta" data-reveal>
+    {% render 'btn-arrow', url: section.settings.link, label: section.settings.cta_label, modifier: 'dark' %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Photo strip (UGC)",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Heading", "default": "Every Atire Starts a Conversation." },
+    { "type": "text", "id": "subtitle", "label": "Subheading", "default": "Real people. Real reactions. Tag us to get featured." },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Tag @atire.india to get featured" },
+    { "type": "url", "id": "link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "photo",
+      "name": "Photo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "placeholder", "label": "Placeholder image (asset file name or URL)" },
+        { "type": "text", "id": "handle", "label": "Instagram handle", "default": "@handle" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [{ "name": "Photo strip (UGC)", "blocks": [{ "type": "photo" }, { "type": "photo" }, { "type": "photo" }] }]
+}
+{% endschema %}

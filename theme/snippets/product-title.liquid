@@ -1,0 +1,2 @@
+{%- comment -%} Display title: metafield card_title, else the product title. {%- endcomment -%}
+{{- product.metafields.custom.card_title.value | default: product.title -}}

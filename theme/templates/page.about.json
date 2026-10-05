@@ -1,0 +1,311 @@
+{
+  "sections": {
+    "hero": {
+      "type": "about-hero",
+      "settings": {
+        "eyebrow": "Our Story",
+        "title": "We make tees that say the thing you were thinking.",
+        "text": "Atire started with one oversized tee, one inside joke and a group chat that wouldn’t stop asking where it was from.",
+        "placeholder": "hero-same-different.jpg"
+      }
+    },
+    "manifesto": {
+      "type": "about-manifesto",
+      "settings": {
+        "text": "Clothes should start conversations. Not small talk — real ones. The “where’s that from?”, the “that’s so me”, the stranger on the metro who laughs at your back. That’s the whole point."
+      }
+    },
+    "timeline": {
+      "type": "about-timeline",
+      "settings": {
+        "eyebrow": "How it started",
+        "title": "From a group chat to 2 lakh+ wardrobes"
+      },
+      "blocks": {
+        "milestone-1": {
+          "type": "milestone",
+          "settings": {
+            "year": "2022",
+            "title": "The first print",
+            "text": "Fifty tees, screen printed in a borrowed studio. Sold out to friends of friends in four days."
+          }
+        },
+        "milestone-2": {
+          "type": "milestone",
+          "settings": {
+            "year": "2023",
+            "title": "Textees go viral",
+            "text": "One “I’m here for the degree” photo later, our inbox became a full-time job."
+          }
+        },
+        "milestone-3": {
+          "type": "milestone",
+          "settings": {
+            "year": "2024",
+            "title": "The couple edit",
+            "text": "You kept buying two of everything. So we started designing them as pairs."
+          }
+        },
+        "milestone-4": {
+          "type": "milestone",
+          "settings": {
+            "year": "2025",
+            "title": "2 lakh+ fits shipped",
+            "text": "Our own print floor, 600+ original designs and a community that names half our drops."
+          }
+        }
+      },
+      "block_order": [
+        "milestone-1",
+        "milestone-2",
+        "milestone-3",
+        "milestone-4"
+      ]
+    },
+    "values": {
+      "type": "about-values",
+      "settings": {
+        "eyebrow": "What we stand for",
+        "title": "Four rules we don’t break"
+      },
+      "blocks": {
+        "value-1": {
+          "type": "value",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Original, always",
+            "text": "Every print is drawn in-house. No templates, no stock graphics, no copies."
+          }
+        },
+        "value-2": {
+          "type": "value",
+          "settings": {
+            "icon": "shield",
+            "title": "Built heavy",
+            "text": "240 GSM combed cotton tees and 320 GSM fleece. Made to survive 100 washes and your weekends."
+          }
+        },
+        "value-3": {
+          "type": "value",
+          "settings": {
+            "icon": "return",
+            "title": "Fair & easy",
+            "text": "Honest prices, 7-day returns and real humans on WhatsApp when something isn’t right."
+          }
+        },
+        "value-4": {
+          "type": "value",
+          "settings": {
+            "icon": "heart",
+            "title": "Community-made",
+            "text": "Half our drops start as your comments. You vote, we print."
+          }
+        }
+      },
+      "block_order": [
+        "value-1",
+        "value-2",
+        "value-3",
+        "value-4"
+      ]
+    },
+    "process": {
+      "type": "about-process",
+      "settings": {
+        "eyebrow": "The process",
+        "title": "How a tee becomes an Atire"
+      },
+      "blocks": {
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "step": "01",
+            "title": "Sketch",
+            "text": "Ideas from the community, sketched by our in-house illustrators.",
+            "placeholder": "ugc-04.jpg"
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "step": "02",
+            "title": "Sample",
+            "text": "Every print is tested on fabric for weight, colour and stretch.",
+            "placeholder": "cat-printed.jpg"
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "step": "03",
+            "title": "Print",
+            "text": "High-density screen printing in small batches, by hand.",
+            "placeholder": "tee-blue-graphic.jpg"
+          }
+        },
+        "step-4": {
+          "type": "step",
+          "settings": {
+            "step": "04",
+            "title": "Pack & ship",
+            "text": "Quality checked, packed plastic-free and out within 24 hours.",
+            "placeholder": "ugc-09.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "step-1",
+        "step-2",
+        "step-3",
+        "step-4"
+      ]
+    },
+    "stats": {
+      "type": "about-stats",
+      "settings": {},
+      "blocks": {
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "value": "2.4L+",
+            "label": "Happy customers"
+          }
+        },
+        "stat-2": {
+          "type": "stat",
+          "settings": {
+            "value": "600+",
+            "label": "Original prints"
+          }
+        },
+        "stat-3": {
+          "type": "stat",
+          "settings": {
+            "value": "4.7★",
+            "label": "Average rating"
+          }
+        },
+        "stat-4": {
+          "type": "stat",
+          "settings": {
+            "value": "28",
+            "label": "States delivered to"
+          }
+        }
+      },
+      "block_order": [
+        "stat-1",
+        "stat-2",
+        "stat-3",
+        "stat-4"
+      ]
+    },
+    "ugc-tilt": {
+      "type": "ugc-tilt",
+      "settings": {
+        "title": "Every Atire Starts a Conversation.",
+        "subtitle": "The community that inspires every drop.",
+        "cta_label": "Tag @atire.india to get featured"
+      },
+      "blocks": {
+        "photo-1": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "tee-college-survivor.jpg",
+            "handle": "@ananya.k"
+          }
+        },
+        "photo-2": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "tee-football-fans.jpg",
+            "handle": "@rohit_19"
+          }
+        },
+        "photo-3": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "tee-couple-roast.jpg",
+            "handle": "@thatcouple"
+          }
+        },
+        "photo-4": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-08.jpg",
+            "handle": "@meera.draws"
+          }
+        },
+        "photo-5": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "cat-women.jpg",
+            "handle": "@sana.m"
+          }
+        },
+        "photo-6": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-01.jpg",
+            "handle": "@kabir.fits"
+          }
+        },
+        "photo-7": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "tee-conversation-starter.jpg",
+            "handle": "@dev.ops.guy"
+          }
+        },
+        "photo-8": {
+          "type": "photo",
+          "settings": {
+            "placeholder": "ugc-11.jpg",
+            "handle": "@skatewithtara"
+          }
+        }
+      },
+      "block_order": [
+        "photo-1",
+        "photo-2",
+        "photo-3",
+        "photo-4",
+        "photo-5",
+        "photo-6",
+        "photo-7",
+        "photo-8"
+      ]
+    },
+    "rail": {
+      "type": "product-rail",
+      "settings": {
+        "title": "Start your collection",
+        "subtitle": "Our most-loved pieces.",
+        "source": "collection",
+        "limit": 8
+      }
+    },
+    "closing": {
+      "type": "closing-banner",
+      "settings": {
+        "title": "Wear What Speaks for You.",
+        "text": "Every design is crafted to reflect your personality, spark conversations, and become your everyday favorite.",
+        "cta": "Discover Your Next Favorite",
+        "url": "/collections/all",
+        "placeholder": "banner-rack.jpg",
+        "image_alt": "Atire tees on a rack"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "manifesto",
+    "timeline",
+    "values",
+    "process",
+    "stats",
+    "ugc-tilt",
+    "rail",
+    "closing"
+  ]
+}

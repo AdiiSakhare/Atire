@@ -1,0 +1,89 @@
+{%- comment -%} Journal (blog index). Articles come from the Shopify admin. JS: js/sections/content.js (category chips). {%- endcomment -%}
+{%- liquid
+  assign hero_eyebrow = section.settings.eyebrow
+  assign hero_title = section.settings.title | default: blog.title
+  assign hero_sub = section.settings.sub
+  assign news_title = section.settings.news_title
+  assign news_text = section.settings.news_text
+-%}
+{% render 'page-hero', eyebrow: hero_eyebrow, title: hero_title, sub: hero_sub %}
+{%- paginate blog.articles by 9 -%}
+<section class="container journal">
+  <nav class="journal__cats no-scrollbar" aria-label="Topics">
+    <button class="chip-toggle" type="button" aria-pressed="true" data-journal-cat="all">All</button>
+    {%- for tag in blog.all_tags -%}<button class="chip-toggle" type="button" aria-pressed="false" data-journal-cat="{{ tag }}">{{ tag }}</button>{%- endfor -%}
+  </nav>
+
+  {%- if blog.articles.size == 0 -%}
+    {% render 'empty-state', icon: 'sparkle', title: 'No stories yet', text: 'We’re writing. Check back soon.', cta: 'Shop the collection', url: routes.all_products_collection_url %}
+  {%- else -%}
+    {%- liquid
+      assign start_index = 0
+      if paginate.current_page == 1 and section.settings.show_featured
+        assign featured = blog.articles.first
+        assign start_index = 1
+      endif
+    -%}
+    {%- if featured -%}
+      {%- assign f_read = featured.content | strip_html | split: ' ' | size | divided_by: 200 | plus: 1 -%}
+      <a class="post-featured" href="{{ featured.url }}" data-post data-category="{{ featured.tags.first }}">
+        <span class="post-featured__media">
+          {%- if featured.image -%}{{ featured.image | image_url: width: 1400 | image_tag: widths: '600, 900, 1400', sizes: '(min-width: 990px) 50vw, 100vw', alt: featured.image.alt }}{%- else -%}{% render 'responsive-image', fallback: section.settings.placeholder, alt: '', width: 1400, sizes: '(min-width: 990px) 50vw, 100vw' %}{%- endif -%}
+        </span>
+        <span class="post-featured__body">
+          <span class="post__meta"><b>{{ featured.tags.first | default: blog.title }}</b> · {{ featured.published_at | date: '%b %d, %Y' }} · {{ f_read }} min read</span>
+          <span class="post-featured__title">{{ featured.title }}</span>
+          <span class="post__excerpt">{{ featured.excerpt_or_content | strip_html | truncate: 160 }}</span>
+          <span class="section-head__link">Read story<span>{% render 'icon', name: 'arrow-up-right' %}</span></span>
+        </span>
+      </a>
+    {%- endif -%}
+
+    <div class="posts">
+      {%- for article in blog.articles offset: start_index -%}
+        {%- assign a_read = article.content | strip_html | split: ' ' | size | divided_by: 200 | plus: 1 -%}
+        <a class="post" href="{{ article.url }}" data-post data-category="{{ article.tags.first }}" data-reveal>
+          <span class="post__media">
+            {%- if article.image -%}{{ article.image | image_url: width: 800 | image_tag: widths: '400, 800', sizes: '(min-width: 990px) 33vw, 100vw', loading: 'lazy', alt: article.image.alt }}{%- else -%}{% render 'responsive-image', fallback: section.settings.placeholder, alt: '', width: 800, sizes: '(min-width: 990px) 33vw, 100vw' %}{%- endif -%}
+          </span>
+          <span class="post__meta"><b>{{ article.tags.first | default: blog.title }}</b> · {{ a_read }} min read</span>
+          <span class="post__title">{{ article.title }}</span>
+          <span class="post__excerpt">{{ article.excerpt_or_content | strip_html | truncate: 140 }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  {%- if paginate.pages > 1 -%}
+    <nav class="pagination" aria-label="Pagination">
+      {%- if paginate.previous -%}<a class="btn btn--outline btn--sm btn--pill" href="{{ paginate.previous.url }}">Previous</a>{%- endif -%}
+      <span class="text-muted">Page {{ paginate.current_page }} of {{ paginate.pages }}</span>
+      {%- if paginate.next -%}<a class="btn btn--outline btn--sm btn--pill" href="{{ paginate.next.url }}">Next</a>{%- endif -%}
+    </nav>
+  {%- endif -%}
+
+  <div class="journal__news">
+    <div><h2 class="h-display-sm">{{ news_title }}</h2><p class="text-muted">{{ news_text }}</p></div>
+    {%- form 'customer', class: 'journal__form', data-newsletter: '' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <input type="email" name="contact[email]" placeholder="you@email.com" required aria-label="Email">
+      <button class="btn btn--dark" type="submit">Subscribe</button>
+    {%- endform -%}
+  </div>
+</section>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Journal",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Atire Journal" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Stories, style & behind the print", "info": "Empty = blog title." },
+    { "type": "textarea", "id": "sub", "label": "Subheading", "default": "Style guides, culture and the people who wear the conversation." },
+    { "type": "checkbox", "id": "show_featured", "label": "Feature the newest article on page 1", "default": true },
+    { "type": "text", "id": "placeholder", "label": "Placeholder image for articles without an image (asset file name or URL)" },
+    { "type": "text", "id": "news_title", "label": "Newsletter heading", "default": "Get the good stuff first" },
+    { "type": "text", "id": "news_text", "label": "Newsletter text", "default": "New stories, drops and members-only combos. Once a week, max." }
+  ]
+}
+{% endschema %}

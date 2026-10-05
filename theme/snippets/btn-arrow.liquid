@@ -1,0 +1,5 @@
+{%- comment -%} Pill + round ↗ button. Usage: {% render 'btn-arrow', url: '/x', label: 'Shop', modifier: 'light' %} {%- endcomment -%}
+<a class="btn-arrow{% if modifier %} btn-arrow--{{ modifier }}{% endif %}{% if class %} {{ class }}{% endif %}" href="{{ url }}"{% if attrs %} {{ attrs }}{% endif %}>
+  <span class="btn-arrow__label">{{ label }}</span>
+  <span class="btn-arrow__circle">{% render 'icon', name: 'arrow-up-right' %}</span>
+</a>

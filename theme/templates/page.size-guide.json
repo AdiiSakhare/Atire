@@ -1,0 +1,59 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-size-guide",
+      "settings": {
+        "chart_title": "Oversized Tees",
+        "chart_note": "Garment measurements in inches. Relaxed, boxy fit.",
+        "shop_url": "/collections/all"
+      },
+      "blocks": {
+        "tip-1": {
+          "type": "tip",
+          "settings": {
+            "label": "Chest",
+            "text": "Lay your best-fitting tee flat. Measure armpit to armpit and double it."
+          }
+        },
+        "tip-2": {
+          "type": "tip",
+          "settings": {
+            "label": "Length",
+            "text": "From the highest point of the shoulder straight down to the hem."
+          }
+        },
+        "tip-3": {
+          "type": "tip",
+          "settings": {
+            "label": "Shoulder",
+            "text": "Seam to seam across the back."
+          }
+        },
+        "fit-1": {
+          "type": "fit",
+          "settings": {
+            "title": "Oversized",
+            "text": "Dropped shoulder, boxy body, longer sleeve. Our signature. Take your usual size."
+          }
+        },
+        "fit-2": {
+          "type": "fit",
+          "settings": {
+            "title": "Relaxed",
+            "text": "Room to move without the drape. For a cleaner look, size down from your usual."
+          }
+        }
+      },
+      "block_order": [
+        "tip-1",
+        "tip-2",
+        "tip-3",
+        "fit-1",
+        "fit-2"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

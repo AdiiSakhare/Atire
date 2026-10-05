@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-cart",
+      "blocks": {
+        "offer-1": { "type": "offer", "settings": { "code": "PREPAID100", "label": "₹100 off prepaid orders above ₹1,199" } },
+        "offer-2": { "type": "offer", "settings": { "code": "WELCOME10", "label": "10% off your first order" } }
+      },
+      "block_order": ["offer-1", "offer-2"],
+      "settings": { "reserve_note": "Items in your cart aren’t reserved — checkout soon to avoid missing your size." }
+    },
+    "recommendations": {
+      "type": "product-rail",
+      "settings": { "title": "You may also like", "subtitle": "Bestsellers other people added alongside.", "source": "collection", "limit": 8 }
+    }
+  },
+  "order": ["main", "recommendations"]
+}

@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "eyebrow": "The Atire Journal",
+        "title": "Stories, style & behind the print",
+        "sub": "Style guides, culture and the people who wear the conversation.",
+        "show_featured": true,
+        "news_title": "Get the good stuff first",
+        "news_text": "New stories, drops and members-only combos. Once a week, max."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

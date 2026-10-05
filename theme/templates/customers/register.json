@@ -1,0 +1,45 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-register",
+      "blocks": {
+        "perk-1": {
+          "type": "perk",
+          "settings": {
+            "text": "10% off your first order"
+          }
+        },
+        "perk-2": {
+          "type": "perk",
+          "settings": {
+            "text": "Early access to Friday drops"
+          }
+        },
+        "perk-3": {
+          "type": "perk",
+          "settings": {
+            "text": "One-tap returns & order tracking"
+          }
+        },
+        "perk-4": {
+          "type": "perk",
+          "settings": {
+            "text": "Saved addresses & wishlist sync"
+          }
+        }
+      },
+      "block_order": [
+        "perk-1",
+        "perk-2",
+        "perk-3",
+        "perk-4"
+      ],
+      "settings": {
+        "placeholder": "tee-couple-roast.jpg"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,59 @@
+{%- comment -%}
+  Horizontal product rail. Source: a collection, or "recently viewed" (filled by JS from localStorage).
+  JS: js/components/rail.js, js/sections/recently-viewed.js
+{%- endcomment -%}
+{%- liquid
+  assign client = false
+  if section.settings.source == 'recently_viewed'
+    assign client = true
+  endif
+  assign source_collection = section.settings.collection | default: collections.all
+  if section.settings.source == 'related' and product
+    assign source_collection = product.collections.first | default: collections.all
+  endif
+-%}
+<section class="section container product-rail" data-rail id="{{ section.settings.anchor | default: section.id }}" {% if client %}data-client-rail="recently-viewed" hidden{% endif %}>
+  <div class="section-head">
+    <div>
+      <h2 class="h-display-sm" data-reveal>{{ section.settings.title }}</h2>
+      {%- if section.settings.subtitle != blank -%}<p class="section-head__sub" data-reveal>{{ section.settings.subtitle }}</p>{%- endif -%}
+    </div>
+    <div class="rail-nav">
+      <button class="icon-btn" type="button" data-rail-prev aria-label="Scroll left">{% render 'icon', name: 'arrow-left' %}</button>
+      <button class="icon-btn" type="button" data-rail-next aria-label="Scroll right">{% render 'icon', name: 'arrow-right' %}</button>
+    </div>
+  </div>
+
+  <div class="rail no-scrollbar" data-rail-track data-lenis-prevent-horizontal>
+    {%- unless client -%}
+      {%- for item in source_collection.products limit: section.settings.limit -%}
+        {%- if item.handle != product.handle -%}{% render 'product-card', product: item, modifier: 'compact' %}{%- endif -%}
+      {%- endfor -%}
+    {%- endunless -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product rail",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Heading", "default": "Fresh off the press" },
+    { "type": "text", "id": "subtitle", "label": "Subheading" },
+    {
+      "type": "select",
+      "id": "source",
+      "label": "Products",
+      "default": "collection",
+      "options": [
+        { "value": "collection", "label": "From a collection" },
+        { "value": "related", "label": "Related (same collection as the current product)" },
+        { "value": "recently_viewed", "label": "Recently viewed by the customer" }
+      ]
+    },
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Empty = all products." },
+    { "type": "range", "id": "limit", "label": "Products to show", "min": 4, "max": 16, "step": 1, "default": 8 },
+    { "type": "text", "id": "anchor", "label": "Anchor id (optional)" }
+  ],
+  "presets": [{ "name": "Product rail" }]
+}
+{% endschema %}

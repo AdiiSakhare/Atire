@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#111111">
+    <title>{{ page_title }}{% unless page_title contains shop.name %} — {{ shop.name }}{% endunless %}</title>
+    <meta name="description" content="{{ page_description | default: shop.description | escape }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    {%- if settings.favicon != blank -%}<link rel="icon" href="{{ settings.favicon | image_url: width: 64 }}">{%- endif -%}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <script defer data-lucide-cdn src="https://unpkg.com/lucide@1.52.0/dist/umd/lucide.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300..800&family=Montserrat:wght@600;700;800&display=swap">
+
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="template-{{ template.name }}">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    {% sections 'header-group' %}
+
+    <main id="main">{{ content_for_layout }}</main>
+
+    {% sections 'footer-group' %}
+
+    {%- render 'cart-drawer' -%}
+    {%- render 'quick-shop' -%}
+    {%- render 'welcome-popup' -%}
+    {%- render 'mobile-nav' -%}
+
+    {%- render 'card-library' -%}
+    {%- render 'catalog-json' -%}
+    <script type="application/json" id="atire-settings">{ "free_shipping_threshold": {{ settings.free_shipping_threshold | default: 999 | json }} }</script>
+    <script type="application/json" id="atire-cart">{{ cart | json }}</script>
+    <script>
+      window.Shopify = window.Shopify || {};
+      window.Shopify.routes = { root: {{ routes.root_url | json }} };
+    </script>
+
+    {%- render 'page-script' -%}
+  </body>
+</html>

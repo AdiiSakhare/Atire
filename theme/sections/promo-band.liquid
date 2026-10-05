@@ -1,0 +1,45 @@
+{%- comment -%} Full-bleed yellow combo band with a stack of cards. {%- endcomment -%}
+<section class="combo" data-combo>
+  <div class="container combo__inner">
+    <div class="combo__copy">
+      <p class="combo__kicker">{% render 'icon', name: 'bolt' %} {{ section.settings.kicker }}</p>
+      <h2 class="combo__title">{{ section.settings.title }} <span>for {{ section.settings.price }}</span></h2>
+      <p class="combo__text">{{ section.settings.text }} <s>{{ section.settings.compare }}</s></p>
+      {% render 'btn-arrow', url: section.settings.url, label: section.settings.cta, modifier: 'dark' %}
+    </div>
+    <div class="combo__stack" aria-hidden="true">
+      {%- for block in section.blocks -%}
+        <span class="combo__card" style="--i: {{ forloop.index0 }}" data-combo-card {{ block.shopify_attributes }}>{% render 'responsive-image', image: block.settings.image, fallback: block.settings.placeholder, alt: '', width: 600, widths: '300, 450, 600', sizes: '240px' %}</span>
+      {%- endfor -%}
+      <span class="combo__sticker">{{ section.settings.sticker_top }}<br><strong>{{ section.settings.price }}</strong></span>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Promo band",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Limited-time combo" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Any 3 Textees" },
+    { "type": "text", "id": "price", "label": "Price", "default": "₹1,999" },
+    { "type": "text", "id": "compare", "label": "Compare-at price", "default": "₹3,597" },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "text", "id": "sticker_top", "label": "Sticker text", "default": "3 for" },
+    { "type": "text", "id": "cta", "label": "Button label", "default": "Build Your Combo" },
+    { "type": "url", "id": "url", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Stack image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "placeholder", "label": "Placeholder image (asset file name or URL)" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [{ "name": "Promo band", "blocks": [{ "type": "card" }, { "type": "card" }, { "type": "card" }] }]
+}
+{% endschema %}

@@ -1,0 +1,37 @@
+<section class="section container">
+  {% render 'section-head', eyebrow: section.settings.eyebrow, title: section.settings.title, center: true %}
+  <ol class="process">
+    {%- for block in section.blocks -%}
+      <li class="process__step" data-reveal {{ block.shopify_attributes }}>
+        <div class="process__media">{% render 'responsive-image', image: block.settings.image, fallback: block.settings.placeholder, alt: '', width: 800, sizes: '(min-width: 900px) 25vw, 50vw' %}<span>{{ block.settings.step }}</span></div>
+        <h3>{{ block.settings.title }}</h3>
+        <p>{{ block.settings.text }}</p>
+      </li>
+    {%- endfor -%}
+  </ol>
+</section>
+
+{% schema %}
+{
+  "name": "Process steps",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The process" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "How a tee becomes an Atire" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "step", "label": "Step number", "default": "01" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Sketch" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Ideas from the community, sketched in-house." },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "placeholder", "label": "Placeholder image (asset file name or URL)" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [{ "name": "Process steps", "blocks": [{ "type": "step" }, { "type": "step" }, { "type": "step" }, { "type": "step" }] }]
+}
+{% endschema %}
