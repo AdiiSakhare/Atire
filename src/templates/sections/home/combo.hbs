@@ -1,0 +1,20 @@
+{{!-- Full-bleed yellow combo band. Shopify: sections/promo-band.liquid --}}
+<section class="combo" data-combo>
+  <div class="container combo__inner">
+    <div class="combo__copy">
+      <p class="combo__kicker">{{icon "bolt"}} {{home.combo.kicker}}</p>
+      <h2 class="combo__title">{{home.combo.title}} <span>for {{home.combo.price}}</span></h2>
+      <p class="combo__text">{{home.combo.text}} <s>{{home.combo.compare}}</s></p>
+      <a class="btn-arrow btn-arrow--dark" href="{{home.combo.url}}">
+        <span class="btn-arrow__label">Build Your Combo</span>
+        <span class="btn-arrow__circle">{{icon "arrow-up-right"}}</span>
+      </a>
+    </div>
+    <div class="combo__stack" aria-hidden="true">
+      {{#each home.combo.images}}
+        <span class="combo__card" style="--i: {{@index}}" data-combo-card><img src="{{this}}" alt="" loading="lazy" /></span>
+      {{/each}}
+      <span class="combo__sticker">3 for<br /><strong>₹1,999</strong></span>
+    </div>
+  </div>
+</section>

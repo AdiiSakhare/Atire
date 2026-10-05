@@ -1,0 +1,18 @@
+{{!-- Policy template (shipping, returns, privacy, terms). Shopify: shop.policies --}}
+{{> snippets/page-hero eyebrow="Policies" title=policy.title sub=(concat "Last updated " policy.updated)}}
+<section class="container policy">
+  <aside class="policy__nav">
+    <p class="summary__title">Policies</p>
+    <nav>{{#each policyLinks}}<a href="{{this.url}}" {{#if this.active}}aria-current="page"{{/if}}>{{this.title}}</a>{{/each}}</nav>
+    <div class="policy__help summary__box"><strong>Questions?</strong><p class="text-muted">Our support team replies within 2 hours on WhatsApp.</p><a class="section-head__link" href="/contact.html">Contact us<span>{{icon "arrow-up-right"}}</span></a></div>
+  </aside>
+  <div class="policy__body">
+    <ol class="policy__toc">{{#each policy.sections}}<li><a href="#s-{{@index}}" data-scroll-to>{{this.heading}}</a></li>{{/each}}</ol>
+    {{#each policy.sections}}
+      <section class="policy__section" id="s-{{@index}}">
+        <h2>{{this.heading}}</h2>
+        {{#each this.body}}<p>{{this}}</p>{{/each}}
+      </section>
+    {{/each}}
+  </div>
+</section>

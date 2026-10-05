@@ -1,0 +1,61 @@
+{{!-- Bulk & custom orders — B2B lead page. JS: generic demo form --}}
+<section class="bulk-hero">
+  <img class="bulk-hero__bg" src="{{bulk.hero.image}}" alt="" />
+  <div class="container bulk-hero__inner">
+    {{> snippets/breadcrumb}}
+    <p class="eyebrow">{{bulk.hero.eyebrow}}</p>
+    <h1 class="bulk-hero__title" data-split>{{bulk.hero.title}}</h1>
+    <p class="bulk-hero__text">{{bulk.hero.text}}</p>
+    <div class="bulk-hero__ctas">
+      <a class="btn-arrow" href="#bulk-form" data-scroll-to><span class="btn-arrow__label">Get a free quote</span><span class="btn-arrow__circle">{{icon "arrow-up-right"}}</span></a>
+      <span class="bulk-hero__note">{{icon "check-circle"}} Mockups in 48 hours · MOQ 25</span>
+    </div>
+    <ul class="bulk-hero__uses">{{#each bulk.useCases}}<li>{{this}}</li>{{/each}}</ul>
+  </div>
+</section>
+
+<section class="section container">
+  {{> snippets/section-head eyebrow="How it works" title="From idea to delivered in 2 weeks"}}
+  <ol class="steps">
+    {{#each bulk.steps}}
+      <li class="step" data-reveal><span class="step__num">0{{add @index 1}}</span><h3>{{this.title}}</h3><p>{{this.text}}</p></li>
+    {{/each}}
+  </ol>
+</section>
+
+<section class="section container">
+  {{> snippets/section-head eyebrow="Pricing" title="Transparent bulk pricing" sub="240 GSM oversized tee, 1 colour print, front + back. GST extra."}}
+  <div class="tiers">
+    {{#each bulk.tiers}}
+      <div class="tier{{#if this.popular}} tier--popular{{/if}}" data-reveal>
+        {{#if this.popular}}<span class="tier__tag">Most popular</span>{{/if}}
+        <p class="tier__qty">{{this.qty}} pcs</p>
+        <p class="tier__price">{{this.price}}</p>
+        <p class="tier__note">{{this.note}}</p>
+      </div>
+    {{/each}}
+  </div>
+  <ul class="perks">{{#each bulk.perks}}<li>{{icon "check-circle"}} {{this}}</li>{{/each}}</ul>
+</section>
+
+<section class="section container" id="bulk-form">
+  <div class="bulk-form">
+    <div class="bulk-form__intro">
+      <p class="eyebrow section-head__eyebrow">Get a quote</p>
+      <h2 class="h-display-sm">Tell us about your order</h2>
+      <p class="text-muted">We reply within one business day with pricing and timelines. No commitment.</p>
+    </div>
+    <form class="summary__box" data-demo-form data-success="Got it! Our merch team will reach out within one business day with mockups and a quote.">
+      <div class="form-grid">
+        <label class="input"><span>Name</span><input name="name" required /></label>
+        <label class="input"><span>Company / college</span><input name="org" /></label>
+        <label class="input"><span>Email</span><input name="email" type="email" required /></label>
+        <label class="input"><span>Phone</span><input name="phone" type="tel" required /></label>
+        <label class="input"><span>Quantity</span><select name="qty" required><option value="">Select</option><option>25 – 49</option><option>50 – 99</option><option>100 – 249</option><option>250+</option></select></label>
+        <label class="input"><span>Needed by</span><input name="date" type="date" /></label>
+        <label class="input input--full"><span>Tell us more</span><textarea name="brief" rows="4" placeholder="Products, colours, print idea, delivery city…"></textarea></label>
+      </div>
+      <button class="btn btn--primary btn--lg" type="submit">Request Quote</button>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,10 @@
+{{!-- Shopify: sections/announcement-bar.liquid (blocks = messages) --}}
+<div class="announcement" data-announcement role="region" aria-label="Store announcements">
+  <div class="announcement__track">
+    {{#each site.announcements}}
+      <p class="announcement__item{{#if @first}} is-active{{/if}}" {{#unless @first}}aria-hidden="true"{{/unless}}>
+        <span class="announcement__icon">{{icon this.icon}}</span>{{this.text}}
+      </p>
+    {{/each}}
+  </div>
+</div>

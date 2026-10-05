@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {{> layout/head}}
+  </head>
+  <body class="template-product">
+    {{> layout/top}}
+
+    <main id="main">
+      {{> sections/main-product}}
+      {{> sections/product-bundle}}
+      {{> sections/product-story}}
+      {{> sections/product-reviews}}
+      {{> sections/ugc-tilt title="Spotted in the wild." subtitle="How the Atire fam styles it. Every tee starts a conversation."}}
+      {{> sections/product-rail title="You may also like" subtitle="Picked for you based on this tee." products=recommendations id="recommendations"}}
+      {{> sections/product-rail title="Recently viewed" products=(array) clientRendered="recently-viewed"}}
+    </main>
+
+    {{> snippets/sticky-atc}}
+    {{> snippets/size-guide}}
+    {{> layout/bottom}}
+
+    <script type="module" src="/src/js/pages/product.js"></script>
+  </body>
+</html>

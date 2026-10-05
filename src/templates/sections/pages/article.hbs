@@ -1,0 +1,60 @@
+{{!-- Journal article. Server-renders the featured post; JS swaps by ?slug (demo). --}}
+<article class="article" data-article data-posts='{{json journal}}'>
+  <header class="container article__head">
+    {{> snippets/breadcrumb}}
+    <p class="post__meta"><b data-a-cat>{{post.category}}</b> · <span data-a-date>{{post.date}}</span> · <span data-a-read>{{post.read}}</span></p>
+    <h1 class="article__title" data-a-title>{{post.title}}</h1>
+    <p class="article__lede" data-a-lede>{{post.excerpt}}</p>
+    <div class="article__author"><span class="review-card__avatar">AT</span><span><strong>Team Atire</strong><small>Style desk</small></span></div>
+  </header>
+
+  <figure class="container article__hero"><img src="{{post.image}}" alt="" data-a-image /></figure>
+
+  <div class="container article__layout">
+    <div class="article__body" data-a-body>
+      <p>The oversized tee is the most forgiving item in your wardrobe — right up until it isn’t. Get the proportions wrong and it reads borrowed; get them right and it looks like a decision. Here’s how we style ours.</p>
+      <h2>1. Balance the volume</h2>
+      <p>If the top is big, keep the bottom intentional. Straight or slightly tapered trousers, cargos with a clean hem or bike shorts all work. Avoid pairing a boxy tee with equally baggy wide-legs unless you’re going for full streetwear.</p>
+      <blockquote>“A boxy tee needs one sharp line somewhere — a crisp hem, a clean sneaker or a structured bag.”</blockquote>
+      <h2>2. The front tuck is your friend</h2>
+      <p>A loose front tuck defines your waist without losing the drape. Tuck just the centre few inches into the waistband and let the sides fall naturally.</p>
+      <h2>3. Size like you mean it</h2>
+      <p>Our tees are cut oversized, so your usual size already gives the dropped-shoulder look. Size up only if you want it extra baggy — and check the size finder before you do.</p>
+      <h2>4. Let the print do the talking</h2>
+      <p>With a statement back print, keep everything else quiet: neutral bottoms, simple sneakers, minimal jewellery. The conversation should start with your tee.</p>
+    </div>
+
+    <aside class="article__aside">
+      <div class="summary__box">
+        <p class="summary__title">Shop the story</p>
+        <ul class="stl__list">
+          {{#each postProducts}}
+            <li class="stl__item stl__item--sm">
+              <a class="stl__thumb" href="{{this.url}}"><img src="{{this.images.[0].src}}" alt="" loading="lazy" /></a>
+              <div class="stl__info"><a class="stl__title" href="{{this.url}}">{{#if this.card_title}}{{this.card_title}}{{else}}{{this.title}}{{/if}}</a><div class="price"><span class="price__current">{{money this.price}}</span><s class="price__compare">{{money this.compare_at_price}}</s></div></div>
+              <button class="icon-btn icon-btn--sm" type="button" data-quick-shop="{{this.handle}}" aria-label="Quick add">{{icon "plus"}}</button>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+      <div class="article__share">
+        <span>Share</span>
+        <button class="icon-btn icon-btn--sm" type="button" data-copy="atire.in/journal" aria-label="Copy link">{{icon "copy"}}</button>
+        <a class="icon-btn icon-btn--sm" href="#" aria-label="Instagram">{{icon "instagram"}}</a>
+      </div>
+    </aside>
+  </div>
+</article>
+
+<section class="section container">
+  {{> snippets/section-head eyebrow="Keep reading" title="More from the Journal" link="/journal.html" linkLabel="All stories"}}
+  <div class="posts">
+    {{#each related}}
+      <a class="post" href="/article.html?slug={{this.slug}}" data-reveal>
+        <span class="post__media"><img src="{{this.image}}" alt="" loading="lazy" /></span>
+        <span class="post__meta"><b>{{this.category}}</b> · {{this.read}}</span>
+        <span class="post__title">{{this.title}}</span>
+      </a>
+    {{/each}}
+  </div>
+</section>

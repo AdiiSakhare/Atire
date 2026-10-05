@@ -1,0 +1,44 @@
+{{!-- Shopify: snippets/cart-drawer.liquid — line items rendered by js/components/cart-drawer.js --}}
+<aside class="drawer cart-drawer" id="cart-drawer" data-drawer data-cart-drawer aria-label="Your cart" aria-hidden="true">
+  <div class="drawer__head">
+    <h2 class="drawer__title">Your Cart <small data-cart-drawer-count></small></h2>
+    <button class="icon-btn icon-btn--sm" type="button" data-drawer-close aria-label="Close cart">{{icon "close"}}</button>
+  </div>
+
+  <div class="cart-drawer__ship" data-free-ship data-threshold="{{site.freeShippingThreshold}}">
+    <p class="cart-drawer__ship-text" data-free-ship-text></p>
+    <div class="cart-drawer__ship-bar"><span data-free-ship-bar></span></div>
+  </div>
+
+  <div class="drawer__body" data-lenis-prevent>
+    <ul class="cart-drawer__items" data-cart-items></ul>
+
+    <div class="cart-drawer__empty" data-cart-empty hidden>
+      <span class="cart-drawer__empty-icon">{{icon "bag"}}</span>
+      <p class="cart-drawer__empty-title">Your cart is feeling a little empty</p>
+      <p class="text-muted">Let’s fix that. Start with our bestsellers.</p>
+      <a class="btn-arrow" href="/shop.html">
+        <span class="btn-arrow__label">Shop Bestsellers</span>
+        <span class="btn-arrow__circle">{{icon "arrow-up-right"}}</span>
+      </a>
+    </div>
+
+    <div class="cart-drawer__upsell" data-cart-upsell hidden>
+      <p class="cart-drawer__upsell-title">Complete your look</p>
+      <div class="cart-drawer__upsell-list" data-cart-upsell-list></div>
+    </div>
+  </div>
+
+  <div class="drawer__foot cart-drawer__foot" data-cart-foot hidden>
+    <div class="cart-drawer__row">
+      <span>Subtotal</span>
+      <strong data-cart-subtotal></strong>
+    </div>
+    <p class="cart-drawer__savings" data-cart-savings></p>
+    <a class="btn btn--primary btn--block btn--lg" href="/cart.html">Checkout Securely</a>
+    <p class="cart-drawer__note">{{icon "shield"}} UPI, cards, wallets &amp; COD accepted</p>
+  </div>
+</aside>
+
+<div class="overlay" data-overlay></div>
+<div class="toast-stack" data-toasts aria-live="polite"></div>

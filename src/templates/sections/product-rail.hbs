@@ -1,0 +1,24 @@
+{{!--
+  Horizontal product rail with arrow controls.
+  Params: title, subtitle, products, id, (empty = client-rendered e.g. recently viewed)
+  Shopify: sections/product-recommendations.liquid
+  JS: js/components/rail.js
+--}}
+<section class="section container product-rail" data-rail {{#if id}}id="{{id}}"{{/if}} {{#if clientRendered}}data-client-rail="{{clientRendered}}" hidden{{/if}}>
+  <div class="section-head">
+    <div>
+      <h2 class="h-display-sm" data-reveal>{{title}}</h2>
+      {{#if subtitle}}<p class="section-head__sub" data-reveal>{{subtitle}}</p>{{/if}}
+    </div>
+    <div class="rail-nav">
+      <button class="icon-btn" type="button" data-rail-prev aria-label="Scroll left">{{icon "arrow-left"}}</button>
+      <button class="icon-btn" type="button" data-rail-next aria-label="Scroll right">{{icon "arrow-right"}}</button>
+    </div>
+  </div>
+
+  <div class="rail no-scrollbar" data-rail-track data-lenis-prevent-horizontal>
+    {{#each products}}
+      {{> snippets/product-card product=this modifier="compact"}}
+    {{/each}}
+  </div>
+</section>

@@ -1,0 +1,23 @@
+{{!--
+  Shop by vibe — oversized type list; hovering a row reveals a floating
+  image that follows the cursor. Mobile: image chips.
+  JS: js/sections/vibes.js
+--}}
+<section class="vibes-band" data-vibes>
+<div class="container vibes">
+  {{> snippets/section-head eyebrow="Shop by vibe" title="What’s your tee saying today?" link="/shop.html" linkLabel="Browse all prints"}}
+  <ul class="vibes__list">
+    {{#each home.vibes}}
+      <li data-reveal>
+        <a class="vibe" href="/shop.html?vibe={{slugify this.title}}" data-vibe-image="{{this.image}}">
+          <span class="vibe__thumb"><img src="{{this.image}}" alt="" loading="lazy" /></span>
+          <span class="vibe__title">{{this.title}}</span>
+          <span class="vibe__count">{{this.count}} designs</span>
+          <span class="vibe__arrow">{{icon "arrow-up-right"}}</span>
+        </a>
+      </li>
+    {{/each}}
+  </ul>
+  <div class="vibes__float" data-vibe-float aria-hidden="true"><img alt="" /></div>
+</div>
+</section>

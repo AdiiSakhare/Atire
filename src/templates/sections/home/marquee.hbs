@@ -1,0 +1,12 @@
+{{!-- Infinite text marquee — Shopify: sections/marquee.liquid --}}
+<div class="marquee" data-marquee aria-label="{{join home.marquee ' · '}}">
+  <div class="marquee__track" aria-hidden="true">
+    {{#times 2}}
+      <ul class="marquee__group">
+        {{#each @root.home.marquee}}
+          <li>{{this}}<span class="marquee__star">{{icon "sparkle"}}</span></li>
+        {{/each}}
+      </ul>
+    {{/times}}
+  </div>
+</div>

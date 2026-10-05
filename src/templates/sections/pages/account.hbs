@@ -1,0 +1,105 @@
+{{!--
+  Account: sign-in / sign-up (demo) and a dashboard with orders, addresses
+  and profile. Shopify: customer accounts (templates/customers/*).
+  JS: js/sections/account.js
+--}}
+<section class="container account" data-account>
+  {{!-- Signed out --}}
+  <div class="auth" data-auth>
+    <div class="auth__media">
+      <img src="/assets/images/placeholders/tee-couple-roast.jpg" alt="" />
+      <div class="auth__media-copy">
+        <p class="eyebrow">Members get more</p>
+        <ul>
+          <li>{{icon "check-circle"}} 10% off your first order</li>
+          <li>{{icon "check-circle"}} Early access to Friday drops</li>
+          <li>{{icon "check-circle"}} One-tap returns & order tracking</li>
+          <li>{{icon "check-circle"}} Saved addresses & wishlist sync</li>
+        </ul>
+      </div>
+    </div>
+    <div class="auth__panel">
+      <div class="auth__tabs" role="tablist">
+        <button type="button" role="tab" aria-selected="true" data-auth-tab="login">Sign in</button>
+        <button type="button" role="tab" aria-selected="false" data-auth-tab="signup">Create account</button>
+      </div>
+
+      <form class="auth__form" data-auth-form="login">
+        <h1 class="auth__title">Welcome back</h1>
+        <p class="text-muted">Sign in with your mobile number — we’ll send a one-time code.</p>
+        <label class="input"><span>Mobile number</span><input name="phone" type="tel" inputmode="numeric" placeholder="10-digit mobile" required pattern="[6-9][0-9]{9}" /></label>
+        <div class="auth__otp" data-otp hidden>
+          <label class="input"><span>Enter OTP <small>(demo: any 4 digits)</small></span><input name="otp" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" /></label>
+        </div>
+        <button class="btn btn--dark btn--block btn--lg" type="submit" data-auth-submit>Send OTP</button>
+        <p class="auth__fine">By continuing you agree to our <a href="/terms.html">Terms</a> & <a href="/privacy.html">Privacy Policy</a>.</p>
+      </form>
+
+      <form class="auth__form" data-auth-form="signup" hidden>
+        <h1 class="auth__title">Join the Atire fam</h1>
+        <p class="text-muted">Takes 20 seconds. Your 10% welcome code is waiting.</p>
+        <label class="input"><span>Full name</span><input name="name" required autocomplete="name" /></label>
+        <label class="input"><span>Mobile number</span><input name="phone" type="tel" inputmode="numeric" required pattern="[6-9][0-9]{9}" /></label>
+        <label class="input"><span>Email</span><input name="email" type="email" required autocomplete="email" /></label>
+        <button class="btn btn--dark btn--block btn--lg" type="submit">Create Account</button>
+      </form>
+    </div>
+  </div>
+
+  {{!-- Signed in --}}
+  <div class="dash" data-dash hidden>
+    <aside class="dash__nav">
+      <div class="dash__user">
+        <span class="dash__avatar" data-dash-initials>A</span>
+        <div><strong data-dash-name>Friend</strong><small data-dash-phone></small></div>
+      </div>
+      <nav role="tablist" aria-label="Account sections">
+        <button type="button" role="tab" aria-selected="true" data-dash-tab="overview">{{icon "home"}} Overview</button>
+        <button type="button" role="tab" aria-selected="false" data-dash-tab="orders">{{icon "bag"}} Orders</button>
+        <a href="/wishlist.html">{{icon "heart"}} Wishlist</a>
+        <button type="button" role="tab" aria-selected="false" data-dash-tab="addresses">{{icon "pin"}} Addresses</button>
+        <button type="button" role="tab" aria-selected="false" data-dash-tab="profile">{{icon "user"}} Profile</button>
+        <button type="button" data-logout>{{icon "arrow-right"}} Sign out</button>
+      </nav>
+    </aside>
+
+    <div class="dash__main">
+      <section data-dash-panel="overview">
+        <h1 class="page-hero__title">Hey <span data-dash-first>there</span> 👋</h1>
+        <div class="dash__cards">
+          <div class="dash__card"><small>Orders</small><strong data-dash-orders>0</strong></div>
+          <div class="dash__card"><small>Wishlist</small><strong data-dash-wish>0</strong></div>
+          <div class="dash__card dash__card--accent"><small>Store credit</small><strong>₹0</strong></div>
+          <div class="dash__card"><small>Member since</small><strong data-dash-since>—</strong></div>
+        </div>
+        <div class="dash__promo">
+          <div><p class="eyebrow">Your welcome gift</p><p class="dash__promo-title">10% off your next order</p></div>
+          <button class="welcome__code" type="button" data-copy="WELCOME10">WELCOME10 <span>{{icon "copy"}}</span></button>
+        </div>
+        <h2 class="dash__h2">Recent orders</h2>
+        <div data-dash-recent></div>
+      </section>
+
+      <section data-dash-panel="orders" hidden>
+        <h1 class="page-hero__title">Your orders</h1>
+        <div data-dash-order-list></div>
+      </section>
+
+      <section data-dash-panel="addresses" hidden>
+        <h1 class="page-hero__title">Saved addresses</h1>
+        <div class="dash__addresses" data-dash-addresses></div>
+      </section>
+
+      <section data-dash-panel="profile" hidden>
+        <h1 class="page-hero__title">Profile</h1>
+        <form class="dash__profile" data-profile-form>
+          <label class="input"><span>Full name</span><input name="name" /></label>
+          <label class="input"><span>Email</span><input name="email" type="email" /></label>
+          <label class="input"><span>Mobile</span><input name="phone" disabled /></label>
+          <label class="check"><input type="checkbox" name="news" checked /><span class="check__box">{{icon "check"}}</span>Tell me about new drops & offers</label>
+          <button class="btn btn--dark" type="submit">Save changes</button>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+{{!-- Wishlist — cards cloned from the card library. JS: js/sections/account.js --}}
+{{> snippets/page-hero eyebrow="Saved for later" title="Your Wishlist" sub="Hearted it? It lives here. Prices and stock update live."}}
+<section class="container wishlist" data-wishlist-page>
+  <div class="wishlist__bar" data-wl-bar hidden>
+    <p><strong data-wl-count>0</strong> saved items</p>
+    <div class="wishlist__actions">
+      <button class="btn btn--outline btn--sm btn--pill" type="button" data-wl-share>{{icon "share"}} Share list</button>
+      <button class="btn btn--ghost btn--sm" type="button" data-wl-clear>Clear all</button>
+    </div>
+  </div>
+  <div class="wishlist__grid" data-wl-grid></div>
+  <div data-wl-empty hidden>
+    {{> snippets/empty-state icon="heart" title="Nothing saved yet" text="Tap the heart on anything you love and it’ll wait for you here — even if you leave." cta="Discover Bestsellers" url="/shop.html?c=bestseller"}}
+  </div>
+</section>

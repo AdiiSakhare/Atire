@@ -1,0 +1,14 @@
+{{!-- Breadcrumb trail. Expects `breadcrumbs` [{title,url}] — last item is the current page --}}
+{{#if breadcrumbs}}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    {{#each breadcrumbs}}
+      {{#if @last}}
+        <li aria-current="page" {{#if ../breadcrumbAttr}}{{../breadcrumbAttr}}{{/if}}>{{this.title}}</li>
+      {{else}}
+        <li><a href="{{this.url}}">{{this.title}}</a>{{icon "chevron-right"}}</li>
+      {{/if}}
+    {{/each}}
+  </ol>
+</nav>
+{{/if}}

@@ -1,0 +1,84 @@
+{{!-- Shopify: sections/header.liquid — menu from linklists, mega menus as blocks --}}
+<header class="site-header" data-header>
+  <div class="site-header__bar container">
+    <div class="site-header__left">
+      <button class="icon-btn site-header__burger" type="button" data-drawer-open="menu-drawer" aria-label="Open menu">
+        {{icon "menu"}}
+      </button>
+
+      <nav class="site-nav" aria-label="Primary">
+        <ul class="site-nav__list">
+          {{#each site.nav}}
+            <li class="site-nav__item{{#if this.mega}} has-mega{{/if}}" {{#if this.mega}}data-mega{{/if}}>
+              <a class="site-nav__link" href="{{this.url}}" {{#if this.mega}}aria-haspopup="true" aria-expanded="false"{{/if}}>
+                {{this.title}}
+              </a>
+
+              {{#if this.mega}}
+                <div class="mega" data-mega-panel>
+                  <div class="mega__inner container">
+                    <div class="mega__columns">
+                      {{#each this.mega.columns}}
+                        <div class="mega__col">
+                          <p class="mega__title">{{this.title}}</p>
+                          <ul>
+                            {{#each this.links}}
+                              <li><a class="mega__link" href="/shop.html?q={{this}}">{{this}}</a></li>
+                            {{/each}}
+                          </ul>
+                        </div>
+                      {{/each}}
+                    </div>
+                    <div class="mega__cards">
+                      {{#each this.mega.cards}}
+                        <a class="mega-card" href="{{this.url}}">
+                          <img src="{{this.image}}" alt="" loading="lazy" />
+                          <span class="mega-card__label">{{this.title}} <span class="mega-card__arrow">{{icon "arrow-up-right"}}</span></span>
+                        </a>
+                      {{/each}}
+                    </div>
+                  </div>
+                </div>
+              {{/if}}
+            </li>
+          {{/each}}
+        </ul>
+      </nav>
+    </div>
+
+    <a class="site-header__logo" href="/" aria-label="Atire home">{{> snippets/logo}}</a>
+
+    <div class="site-header__actions">
+      <button class="icon-btn" type="button" data-search-open aria-label="Search">{{icon "search"}}</button>
+      <a class="icon-btn site-header__wish" href="/wishlist.html" aria-label="Wishlist">
+        {{icon "heart"}}
+        <span class="icon-btn__badge" data-wishlist-count></span>
+      </a>
+      <button class="icon-btn" type="button" data-drawer-open="cart-drawer" aria-label="Open cart">
+        {{icon "bag"}}
+        <span class="icon-btn__badge" data-cart-count></span>
+      </button>
+      <a class="icon-btn site-header__account" href="/account.html" aria-label="Account">{{icon "user"}}</a>
+    </div>
+  </div>
+</header>
+
+{{!-- Search overlay --}}
+<div class="search" data-search hidden>
+  <div class="search__panel container">
+    <form class="search__form" action="/shop.html" role="search">
+      <span class="search__icon">{{icon "search"}}</span>
+      <input class="search__input" type="search" name="q" placeholder="Search tees, hoodies, couple sets…" autocomplete="off" data-search-input />
+      <button class="icon-btn icon-btn--sm" type="button" data-search-close aria-label="Close search">{{icon "close"}}</button>
+    </form>
+    <div class="search__results" data-search-results hidden></div>
+    <div class="search__suggest" data-search-suggest>
+      <p class="eyebrow">Trending searches</p>
+      <div class="search__chips">
+        {{#each (array "Oversized tees" "Couple hoodies" "Developer tees" "Textees" "Under ₹999")}}
+          <a class="chip-toggle" href="/shop.html?q={{this}}">{{icon "arrow-up-right"}}{{this}}</a>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>

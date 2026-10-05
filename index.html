@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {{> layout/head}}
+  </head>
+  <body class="template-index">
+    {{> layout/top}}
+
+    <main id="main">
+      {{!-- Order follows intent: hook → offer → browse → products early → inspire → proof → reassure --}}
+      {{> sections/home/hero}}
+      {{> sections/home/marquee}}
+      {{> sections/home/ticket}}
+      {{> sections/home/categories}}
+      {{> sections/product-rail title="Pick up where you left off" subtitle="The ones you were eyeing. Still here — for now." products=(array) clientRendered="recently-viewed"}}
+      {{> sections/home/product-tabs}}
+      {{> sections/home/deals}}
+      {{> sections/home/campaigns}}
+      {{> sections/home/shop-the-look}}
+      {{> sections/home/feature}}
+      {{> sections/home/combo}}
+      {{> sections/ugc-tilt title="Every Atire Starts a Conversation." subtitle="Real people. Real reactions. Tag us to get featured."}}
+      {{> sections/home/vibes}}
+      {{> sections/product-rail title="Fresh off the press" subtitle="New prints drop every Friday at 7 PM." products=newArrivals id="new-arrivals"}}
+      {{> sections/home/ugc-wall}}
+      {{> sections/home/testimonials}}
+      {{> sections/home/trust}}
+      {{> sections/home/closing}}
+    </main>
+
+    {{> layout/bottom}}
+    <script type="module" src="/src/js/pages/home.js"></script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+{{!--
+  Full cart page. Line items + summary render from the cart store.
+  Shopify: sections/main-cart-items.liquid + main-cart-footer.liquid
+  JS: js/sections/cart-page.js
+--}}
+<section class="container cart-page" data-cart-page>
+  <div class="checkout-steps" aria-label="Checkout progress">
+    <span class="is-active">1 · Cart</span><span>2 · Details</span><span>3 · Payment</span>
+  </div>
+
+  <div class="cart-page__head">
+    <h1 class="page-hero__title">Your Cart <span class="cart-page__count" data-cp-count></span></h1>
+    <a class="section-head__link" href="/shop.html">Continue shopping<span>{{icon "arrow-up-right"}}</span></a>
+  </div>
+
+  <div class="cart-page__ship" data-cp-ship>
+    <p data-cp-ship-text></p>
+    <div class="cart-drawer__ship-bar"><span data-cp-ship-bar></span></div>
+  </div>
+
+  <div class="cart-page__layout" data-cp-layout>
+    <div class="cart-page__items">
+      <ul class="cart-page__list" data-cp-items></ul>
+      <div class="cart-page__notes">
+        <p>{{icon "shield"}} Items in your cart aren’t reserved — checkout soon to avoid missing your size.</p>
+      </div>
+    </div>
+
+    <aside class="summary" data-cp-summary>
+      <div class="summary__coupon">
+        <p class="summary__title">{{icon "tag"}} Apply coupon</p>
+        <form class="field" data-coupon-form>
+          <label class="visually-hidden" for="coupon">Coupon code</label>
+          <input class="field__input" id="coupon" name="coupon" placeholder="Enter code" autocomplete="off" />
+          <button class="field__action" type="submit">Apply</button>
+        </form>
+        <p class="summary__msg" data-coupon-msg aria-live="polite"></p>
+        <div class="summary__offers" data-coupon-offers></div>
+      </div>
+
+      <div class="summary__box">
+        <p class="summary__title">Price details</p>
+        <dl class="summary__rows" data-summary-rows></dl>
+        <p class="summary__savings" data-summary-savings></p>
+        <a class="btn btn--primary btn--block btn--lg" href="/checkout.html" data-cp-checkout>Proceed to Checkout</a>
+        <ul class="summary__trust">
+          <li>{{icon "shield"}} 100% secure payments</li>
+          <li>{{icon "return"}} 7-day easy returns</li>
+          <li>{{icon "cash"}} COD available</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <div class="cart-page__empty" data-cp-empty hidden>
+    {{> snippets/empty-state icon="bag" title="Your cart is feeling a little empty" text="Let’s fix that. Our bestsellers are a great place to start." cta="Shop Bestsellers" url="/shop.html?c=bestseller"}}
+  </div>
+</section>
+
+{{!-- Sticky mobile checkout bar --}}
+<div class="cart-mobile-bar" data-cp-mobile-bar>
+  <div><small>Total</small><strong data-cp-mobile-total></strong></div>
+  <a class="btn btn--primary btn--lg" href="/checkout.html">Checkout</a>
+</div>

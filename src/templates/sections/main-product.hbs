@@ -1,0 +1,254 @@
+{{!--
+  Shopify: sections/main-product.liquid
+  Above the fold is a 1:1 build of the mockup; everything after the offers
+  row is new (delivery check, trust, details accordions).
+  JS: js/sections/main-product.js
+--}}
+<section class="main-product container" data-main-product data-handle="{{product.handle}}">
+  {{> snippets/breadcrumb breadcrumbs=(crumbsWith breadcrumbs product.card_title) breadcrumbAttr="data-product-breadcrumb"}}
+
+  <div class="main-product__grid">
+    {{!-- Gallery --------------------------------------------------------- --}}
+    <div class="pdp-gallery" data-gallery>
+      <div class="pdp-gallery__frame">
+        <div class="pdp-gallery__viewport" data-gallery-viewport>
+          <ul class="pdp-gallery__track" data-gallery-track>
+            {{#each product.images}}
+              <li class="pdp-gallery__slide" data-gallery-slide aria-roledescription="slide" aria-label="{{add @index 1}} of {{../product.images.length}}">
+                <img
+                  src="{{this.src}}"
+                  alt="{{this.alt}}"
+                  {{#if @first}}fetchpriority="high"{{else}}loading="lazy"{{/if}}
+                  decoding="async"
+                  draggable="false"
+                />
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+
+        {{#if product.badge}}<span class="chip chip--badge pdp-gallery__badge">{{product.badge}}</span>{{/if}}
+
+        <div class="pdp-gallery__tools">
+          <button class="icon-btn icon-btn--sm icon-btn--nav" type="button" data-wishlist-toggle="{{product.handle}}" aria-pressed="false" aria-label="Add to wishlist">{{icon "heart"}}</button>
+          <button class="icon-btn icon-btn--sm icon-btn--nav" type="button" data-share aria-label="Share">{{icon "share"}}</button>
+        </div>
+
+        <button class="icon-btn icon-btn--nav pdp-gallery__nav pdp-gallery__nav--prev" type="button" data-gallery-prev aria-label="Previous image">{{icon "arrow-left"}}</button>
+        <button class="icon-btn icon-btn--nav pdp-gallery__nav pdp-gallery__nav--next" type="button" data-gallery-next aria-label="Next image">{{icon "arrow-right"}}</button>
+
+        <div class="pdp-gallery__dots" role="tablist" aria-label="Choose image" data-gallery-dots>
+          {{#each product.images}}
+            <button class="pdp-gallery__dot{{#if @first}} is-active{{/if}}" type="button" role="tab" aria-label="Image {{add @index 1}}" data-gallery-dot="{{@index}}"></button>
+          {{/each}}
+        </div>
+
+        <button class="pdp-gallery__zoom" type="button" data-gallery-zoom aria-label="View full screen">{{icon "zoom"}}</button>
+      </div>
+
+      <ul class="pdp-gallery__thumbs" data-gallery-thumbs>
+        {{#each product.images}}
+          <li>
+            <button class="pdp-gallery__thumb{{#if @first}} is-active{{/if}}" type="button" data-gallery-dot="{{@index}}" aria-label="Show image {{add @index 1}}">
+              <img src="{{this.src}}" alt="" loading="lazy" />
+            </button>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+
+    {{!-- Info panel ------------------------------------------------------- --}}
+    <div class="pdp-info" data-product-form>
+      <div class="pdp-info__head">
+        <p class="pdp-info__vendor">{{product.vendor}}</p>
+        <h1 class="pdp-info__title" data-product-title>{{product.title}}</h1>
+
+        <div class="price pdp-info__price" data-product-price>
+          <span class="price__current" data-price-current>{{money product.price}}</span>
+          <s class="price__compare" data-price-compare>{{money product.compare_at_price}}</s>
+          <span class="price__off" data-price-off>{{discount product.price product.compare_at_price}}% OFF</span>
+          <span class="price__note">Inclusive of all taxes</span>
+        </div>
+
+        <div class="pdp-info__meta">
+          <span class="chip chip--amber" data-lowest-price>Get it for as low as {{money (add product.price -10000)}}</span>
+          <a class="pdp-info__rating" href="#reviews" data-scroll-to>
+            {{stars product.rating.value}}
+            <span>{{product.rating.value}}</span>
+            <span class="pdp-info__dot" aria-hidden="true"></span>
+            <span class="pdp-info__reviews">{{product.rating.count}} reviews</span>
+          </a>
+        </div>
+
+        <ul class="pdp-info__chips">
+          {{#each product.metafields.chips}}<li class="chip">{{this}}</li>{{/each}}
+        </ul>
+      </div>
+
+      <hr class="divider" />
+
+      {{!-- Colour --}}
+      <div class="pdp-option" role="group" aria-labelledby="opt-color">
+        <p class="pdp-option__label" id="opt-color">Select Color <span class="pdp-option__value" data-option-value="Color">{{product.options.[0].values.[0].name}}</span></p>
+        <div class="swatches" role="radiogroup" aria-label="Color">
+          {{#each product.options.[0].values}}
+            <button
+              class="swatch"
+              type="button"
+              role="radio"
+              style="--swatch: {{this.swatch}}"
+              aria-checked="{{#if @first}}true{{else}}false{{/if}}"
+              aria-label="{{this.name}}"
+              data-option="Color"
+              data-value="{{this.name}}"
+              {{#if this.light}}data-light{{/if}}
+            >{{icon "check"}}</button>
+          {{/each}}
+        </div>
+      </div>
+
+      {{!-- Size --}}
+      <div class="pdp-option" role="group" aria-labelledby="opt-size">
+        <div class="pdp-option__row">
+          <p class="pdp-option__label" id="opt-size">Select Size <span class="pdp-option__value" data-option-value="Size"></span></p>
+          <button class="pdp-option__link" type="button" data-drawer-open="size-guide">{{icon "ruler"}}Size guide</button>
+        </div>
+        <div class="sizes" role="radiogroup" aria-label="Size" data-size-group>
+          {{#each product.options.[1].values}}
+            <button class="size-pill" type="button" role="radio" aria-checked="{{#if (eq this "M")}}true{{else}}false{{/if}}" data-option="Size" data-value="{{this}}">
+              {{this}}
+            </button>
+          {{/each}}
+        </div>
+        <p class="pdp-option__hint" data-stock-hint aria-live="polite"></p>
+      </div>
+
+      {{!-- CTAs --}}
+      <div class="pdp-info__ctas" data-main-ctas>
+        <div data-atc-slot>
+          <button class="btn btn--primary btn--block btn--lg" type="button" data-pdp-atc>Add to Cart</button>
+        </div>
+        <button class="btn btn--outline btn--block btn--lg" type="button" data-pdp-buy>Buy Now</button>
+      </div>
+
+      <p class="pdp-info__proof">
+        <span class="pdp-info__proof-icon">{{icon "bolt"}}</span>
+        <span><strong>38 people</strong> bought this in the last 24 hours</span>
+      </p>
+
+      {{!-- Offers --}}
+      <div class="pdp-offers">
+        <p class="pdp-section-title">Save extra with these offers</p>
+        <div class="pdp-offers__scroller no-scrollbar" data-lenis-prevent>
+          {{#each site.offers}}
+            <div class="offer-card">
+              <p class="offer-card__title">{{this.title}}</p>
+              <div class="offer-card__foot">
+                <span class="offer-card__code">{{#if this.code}}{{this.code}}{{else}}No code required!{{/if}}</span>
+                {{#if this.code}}
+                  <button class="offer-card__copy" type="button" data-copy="{{this.code}}" aria-label="Copy code {{this.code}}">{{icon "copy"}}</button>
+                {{else}}
+                  <span class="offer-card__copy" aria-hidden="true">{{icon "check"}}</span>
+                {{/if}}
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+
+      {{!-- Delivery --}}
+      <div class="pdp-delivery">
+        <p class="pdp-section-title">Check delivery</p>
+        <form class="field" data-pincode-form novalidate>
+          <span class="field__icon">{{icon "pin"}}</span>
+          <label class="visually-hidden" for="pincode">Pincode</label>
+          <input class="field__input" id="pincode" name="pincode" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit pincode" autocomplete="postal-code" />
+          <button class="field__action" type="submit">Check</button>
+        </form>
+        <p class="pdp-delivery__result" data-pincode-result aria-live="polite"></p>
+      </div>
+
+      <ul class="pdp-trust">
+        {{#each site.trust}}
+          <li class="pdp-trust__item">
+            <span class="pdp-trust__icon">{{icon this.icon}}</span>
+            <span><strong>{{this.title}}</strong><small>{{this.text}}</small></span>
+          </li>
+        {{/each}}
+      </ul>
+
+      {{!-- Details --}}
+      <div class="pdp-details" data-accordion-group>
+        <details class="accordion" open>
+          <summary class="accordion__summary">Key Highlights<span class="icon">{{icon "chevron-down"}}</span></summary>
+          <div class="accordion__content">
+            <dl class="pdp-highlights accordion__inner">
+              {{#each product.metafields.highlights}}
+                <div><dt>{{this.label}}</dt><dd>{{this.value}}</dd></div>
+              {{/each}}
+            </dl>
+          </div>
+        </details>
+
+        <details class="accordion">
+          <summary class="accordion__summary">Product Description<span class="icon">{{icon "chevron-down"}}</span></summary>
+          <div class="accordion__content">
+            <div class="accordion__inner">
+              <p>{{product.tagline}} Cut from heavyweight 240 GSM combed cotton with a dropped shoulder and a boxy, oversized silhouette that keeps its shape wash after wash.</p>
+              <ul>
+                <li>Bio-washed for a soft, broken-in feel from day one</li>
+                <li>High-density print that won’t crack or fade</li>
+                <li>Ribbed crew neck that doesn’t stretch out</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="accordion">
+          <summary class="accordion__summary">Size &amp; Fit<span class="icon">{{icon "chevron-down"}}</span></summary>
+          <div class="accordion__content">
+            <div class="accordion__inner">
+              <p><strong>Oversized fit.</strong> Take your regular size for a relaxed look, or size down for a closer fit.</p>
+              <p>Model is 6'0" / 183 cm and wears size M.</p>
+              <button class="pdp-option__link" type="button" data-drawer-open="size-guide">{{icon "ruler"}}View size chart</button>
+            </div>
+          </div>
+        </details>
+
+        <details class="accordion">
+          <summary class="accordion__summary">Materials &amp; Care<span class="icon">{{icon "chevron-down"}}</span></summary>
+          <div class="accordion__content">
+            <div class="accordion__inner">
+              <ul>
+                <li>100% combed cotton, 240 GSM</li>
+                <li>Machine wash cold, inside out</li>
+                <li>Do not iron directly on print</li>
+                <li>Tumble dry low or line dry in shade</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="accordion">
+          <summary class="accordion__summary">Returns &amp; Exchange<span class="icon">{{icon "chevron-down"}}</span></summary>
+          <div class="accordion__content">
+            <div class="accordion__inner">
+              <p>Easy 7-day returns and exchanges from the date of delivery. Items must be unworn with tags attached. Refunds to the original payment method within 5–7 business days.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="accordion">
+          <summary class="accordion__summary">Manufacturer Details<span class="icon">{{icon "chevron-down"}}</span></summary>
+          <div class="accordion__content">
+            <div class="accordion__inner">
+              <p>Country of origin: India. Manufactured &amp; marketed by Atire Inc. Net quantity: 1 N. SKU: <span data-variant-sku></span></p>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" data-product-json>{{json product}}</script>
+</section>

@@ -1,0 +1,36 @@
+{{!-- Thank-you page. JS: js/sections/checkout.js (renders from saved order) --}}
+<section class="container order-done" data-order-done>
+  <div class="order-done__hero">
+    <span class="order-done__check">{{icon "check"}}</span>
+    <p class="eyebrow">Order confirmed</p>
+    <h1 class="page-hero__title">Thank you, <span data-od-name>friend</span>! Your fit is on its way.</h1>
+    <p class="page-hero__sub">Order <strong data-od-id>#ATR000000</strong> · We’ve sent the details to <span data-od-email>your email</span> and WhatsApp.</p>
+  </div>
+
+  <div class="order-done__grid">
+    <div class="summary__box order-done__track">
+      <p class="summary__title">Delivery timeline</p>
+      <ol class="timeline" data-od-timeline></ol>
+      <a class="btn btn--dark btn--block" href="/track-order.html" data-od-track>Track Order</a>
+    </div>
+
+    <div class="summary__box">
+      <p class="summary__title">Order summary</p>
+      <ul class="checkout__lines" data-od-items></ul>
+      <dl class="summary__rows" data-od-rows></dl>
+      <div class="order-done__address" data-od-address></div>
+    </div>
+  </div>
+
+  <div class="order-done__share">
+    <div>
+      <p class="order-done__share-title">Give ₹200, get ₹200 🎁</p>
+      <p class="text-muted">Share your link — friends get ₹200 off their first order and you get ₹200 store credit when they buy.</p>
+    </div>
+    <button class="btn btn--primary" type="button" data-copy="atire.in/r/FRIEND200">Copy invite link</button>
+  </div>
+
+  <div class="order-done__empty" data-od-empty hidden>
+    {{> snippets/empty-state icon="bag" title="No recent order found" text="Looks like you landed here directly. Your orders live in your account." cta="Go to My Account" url="/account.html"}}
+  </div>
+</section>

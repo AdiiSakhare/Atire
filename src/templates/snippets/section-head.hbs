@@ -1,0 +1,14 @@
+{{!--
+  Section heading: eyebrow → title → subtitle, optional "View all" link.
+  {{> snippets/section-head eyebrow="" title="" sub="" link="" linkLabel="" center=true}}
+--}}
+<div class="section-head{{#if center}} section-head--center{{/if}}">
+  <div class="section-head__text">
+    {{#if eyebrow}}<p class="eyebrow section-head__eyebrow" data-reveal>{{eyebrow}}</p>{{/if}}
+    <h2 class="h-display-sm" data-reveal>{{{title}}}</h2>
+    {{#if sub}}<p class="section-head__sub" data-reveal>{{sub}}</p>{{/if}}
+  </div>
+  {{#if link}}
+    <a class="section-head__link" href="{{link}}" data-reveal>{{#if linkLabel}}{{linkLabel}}{{else}}View all{{/if}}<span>{{icon "arrow-up-right"}}</span></a>
+  {{/if}}
+</div>

@@ -1,0 +1,43 @@
+{{!-- Shopify: sections/footer.liquid --}}
+<footer class="site-footer">
+  <div class="site-footer__main">
+    <div class="container site-footer__top">
+      <div class="site-footer__brand">
+        <a href="/" class="site-footer__logo" aria-label="Atire home">{{> snippets/logo}}</a>
+        <p class="site-footer__blurb">{{site.footer.blurb}}</p>
+
+        <form class="site-footer__news" data-newsletter>
+          <label class="visually-hidden" for="footer-email">Email address</label>
+          <input id="footer-email" type="email" placeholder="Your email for early drops" required />
+          <button type="submit" aria-label="Subscribe">{{icon "arrow-right"}}</button>
+        </form>
+        <p class="site-footer__news-note">Get 10% off your first order. No spam, only drops.</p>
+      </div>
+
+      <div class="site-footer__cols">
+        {{#each site.footer.columns}}
+          <div class="site-footer__col">
+            <p class="site-footer__title">{{this.title}}</p>
+            <ul>
+              {{#each this.links}}
+                <li><a href="{{this.url}}">{{this.title}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+
+  <div class="container site-footer__bottom">
+    <p>{{year}} Atire Inc. All rights reserved.</p>
+    <ul class="site-footer__pay" aria-label="Payment methods">
+      {{#each (array "UPI" "VISA" "Mastercard" "RuPay" "Paytm" "COD")}}<li>{{this}}</li>{{/each}}
+    </ul>
+    <ul class="site-footer__legal">
+      {{#each site.footer.legal}}
+        <li><a href="{{this.url}}">{{this.title}}</a></li>
+      {{/each}}
+    </ul>
+  </div>
+</footer>

@@ -1,0 +1,95 @@
+{{!--
+  One-page checkout (demo). In production Shopify Checkout replaces this
+  page — no card details are ever collected here.
+  JS: js/sections/checkout.js
+--}}
+<section class="container checkout" data-checkout>
+  <div class="checkout__top">
+    <a href="/" class="checkout__logo" aria-label="Atire home">{{> snippets/logo}}</a>
+    <div class="checkout-steps" aria-label="Checkout progress">
+      <span class="is-done">1 · Cart</span><span class="is-active">2 · Details</span><span>3 · Payment</span>
+    </div>
+    <p class="checkout__secure">{{icon "shield"}} Secure checkout</p>
+  </div>
+
+  <div class="checkout__layout">
+    <form class="checkout__form" data-checkout-form novalidate>
+      <fieldset class="checkout__card">
+        <legend class="checkout__legend"><span>1</span> Contact</legend>
+        <div class="form-grid">
+          <label class="input"><span>Mobile number</span><input name="phone" type="tel" inputmode="numeric" placeholder="10-digit mobile" required pattern="[6-9][0-9]{9}" autocomplete="tel-national" /></label>
+          <label class="input"><span>Email</span><input name="email" type="email" placeholder="For order updates" required autocomplete="email" /></label>
+        </div>
+        <label class="check"><input type="checkbox" checked /><span class="check__box">{{icon "check"}}</span>Send me order updates on WhatsApp</label>
+      </fieldset>
+
+      <fieldset class="checkout__card">
+        <legend class="checkout__legend"><span>2</span> Delivery address</legend>
+        <div class="form-grid">
+          <label class="input input--full"><span>Full name</span><input name="name" required autocomplete="name" /></label>
+          <label class="input"><span>Pincode</span><input name="pincode" inputmode="numeric" maxlength="6" required pattern="[1-9][0-9]{5}" autocomplete="postal-code" data-pin /></label>
+          <label class="input"><span>City</span><input name="city" required autocomplete="address-level2" data-city /></label>
+          <label class="input input--full"><span>Flat, house no., building</span><input name="line1" required autocomplete="address-line1" /></label>
+          <label class="input input--full"><span>Area, street, landmark</span><input name="line2" autocomplete="address-line2" /></label>
+          <label class="input"><span>State</span>
+            <select name="state" required autocomplete="address-level1">
+              <option value="">Select state</option>
+              {{#each (array "Maharashtra" "Karnataka" "Delhi" "Tamil Nadu" "Telangana" "Gujarat" "West Bengal" "Uttar Pradesh" "Rajasthan" "Kerala" "Punjab" "Other")}}<option>{{this}}</option>{{/each}}
+            </select>
+          </label>
+          <div class="input checkout__addr-type"><span>Address type</span>
+            <div class="seg">
+              <label><input type="radio" name="addrType" value="Home" checked /><span>Home</span></label>
+              <label><input type="radio" name="addrType" value="Work" /><span>Work</span></label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="checkout__card">
+        <legend class="checkout__legend"><span>3</span> Delivery speed</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="speed" value="standard" checked /><span class="choice__body"><strong>Standard</strong><small data-eta="4">Arrives by —</small></span><span class="choice__price">FREE</span></label>
+          <label class="choice"><input type="radio" name="speed" value="express" /><span class="choice__body"><strong>Express</strong><small data-eta="2">Arrives by —</small></span><span class="choice__price">₹99</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="checkout__card">
+        <legend class="checkout__legend"><span>4</span> Payment</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="payment" value="upi" checked /><span class="choice__body"><strong>UPI</strong><small>GPay, PhonePe, Paytm & more</small></span><span class="choice__tag">Fastest</span></label>
+          <label class="choice"><input type="radio" name="payment" value="card" /><span class="choice__body"><strong>Credit / Debit card</strong><small>Visa, Mastercard, RuPay</small></span></label>
+          <label class="choice"><input type="radio" name="payment" value="netbanking" /><span class="choice__body"><strong>Net banking & wallets</strong><small>All major banks</small></span></label>
+          <label class="choice"><input type="radio" name="payment" value="cod" /><span class="choice__body"><strong>Cash on Delivery</strong><small>Pay when it arrives</small></span></label>
+        </div>
+        <p class="checkout__pay-note" data-pay-note>{{icon "shield"}} You’ll complete payment on our secure payment partner’s page. We never see or store your card details.</p>
+      </fieldset>
+
+      <p class="checkout__error" data-checkout-error role="alert" hidden></p>
+      <button class="btn btn--primary btn--block btn--lg checkout__place" type="submit" data-place-order>Place Order</button>
+      <p class="checkout__fine">By placing your order you agree to our <a href="/terms.html">Terms</a> and <a href="/returns.html">Return Policy</a>.</p>
+    </form>
+
+    <aside class="summary checkout__summary">
+      <details class="summary__box checkout__items" open>
+        <summary class="summary__title">Order summary <span data-co-count></span>{{icon "chevron-down"}}</summary>
+        <ul class="checkout__lines" data-co-items></ul>
+      </details>
+      <div class="summary__box">
+        <form class="field" data-coupon-form>
+          <label class="visually-hidden" for="co-coupon">Coupon code</label>
+          <input class="field__input" id="co-coupon" placeholder="Coupon code" autocomplete="off" />
+          <button class="field__action" type="submit">Apply</button>
+        </form>
+        <p class="summary__msg" data-coupon-msg aria-live="polite"></p>
+        <dl class="summary__rows" data-summary-rows></dl>
+        <p class="summary__savings" data-summary-savings></p>
+      </div>
+      <ul class="summary__trust">
+        <li>{{icon "shield"}} SSL-secured checkout</li>
+        <li>{{icon "return"}} 7-day returns</li>
+        <li>{{icon "truck"}} Ships in 24h</li>
+      </ul>
+    </aside>
+  </div>
+</section>

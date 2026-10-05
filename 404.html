@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {{> layout/head}}
+  </head>
+  <body class="template-404">
+    {{> layout/top}}
+
+    <main id="main">
+      {{> sections/pages/not-found}}
+      {{> sections/product-rail title="Maybe you were looking for…" products=recommendations}}
+    </main>
+
+    {{> layout/bottom}}
+    <script type="module" src="/src/js/pages/content.js"></script>
+  </body>
+</html>

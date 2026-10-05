@@ -1,0 +1,13 @@
+{{!-- Staggered community photo wall (mockup) + Instagram CTA --}}
+<section class="section container ugc-wall">
+  {{> snippets/section-head eyebrow="#WearAtire" title="Straight from the community" sub="Tag @atire.india for a chance to be featured — and a ₹500 voucher." link="#" linkLabel="Follow on Instagram" center=true}}
+  <div class="ugc-wall__grid">
+    {{#each home.ugcWall}}
+      <div class="ugc-wall__col" style="--col: {{@index}}" data-ugc-col>
+        {{#each this}}
+          <a class="ugc-wall__item" href="#" aria-label="View on Instagram"><img src="{{this}}" alt="" loading="lazy" /><span>{{icon "instagram"}}</span></a>
+        {{/each}}
+      </div>
+    {{/each}}
+  </div>
+</section>

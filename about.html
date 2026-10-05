@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {{> layout/head}}
+  </head>
+  <body class="template-about">
+    {{> layout/top}}
+
+    <main id="main">
+      {{> sections/pages/about}}
+      {{> sections/ugc-tilt title="Every Atire Starts a Conversation." subtitle="The community that inspires every drop."}}
+      {{> sections/product-rail title="Start your collection" subtitle="Our most-loved pieces." products=newArrivals}}
+      {{> sections/home/closing}}
+    </main>
+
+    {{> layout/bottom}}
+    <script type="module" src="/src/js/pages/content.js"></script>
+  </body>
+</html>

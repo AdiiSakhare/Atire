@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {{> layout/head}}
+  </head>
+  <body class="template-order-confirmed">
+    {{> layout/top}}
+
+    <main id="main">
+      {{> sections/pages/order-confirmed}}
+      {{> sections/product-rail title="While you wait…" subtitle="Bestsellers people add to their next order." products=recommendations}}
+    </main>
+
+    {{> layout/bottom}}
+    <script type="module" src="/src/js/pages/checkout.js"></script>
+  </body>
+</html>

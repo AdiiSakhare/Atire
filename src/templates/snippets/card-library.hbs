@@ -1,0 +1,10 @@
+{{!--
+  Pre-rendered product cards that JS clones for client-side rails
+  (recently viewed, cart upsell) so card markup has one source of truth.
+  Shopify equivalent: Section Rendering API / /recommendations/products.
+--}}
+<template data-card-library>
+  {{#each products}}
+    {{> snippets/product-card product=this modifier="compact"}}
+  {{/each}}
+</template>

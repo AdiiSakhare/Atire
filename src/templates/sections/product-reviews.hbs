@@ -1,0 +1,106 @@
+{{!--
+  Ratings & reviews. Summary + fit meter + customer photos + review cards
+  (card styling follows the landing testimonials).
+  Shopify: sections/product-reviews.liquid (Judge.me / Loox / metaobjects)
+  JS: js/sections/product-reviews.js
+--}}
+<section class="section container reviews" id="reviews" data-reviews>
+  <div class="section-head">
+    <div>
+      <h2 class="h-display-sm" data-reveal>Loved by <span class="text-amber">{{reviews.count}} people</span> who wore it</h2>
+      <p class="section-head__sub" data-reveal>Real reviews from verified buyers.</p>
+    </div>
+    <button class="btn btn--outline btn--pill" type="button" data-write-review>Write a Review</button>
+  </div>
+
+  <div class="reviews__layout">
+    <aside class="reviews__summary" data-reveal>
+      <div class="reviews__score">
+        <strong>{{reviews.average}}</strong>
+        <div>
+          {{stars reviews.average}}
+          <p>Based on {{reviews.count}} reviews</p>
+        </div>
+      </div>
+
+      <ul class="reviews__bars">
+        {{#each reviews.distribution}}
+          <li>
+            <span class="reviews__bar-label">{{this.stars}} {{icon "star"}}</span>
+            <span class="reviews__bar"><span style="--w: {{percent this.count ../reviews.count}}%" data-bar></span></span>
+            <span class="reviews__bar-count">{{this.count}}</span>
+          </li>
+        {{/each}}
+      </ul>
+
+      <div class="reviews__fit">
+        <p class="reviews__fit-title">How it fits <span>{{reviews.fit.percent}}% say <strong>{{reviews.fit.label}}</strong></span></p>
+        <div class="reviews__fit-track">
+          <span class="reviews__fit-dot" style="--pos: {{reviews.fit.position}}%"></span>
+        </div>
+        <div class="reviews__fit-scale"><span>Runs small</span><span>Perfect</span><span>Runs large</span></div>
+      </div>
+
+      <div class="reviews__photos">
+        <p class="reviews__fit-title">{{icon "camera"}} Customer photos</p>
+        <div class="reviews__photo-grid">
+          {{#each reviews.photos}}
+            <button type="button" class="reviews__photo" data-review-photo="{{this}}" aria-label="Open customer photo {{add @index 1}}">
+              <img src="{{this}}" alt="" loading="lazy" />
+              {{#if @last}}<span class="reviews__photo-more">+24</span>{{/if}}
+            </button>
+          {{/each}}
+        </div>
+      </div>
+    </aside>
+
+    <div class="reviews__main">
+      <div class="reviews__toolbar">
+        <div class="reviews__filters no-scrollbar" role="group" aria-label="Filter reviews">
+          <button class="chip-toggle" type="button" aria-pressed="true" data-review-filter="all">All</button>
+          <button class="chip-toggle" type="button" aria-pressed="false" data-review-filter="photos">{{icon "camera"}}With photos</button>
+          <button class="chip-toggle" type="button" aria-pressed="false" data-review-filter="5">5 {{icon "star"}}</button>
+          <button class="chip-toggle" type="button" aria-pressed="false" data-review-filter="4">4 {{icon "star"}}</button>
+        </div>
+        <select class="select" aria-label="Sort reviews">
+          <option>Most helpful</option>
+          <option>Newest</option>
+          <option>Highest rated</option>
+          <option>Lowest rated</option>
+        </select>
+      </div>
+
+      <ul class="reviews__list" data-review-list>
+        {{#each reviews.items}}
+          <li class="review-card" data-reveal data-rating="{{this.rating}}" {{#if this.photo}}data-has-photo{{/if}}>
+            <div class="review-card__top">
+              {{stars this.rating}}
+              <span class="review-card__date">{{this.date}}</span>
+            </div>
+            <h3 class="review-card__title">{{this.title}}</h3>
+            <p class="review-card__body">“{{this.body}}”</p>
+            {{#if this.photo}}
+              <button type="button" class="review-card__photo" data-review-photo="{{this.photo}}" aria-label="Open photo from {{this.name}}">
+                <img src="{{this.photo}}" alt="" loading="lazy" />
+              </button>
+            {{/if}}
+            <div class="review-card__foot">
+              <div class="review-card__author">
+                <span class="review-card__avatar">{{this.initials}}</span>
+                <span>
+                  <strong>{{this.name}} <span class="review-card__verified">{{icon "verified"}}</span></strong>
+                  <small>Verified buyer · {{this.variant}}</small>
+                </span>
+              </div>
+              <button class="review-card__helpful" type="button" data-helpful aria-pressed="false">
+                {{icon "thumbs-up"}} <span>{{this.helpful}}</span>
+              </button>
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+
+      <button class="btn btn--outline btn--pill reviews__more" type="button" data-reviews-more>Load more reviews</button>
+    </div>
+  </div>
+</section>

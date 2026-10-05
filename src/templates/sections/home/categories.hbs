@@ -1,0 +1,14 @@
+{{!-- Category tiles (mockup). Shopify: sections/collection-list.liquid --}}
+<section class="section container categories">
+  {{> snippets/section-head eyebrow="Shop by category" title="Find your fit" link="/shop.html" linkLabel="Shop all"}}
+  <ul class="categories__list no-scrollbar">
+    {{#each home.categories}}
+      <li data-reveal>
+        <a class="category" href="{{this.url}}">
+          <span class="category__media"><img src="{{this.image}}" alt="" loading="lazy" /></span>
+          <span class="category__title">{{this.title}}</span>
+        </a>
+      </li>
+    {{/each}}
+  </ul>
+</section>

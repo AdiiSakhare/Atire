@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {{> layout/head}}
+  </head>
+  <body class="template-shop">
+    {{> layout/top}}
+
+    <main id="main">
+      {{> sections/pages/shop}}
+      {{> sections/pages/shop-seo}}
+      {{> sections/product-rail title="Recently viewed" products=(array) clientRendered="recently-viewed"}}
+    </main>
+
+    {{> layout/bottom}}
+    <script type="module" src="/src/js/pages/shop.js"></script>
+  </body>
+</html>

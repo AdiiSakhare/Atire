@@ -1,0 +1,17 @@
+{{!-- Offer tiles — Bewakoof-style deal blocks. Shopify: sections/deal-tiles.liquid --}}
+<section class="section container deals">
+  {{> snippets/section-head eyebrow="Offers" title="Deals you can’t scroll past" sub="Stack them. Seriously, they stack." link="/shop.html" linkLabel="All offers"}}
+  <div class="deals__grid">
+    {{#each home.deals}}
+      <a class="deal deal--{{this.theme}}" href="{{this.url}}" data-reveal>
+        <span class="deal__kicker">{{this.kicker}}</span>
+        <strong class="deal__big">{{this.big}}</strong>
+        <span class="deal__text">{{this.text}}</span>
+        <span class="deal__foot">
+          {{#if this.code}}<span class="deal__code">{{this.code}}</span>{{else}}<span>Shop now</span>{{/if}}
+          <span class="deal__arrow">{{icon "arrow-up-right"}}</span>
+        </span>
+      </a>
+    {{/each}}
+  </div>
+</section>

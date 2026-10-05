@@ -1,0 +1,60 @@
+{{!-- Our Story / About. Shopify: page.about.json sections --}}
+<section class="about-hero">
+  <div class="about-hero__media" data-parallax><img src="{{about.hero.image}}" alt="" fetchpriority="high" /></div>
+  <div class="container about-hero__content">
+    <p class="eyebrow about-hero__eyebrow">{{about.hero.eyebrow}}</p>
+    <h1 class="about-hero__title" data-split>{{about.hero.title}}</h1>
+    <p class="about-hero__text" data-reveal>{{about.hero.text}}</p>
+  </div>
+</section>
+
+<section class="section container manifesto">
+  <p class="manifesto__text" data-manifesto>{{about.manifesto}}</p>
+</section>
+
+<section class="section container">
+  {{> snippets/section-head eyebrow="How it started" title="From a group chat to 2 lakh+ wardrobes"}}
+  <ol class="story-timeline">
+    {{#each about.timeline}}
+      <li class="story-timeline__item" data-reveal>
+        <span class="story-timeline__year">{{this.year}}</span>
+        <h3 class="story-timeline__title">{{this.title}}</h3>
+        <p>{{this.text}}</p>
+      </li>
+    {{/each}}
+  </ol>
+</section>
+
+<section class="values-band">
+  <div class="container">
+    {{> snippets/section-head eyebrow="What we stand for" title="Four rules we don’t break"}}
+    <ul class="values">
+      {{#each about.values}}
+        <li class="value" data-reveal>
+          <span class="value__icon">{{icon this.icon}}</span>
+          <h3>{{this.title}}</h3>
+          <p>{{this.text}}</p>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>
+
+<section class="section container">
+  {{> snippets/section-head eyebrow="The process" title="How a tee becomes an Atire" center=true}}
+  <ol class="process">
+    {{#each about.process}}
+      <li class="process__step" data-reveal>
+        <div class="process__media"><img src="{{this.image}}" alt="" loading="lazy" /><span>{{this.step}}</span></div>
+        <h3>{{this.title}}</h3>
+        <p>{{this.text}}</p>
+      </li>
+    {{/each}}
+  </ol>
+</section>
+
+<section class="container">
+  <ul class="stats about-stats">
+    {{#each about.stats}}<li data-reveal><strong>{{this.value}}</strong><span>{{this.label}}</span></li>{{/each}}
+  </ul>
+</section>

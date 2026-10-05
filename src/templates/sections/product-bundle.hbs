@@ -1,0 +1,54 @@
+{{!--
+  "Complete the look" — buy-together bundle (Bewakoof / Snitch pattern),
+  presented in the grey feature-card style from the landing mockup.
+  Shopify: sections/product-bundle.liquid (product list setting)
+  JS: js/sections/product-bundle.js
+--}}
+<section class="section container bundle" data-bundle data-bundle-discount="20000">
+  <div class="section-head">
+    <div>
+      <h2 class="h-display-sm" data-reveal>Complete the look</h2>
+      <p class="section-head__sub" data-reveal>Bought together by 1,200+ people. Save ₹200 when you take all three.</p>
+    </div>
+  </div>
+
+  <div class="bundle__card" data-reveal>
+    <ul class="bundle__items">
+      {{#each bundle}}
+        <li class="bundle__item" data-bundle-item data-handle="{{this.handle}}" data-price="{{this.price}}" data-compare="{{this.compare_at_price}}">
+          <label class="bundle__check">
+            <input type="checkbox" checked {{#if @first}}disabled{{/if}} data-bundle-check />
+            <span class="bundle__checkbox">{{icon "check"}}</span>
+            <span class="visually-hidden">Include {{this.title}}</span>
+          </label>
+          <a class="bundle__media" href="{{this.url}}">
+            <img src="{{this.images.[0].src}}" alt="{{this.images.[0].alt}}" loading="lazy" />
+          </a>
+          <div class="bundle__info">
+            <p class="bundle__label">{{#if @first}}This item{{else}}{{this.product_type}}{{/if}}</p>
+            <a class="bundle__title" href="{{this.url}}">{{#if this.card_title}}{{this.card_title}}{{else}}{{this.title}}{{/if}}</a>
+            <div class="price">
+              <span class="price__current">{{money this.price}}</span>
+              <s class="price__compare">{{money this.compare_at_price}}</s>
+            </div>
+            <select class="select bundle__size" aria-label="Size for {{this.title}}" data-bundle-size>
+              {{#each this.options.[1].values}}<option {{#if (eq this "M")}}selected{{/if}}>{{this}}</option>{{/each}}
+            </select>
+          </div>
+        </li>
+        {{#unless @last}}<li class="bundle__plus" aria-hidden="true">{{icon "plus"}}</li>{{/unless}}
+      {{/each}}
+    </ul>
+
+    <div class="bundle__summary">
+      <p class="bundle__summary-label">Bundle price for <span data-bundle-count>3</span> items</p>
+      <div class="bundle__total">
+        <span class="bundle__total-price" data-bundle-total></span>
+        <s class="price__compare" data-bundle-compare></s>
+      </div>
+      <p class="bundle__save" data-bundle-save></p>
+      <button class="btn btn--primary btn--block btn--lg" type="button" data-bundle-add>Add Bundle to Cart</button>
+      <p class="bundle__fine">Extra ₹200 off applies on 3 items.</p>
+    </div>
+  </div>
+</section>

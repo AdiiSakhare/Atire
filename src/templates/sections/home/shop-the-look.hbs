@@ -1,0 +1,50 @@
+{{!--
+  Shop the look — lifestyle image with hotspots + "complete the fit" list.
+  Shopify: sections/shop-the-look.liquid (hotspot blocks with product pickers)
+--}}
+<section class="section container stl" data-stl>
+  <div class="stl__grid">
+    <div class="stl__media" data-reveal>
+      <img src="{{home.shopTheLook.image}}" alt="Model wearing the Same Sh*t Different Day tee" loading="lazy" />
+      {{#each home.shopTheLook.hotspots}}
+        {{#with (findProduct this.handle)}}
+          <div class="hotspot" style="--x: {{../x}}%; --y: {{../y}}%">
+            <button class="hotspot__dot" type="button" aria-label="Show {{title}}" aria-expanded="false" data-hotspot></button>
+            <div class="hotspot__card">
+              <img src="{{images.[0].src}}" alt="" />
+              <span>
+                <span class="hotspot__title">{{#if card_title}}{{card_title}}{{else}}{{title}}{{/if}}</span>
+                <span class="price"><span class="price__current">{{money price}}</span><s class="price__compare">{{money compare_at_price}}</s></span>
+              </span>
+              <button class="icon-btn icon-btn--sm" type="button" data-quick-shop="{{handle}}" aria-label="Quick add {{title}}">{{icon "plus"}}</button>
+            </div>
+          </div>
+        {{/with}}
+      {{/each}}
+    </div>
+
+    <div class="stl__body">
+      {{> snippets/section-head eyebrow=home.shopTheLook.eyebrow title=home.shopTheLook.title sub=home.shopTheLook.text}}
+      <ul class="stl__list">
+        {{#each home.shopTheLook.products}}
+          {{#with (findProduct this)}}
+            <li class="stl__item" data-reveal>
+              <a class="stl__thumb" href="{{url}}"><img src="{{images.[0].src}}" alt="" loading="lazy" /></a>
+              <div class="stl__info">
+                <a class="stl__title" href="{{url}}">{{#if card_title}}{{card_title}}{{else}}{{title}}{{/if}}</a>
+                <p class="stl__meta">{{stars rating.value}} <span>{{rating.value}} ({{rating.count}})</span></p>
+                <div class="price">
+                  <span class="price__current">{{money price}}</span>
+                  <s class="price__compare">{{money compare_at_price}}</s>
+                  <span class="price__off">{{discount price compare_at_price}}% OFF</span>
+                </div>
+              </div>
+              <button class="btn btn--primary btn--sm stl__add" type="button" data-quick-shop="{{handle}}">Add</button>
+            </li>
+          {{/with}}
+        {{/each}}
+      </ul>
+      <p class="stl__total">Get the full look for <strong>₹4,097</strong> <s>₹5,497</s> <span class="chip chip--amber">Save ₹1,400</span></p>
+    </div>
+  </div>
+</section>

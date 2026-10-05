@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {{> layout/head}}
+  </head>
+  <body class="template-wishlist">
+    {{> layout/top}}
+
+    <main id="main">
+      {{> sections/pages/wishlist}}
+      {{> sections/product-rail title="You might also love" products=recommendations}}
+    </main>
+
+    {{> layout/bottom}}
+    <script type="module" src="/src/js/pages/account.js"></script>
+  </body>
+</html>

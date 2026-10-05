@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {{> layout/head}}
+  </head>
+  <body class="template-cart">
+    {{> layout/top}}
+
+    <main id="main">
+      {{> sections/pages/cart}}
+      {{> sections/product-rail title="Complete your cart" subtitle="Customers who bought these also loved…" products=recommendations id="cart-recs"}}
+    </main>
+
+    {{> layout/bottom}}
+    <script type="module" src="/src/js/pages/cart.js"></script>
+  </body>
+</html>

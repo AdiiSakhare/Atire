@@ -1,0 +1,33 @@
+{{!--
+  Full-width campaign cards (Snitch pattern): 2 large + 3 small, edge to edge.
+  Shopify: sections/campaign-grid.liquid
+--}}
+<section class="section campaigns" data-campaigns>
+  <div class="campaigns__large">
+    {{#each home.campaignsLarge}}
+      <a class="campaign campaign--large" href="{{this.url}}" data-reveal>
+        <span class="campaign__media" data-parallax><img src="{{this.image}}" alt="" loading="lazy" /></span>
+        <span class="campaign__body">
+          <span class="campaign__kicker">{{this.kicker}}</span>
+          <span class="campaign__title">{{this.title}}</span>
+          <span class="btn-arrow btn-arrow--light">
+            <span class="btn-arrow__label">{{this.cta}}</span>
+            <span class="btn-arrow__circle">{{icon "arrow-up-right"}}</span>
+          </span>
+        </span>
+      </a>
+    {{/each}}
+  </div>
+  <div class="campaigns__small">
+    {{#each home.campaignsSmall}}
+      <a class="campaign campaign--small" href="{{this.url}}" data-reveal>
+        <span class="campaign__media"><img src="{{this.image}}" alt="" loading="lazy" /></span>
+        <span class="campaign__body">
+          <span class="campaign__title">{{this.title}}</span>
+          <span class="campaign__meta">{{this.meta}}</span>
+        </span>
+        <span class="campaign__arrow">{{icon "arrow-up-right"}}</span>
+      </a>
+    {{/each}}
+  </div>
+</section>

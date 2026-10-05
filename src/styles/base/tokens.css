@@ -1,0 +1,103 @@
+/* ==========================================================================
+   Design tokens — extracted from the Atire landing + product mockups.
+   Shopify: settings_schema.json colour/typography settings map onto these.
+   ========================================================================== */
+
+:root {
+  /* Colour ---------------------------------------------------------------- */
+  --c-ink: #111111;            /* headings, primary text, black buttons */
+  --c-ink-soft: #2b2b2b;
+  --c-night: #1c1b1b;          /* footer */
+  --c-text: #1f1f1f;
+  --c-muted: #6f6f6f;          /* taglines, helper text */
+  --c-subtle: #9a9a9a;         /* strike prices, meta */
+  --c-line: #e7e7e7;           /* borders, dividers */
+  --c-line-strong: #d4d4d4;
+  --c-bg: #ffffff;
+  --c-surface: #f8f8f8;        /* PDP info panel */
+  --c-surface-2: #f3f3f3;      /* feature cards, tab rail */
+  --c-media: #e4e4e4;          /* image placeholder grey */
+  --c-chip: #e9e9eb;
+
+  --c-brand: #ffc800;          /* signature yellow — primary CTA only */
+  --c-brand-hover: #f5bd00;
+  --c-brand-ink: #111111;
+  --c-amber: #d99800;          /* discount %, coupon codes */
+  --c-amber-soft: #fff7d1;
+  --c-amber-line: #f7dc6f;
+  --c-star: #f5b301;
+  --c-success: #1c9e55;
+  --c-sale: #e3262e;
+
+  /* Typography ------------------------------------------------------------ */
+  --font-sans: 'Host Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-promo: 'Montserrat', var(--font-sans);
+
+  --fs-12: 0.75rem;
+  --fs-13: 0.8125rem;
+  --fs-14: 0.875rem;
+  --fs-15: 0.9375rem;
+  --fs-16: 1rem;
+  --fs-18: 1.125rem;
+  --fs-20: 1.25rem;
+  --fs-22: 1.375rem;
+  --fs-display-sm: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem);   /* section headings (≈40) */
+  --fs-display-md: clamp(2rem, 1.3rem + 2.4vw, 3.25rem);     /* feature headings (≈52) */
+  --fs-display-lg: clamp(2.75rem, 1.5rem + 4.6vw, 5rem);     /* hero (≈80) */
+
+  --tracking-tight: -0.035em;  /* the signature tight headline tracking */
+  --tracking-snug: -0.02em;
+
+  /* Spacing (4px base) ---------------------------------------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --section-gap: clamp(64px, 4rem + 4vw, 140px);
+
+  /* Layout ---------------------------------------------------------------- */
+  --container: 1280px;
+  --gutter: clamp(16px, 5.5vw, 80px);
+  --announcement-h: 32px;
+  --header-h: 70px;
+
+  /* Shape ----------------------------------------------------------------- */
+  --r-xs: 4px;
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-2xl: 24px;
+  --r-pill: 999px;
+
+  /* Elevation ------------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgb(17 17 17 / 0.06);
+  --shadow-md: 0 8px 24px -8px rgb(17 17 17 / 0.14);
+  --shadow-lg: 0 24px 64px -16px rgb(17 17 17 / 0.24);
+
+  /* Motion ---------------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur: 280ms;
+  --dur-slow: 520ms;
+
+  --z-header: 50;
+  --z-sticky: 40;
+  --z-overlay: 90;
+  --z-drawer: 100;
+  --z-toast: 120;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --header-h: 60px;
+  }
+}

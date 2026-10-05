@@ -1,0 +1,42 @@
+{{!-- Contact. JS: generic demo form handler (js/sections/content.js) --}}
+{{> snippets/page-hero eyebrow="We’re here to help" title="Talk to a real human" sub="Questions about an order, sizing or a collab? Pick the fastest way to reach us."}}
+<section class="container contact">
+  <ul class="contact__channels">
+    {{#each contact.channels}}
+      <li>
+        <a class="channel" href="{{this.url}}" data-reveal>
+          <span class="channel__icon">{{icon this.icon}}</span>
+          <strong>{{this.title}}</strong>
+          <small>{{this.text}}</small>
+          <span class="channel__value">{{this.value}} {{icon "arrow-up-right"}}</span>
+        </a>
+      </li>
+    {{/each}}
+  </ul>
+
+  <div class="contact__grid">
+    <form class="contact__form summary__box" data-demo-form data-success="Thanks! We’ll get back to you within 24 hours (usually much sooner).">
+      <h2 class="dash__h2">Send us a message</h2>
+      <div class="form-grid">
+        <label class="input"><span>Name</span><input name="name" required autocomplete="name" /></label>
+        <label class="input"><span>Email</span><input name="email" type="email" required autocomplete="email" /></label>
+        <label class="input"><span>Order number <small>(optional)</small></span><input name="order" placeholder="ATR123456" /></label>
+        <label class="input"><span>Topic</span><select name="topic" required><option value="">Choose a topic</option>{{#each contact.topics}}<option>{{this}}</option>{{/each}}</select></label>
+        <label class="input input--full"><span>Message</span><textarea name="message" rows="5" required placeholder="Tell us what’s up…"></textarea></label>
+      </div>
+      <button class="btn btn--dark btn--lg" type="submit">Send Message</button>
+      <p class="contact__hours">{{icon "check-circle"}} {{contact.hours}} · Average reply time: 2 hours</p>
+    </form>
+
+    <aside class="contact__faq">
+      <h2 class="dash__h2">Quick answers</h2>
+      {{#each faqPreview}}
+        <details class="accordion">
+          <summary class="accordion__summary">{{this.q}}<span class="icon">{{icon "chevron-down"}}</span></summary>
+          <div class="accordion__content"><div class="accordion__inner"><p>{{this.a}}</p></div></div>
+        </details>
+      {{/each}}
+      <a class="section-head__link contact__more" href="/faq.html">Visit Help Center<span>{{icon "arrow-up-right"}}</span></a>
+    </aside>
+  </div>
+</section>

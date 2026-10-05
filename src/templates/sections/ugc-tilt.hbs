@@ -1,0 +1,38 @@
+{{!--
+  Tilted, overlapping photo strip from the landing mockup
+  ("Every Atire Starts a Conversation."). Scroll-linked drift via GSAP.
+  Params: title, subtitle
+  Shopify: sections/ugc-tilt.liquid (image blocks)
+  JS: js/sections/ugc-tilt.js
+--}}
+<section class="section ugc-tilt" data-ugc-tilt>
+  <div class="container section-head section-head--center">
+    <h2 class="h-display-sm" data-reveal>{{title}}</h2>
+    {{#if subtitle}}<p class="section-head__sub" data-reveal>{{subtitle}}</p>{{/if}}
+  </div>
+
+  <div class="ugc-tilt__viewport">
+    <ul class="ugc-tilt__track" data-ugc-track>
+      {{#each site.ugc}}
+        <li class="ugc-tilt__card" style="--i: {{@index}}">
+          <img src="{{this.src}}" alt="Customer photo by {{this.handle}}" loading="lazy" />
+          <span class="ugc-tilt__handle">{{icon "instagram"}}{{this.handle}}</span>
+        </li>
+      {{/each}}
+      {{!-- Duplicate set keeps the drift seamless --}}
+      {{#each site.ugc}}
+        <li class="ugc-tilt__card" style="--i: {{add @index 8}}" aria-hidden="true">
+          <img src="{{this.src}}" alt="" loading="lazy" />
+          <span class="ugc-tilt__handle">{{icon "instagram"}}{{this.handle}}</span>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <div class="container ugc-tilt__cta" data-reveal>
+    <a class="btn-arrow btn-arrow--dark" href="#">
+      <span class="btn-arrow__label">Tag {{site.instagram}} to get featured</span>
+      <span class="btn-arrow__circle">{{icon "arrow-up-right"}}</span>
+    </a>
+  </div>
+</section>

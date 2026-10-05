@@ -1,0 +1,133 @@
+{{!--
+  Collection / search listing. All cards render server-side (SEO); JS filters,
+  sorts and paginates them in place and syncs state to the URL.
+  Shopify: sections/main-collection-product-grid.liquid + facets
+  JS: js/sections/shop.js
+--}}
+<header class="page-hero shop-hero">
+  <div class="container">
+    {{> snippets/breadcrumb breadcrumbAttr="data-shop-crumb"}}
+    <div class="shop-hero__row">
+      <div>
+        <h1 class="page-hero__title" data-shop-title>{{collection.title}}</h1>
+        <p class="page-hero__sub" data-shop-text>{{collection.text}}</p>
+      </div>
+      <p class="shop-hero__count"><strong data-shop-count>{{products.length}}</strong> products</p>
+    </div>
+  </div>
+</header>
+
+<section class="container shop" data-shop data-collections='{{json collections}}'>
+  <nav class="shop__chips no-scrollbar" aria-label="Categories">
+    {{#each shopFilters.categories}}
+      <button class="chip-toggle" type="button" data-shop-cat="{{this.value}}" aria-pressed="{{#if (eq this.value "all")}}true{{else}}false{{/if}}">{{this.label}}</button>
+    {{/each}}
+  </nav>
+
+  <div class="shop__toolbar">
+    <button class="btn btn--outline btn--sm shop__filter-btn" type="button" data-shop-filter-toggle aria-expanded="true">
+      {{icon "grid"}} <span data-filter-label>Hide filters</span> <span class="shop__filter-count" data-filter-count hidden></span>
+    </button>
+    <div class="shop__active no-scrollbar" data-shop-active></div>
+    <div class="shop__tools">
+      <label class="visually-hidden" for="shop-sort">Sort by</label>
+      <select class="select" id="shop-sort" data-shop-sort>
+        {{#each shopFilters.sorts}}<option value="{{this.value}}">{{this.label}}</option>{{/each}}
+      </select>
+      <div class="shop__density" role="group" aria-label="Grid density">
+        <button type="button" data-density="2" aria-label="2 per row">{{icon "grid"}}</button>
+        <button type="button" data-density="3" aria-pressed="true" aria-label="3 per row"><span class="density-3"></span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="shop__layout" data-shop-layout>
+    <aside class="shop-filters" data-shop-filters aria-label="Filters">
+      <div class="shop-filters__head">
+        <p class="shop-filters__title">Filters</p>
+        <button class="shop-filters__clear" type="button" data-shop-clear>Clear all</button>
+        <button class="icon-btn icon-btn--sm shop-filters__close" type="button" data-shop-filter-close aria-label="Close filters">{{icon "close"}}</button>
+      </div>
+
+      <div class="shop-filters__body" data-lenis-prevent>
+        <details class="accordion" open>
+          <summary class="accordion__summary">Size<span class="icon">{{icon "chevron-down"}}</span></summary>
+          <div class="accordion__content"><div class="accordion__inner sizes">
+            {{#each sizes}}<button class="size-pill" type="button" aria-pressed="false" data-filter="size" data-value="{{this}}">{{this}}</button>{{/each}}
+          </div></div>
+        </details>
+
+        <details class="accordion" open>
+          <summary class="accordion__summary">Colour<span class="icon">{{icon "chevron-down"}}</span></summary>
+          <div class="accordion__content"><div class="accordion__inner shop-filters__colors">
+            {{#each colors}}
+              <button class="shop-filters__color" type="button" aria-pressed="false" data-filter="color" data-value="{{this.name}}">
+                <span class="swatch" style="--swatch: {{this.swatch}}" {{#if this.light}}data-light{{/if}}>{{icon "check"}}</span>{{this.name}}
+              </button>
+            {{/each}}
+          </div></div>
+        </details>
+
+        <details class="accordion" open>
+          <summary class="accordion__summary">Price<span class="icon">{{icon "chevron-down"}}</span></summary>
+          <div class="accordion__content"><div class="accordion__inner shop-filters__list">
+            {{#each shopFilters.prices}}
+              <label class="check"><input type="checkbox" data-filter="price" value="{{@index}}" /><span class="check__box">{{icon "check"}}</span>{{this.label}}</label>
+            {{/each}}
+          </div></div>
+        </details>
+
+        <details class="accordion" open>
+          <summary class="accordion__summary">Rating & offers<span class="icon">{{icon "chevron-down"}}</span></summary>
+          <div class="accordion__content"><div class="accordion__inner shop-filters__list">
+            <label class="check"><input type="checkbox" data-filter="rating" value="4.5" /><span class="check__box">{{icon "check"}}</span>4.5 ★ & above</label>
+            <label class="check"><input type="checkbox" data-filter="discount" value="25" /><span class="check__box">{{icon "check"}}</span>25% off or more</label>
+          </div></div>
+        </details>
+      </div>
+
+      <div class="shop-filters__foot">
+        <button class="btn btn--primary btn--block btn--lg" type="button" data-shop-filter-close>Show <span data-shop-count-btn>{{products.length}}</span> products</button>
+      </div>
+    </aside>
+
+    <div class="shop__main">
+      <div class="shop__grid" data-shop-grid data-density="3">
+        {{#each products}}
+          <div class="shop__item" data-shop-item
+            data-index="{{@index}}"
+            data-tags="{{join this.tags}}"
+            data-search="{{lowercase this.title}} {{lowercase this.card_title}} {{lowercase this.tagline}} {{lowercase this.product_type}} {{lowercase this.collection}} {{join this.tags}}"
+            data-price="{{this.price}}"
+            data-rating="{{this.rating.value}}"
+            data-reviews="{{this.rating.count}}"
+            data-discount="{{discount this.price this.compare_at_price}}"
+            data-colors="{{#each this.options.[0].values}}{{this.name}}|{{/each}}"
+            data-id="{{this.id}}">
+            {{> snippets/product-card product=this}}
+          </div>
+        {{/each}}
+
+        <a class="shop-promo" href="/shop.html?c=textees" data-shop-promo>
+          <span class="shop-promo__kicker">{{icon "bolt"}} Combo deal</span>
+          <span class="shop-promo__title">Any 3 Textees for <strong>₹1,999</strong></span>
+          <span class="shop-promo__text">Mix prints and sizes. Code TEXTEE3 applies automatically at checkout.</span>
+          <span class="btn-arrow btn-arrow--dark"><span class="btn-arrow__label">Shop Textees</span><span class="btn-arrow__circle">{{icon "arrow-up-right"}}</span></span>
+        </a>
+      </div>
+
+      <div class="shop__empty" data-shop-empty hidden>
+        {{> snippets/empty-state icon="search" title="Nothing matches those filters" text="Try removing a filter or two — or browse our bestsellers instead."}}
+        <button class="btn btn--dark btn--pill" type="button" data-shop-clear>Clear all filters</button>
+      </div>
+
+      <div class="shop__more" data-shop-more>
+        <p class="shop__progress-text">Showing <span data-shop-shown></span> of <span data-shop-total></span></p>
+        <div class="shop__progress"><span data-shop-progress></span></div>
+        <button class="btn btn--outline btn--pill" type="button" data-shop-load>Load more</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="overlay shop-overlay" data-shop-overlay></div>

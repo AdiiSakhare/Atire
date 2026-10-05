@@ -1,0 +1,19 @@
+{{!-- Grey feature card (mockup "winter couple collection"). Shopify: sections/image-with-text.liquid --}}
+<section class="section container">
+  <div class="feature">
+    <div class="feature__media" data-parallax>
+      <img src="{{home.feature.image}}" alt="Couple wearing matching Manifest More Love hoodies" loading="lazy" />
+    </div>
+    <div class="feature__body">
+      <h2 class="h-display-sm feature__title" data-split>{{home.feature.title}}</h2>
+      <p class="feature__text" data-reveal>{{home.feature.text}}</p>
+      <ul class="feature__points" data-reveal>
+        {{#each home.feature.points}}<li>{{icon "check-circle"}}{{this}}</li>{{/each}}
+      </ul>
+      <a class="btn-arrow" href="{{home.feature.url}}" data-reveal>
+        <span class="btn-arrow__label">{{home.feature.cta}}</span>
+        <span class="btn-arrow__circle">{{icon "arrow-up-right"}}</span>
+      </a>
+    </div>
+  </div>
+</section>

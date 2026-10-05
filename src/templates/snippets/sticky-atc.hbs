@@ -1,0 +1,31 @@
+{{!--
+  Sticky add-to-cart — slides in once the main CTA leaves the viewport.
+  Desktop: top bar under the header. Mobile: bottom bar.
+  JS: js/sections/sticky-atc.js
+--}}
+<div class="sticky-atc" data-sticky-atc aria-hidden="true">
+  <div class="sticky-atc__inner container">
+    <div class="sticky-atc__product">
+      <img src="{{product.images.[0].src}}" alt="" class="sticky-atc__thumb" />
+      <div>
+        <p class="sticky-atc__title">{{product.card_title}}</p>
+        <div class="price">
+          <span class="price__current" data-price-current>{{money product.price}}</span>
+          <s class="price__compare">{{money product.compare_at_price}}</s>
+          <span class="price__off">{{discount product.price product.compare_at_price}}% OFF</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sticky-atc__sizes sizes" data-sticky-sizes>
+      {{#each product.options.[1].values}}
+        <button class="size-pill" type="button" data-sticky-size="{{this}}">{{this}}</button>
+      {{/each}}
+    </div>
+
+    <div class="sticky-atc__ctas">
+      <button class="btn btn--outline sticky-atc__buy" type="button" data-pdp-buy>Buy Now</button>
+      <button class="btn btn--primary" type="button" data-sticky-add>Add to Cart</button>
+    </div>
+  </div>
+</div>

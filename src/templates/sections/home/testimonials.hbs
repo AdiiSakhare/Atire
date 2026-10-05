@@ -1,0 +1,49 @@
+{{!-- Testimonials (mockup heading) as a two-row opposing marquee + stat counters --}}
+<section class="section testimonials">
+  <div class="container section-head section-head--center">
+    <p class="chip testimonials__chip" data-reveal>Testimonials</p>
+    <h2 class="h-display-sm" data-reveal>Loved by thousands of <span class="text-amber">happy creators</span></h2>
+    <p class="section-head__sub" data-reveal>across creative communities</p>
+    <div class="review-summary" data-reveal>
+      <strong>{{home.reviewSummary.rating}}</strong>
+      <span>{{stars home.reviewSummary.rating}}<small>{{home.reviewSummary.count}} verified reviews</small></span>
+      <span class="review-summary__sep" aria-hidden="true"></span>
+      <span class="review-summary__pct"><strong>{{home.reviewSummary.recommend}}%</strong><small>would recommend</small></span>
+    </div>
+  </div>
+
+  {{#times 2}}
+    <div class="testimonials__row{{#if @index}} testimonials__row--reverse{{/if}}" aria-hidden="{{#if @index}}true{{else}}false{{/if}}">
+      <ul class="testimonials__track">
+        {{#times 2}}
+          {{#each @root.home.testimonials}}
+            <li class="testimonial">
+              <p class="testimonial__text">“{{this.text}}”</p>
+              {{stars 5}}
+              <div class="testimonial__author">
+                <span class="testimonial__avatar">{{this.initials}}</span>
+                <span><strong>{{this.name}} <span class="testimonial__verified">{{icon "verified"}}</span></strong><small>{{this.role}}</small></span>
+              </div>
+              {{#with (findProduct this.product)}}
+                <a class="testimonial__product" href="{{url}}">
+                  <img src="{{images.[0].src}}" alt="" loading="lazy" />
+                  <span><small>Purchased</small>{{#if card_title}}{{card_title}}{{else}}{{title}}{{/if}}</span>
+                  {{icon "chevron-right"}}
+                </a>
+              {{/with}}
+            </li>
+          {{/each}}
+        {{/times}}
+      </ul>
+    </div>
+  {{/times}}
+
+  <ul class="container stats" data-stats>
+    {{#each home.stats}}
+      <li data-reveal>
+        <strong><span data-count-to="{{this.value}}">0</span>{{this.suffix}}</strong>
+        <span>{{this.label}}</span>
+      </li>
+    {{/each}}
+  </ul>
+</section>

@@ -1,0 +1,12 @@
+{{!-- {{> snippets/empty-state icon="bag" title="" text="" cta="" url=""}} --}}
+<div class="empty-state">
+  <span class="empty-state__icon">{{icon icon}}</span>
+  <h2 class="empty-state__title">{{title}}</h2>
+  <p class="empty-state__text">{{text}}</p>
+  {{#if cta}}
+    <a class="btn-arrow" href="{{url}}">
+      <span class="btn-arrow__label">{{cta}}</span>
+      <span class="btn-arrow__circle">{{icon "arrow-up-right"}}</span>
+    </a>
+  {{/if}}
+</div>

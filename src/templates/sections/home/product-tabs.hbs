@@ -1,0 +1,30 @@
+{{!--
+  "Browse All You Need" — tabbed product grid (mockup). All cards render
+  server-side; JS filters by tag. Shopify: sections/featured-collections-tabs.liquid
+  JS: js/sections/product-tabs.js
+--}}
+<section class="section container product-tabs" data-product-tabs>
+  {{> snippets/section-head eyebrow="Bestsellers" title="Browse All You Need" sub="The tees everyone’s talking about — restocked weekly." center=true}}
+
+  <div class="tabs no-scrollbar" role="tablist" aria-label="Product categories" data-reveal>
+    <span class="tabs__pill" data-tabs-pill aria-hidden="true"></span>
+    {{#each home.tabs}}
+      <button class="tabs__tab" type="button" role="tab" aria-selected="{{#if @first}}true{{else}}false{{/if}}" data-tab="{{this.tag}}">{{this.label}}</button>
+    {{/each}}
+  </div>
+
+  <div class="product-tabs__grid" data-tabs-grid>
+    {{#each products}}
+      <div class="product-tabs__item" data-tab-item data-tags="{{join this.tags}}">
+        {{> snippets/product-card product=this}}
+      </div>
+    {{/each}}
+  </div>
+
+  <div class="product-tabs__more">
+    <a class="btn-arrow btn-arrow--dark" href="/shop.html" data-tabs-more>
+      <span class="btn-arrow__label">Explore Full Collection</span>
+      <span class="btn-arrow__circle">{{icon "arrow-up-right"}}</span>
+    </a>
+  </div>
+</section>

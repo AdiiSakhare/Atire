@@ -1,0 +1,8 @@
+{{!-- App-style bottom navigation for phones (Bewakoof pattern) --}}
+<nav class="mobile-nav" aria-label="Quick navigation">
+  <a class="mobile-nav__item{{#if (eq page.template "index")}} is-active{{/if}}" href="/">{{icon "home"}}<span>Home</span></a>
+  <a class="mobile-nav__item" href="/shop.html">{{icon "grid"}}<span>Shop</span></a>
+  <button class="mobile-nav__item" type="button" data-search-open>{{icon "search"}}<span>Search</span></button>
+  <a class="mobile-nav__item" href="/wishlist.html">{{icon "heart"}}<span>Wishlist</span><span class="mobile-nav__badge" data-wishlist-count-mobile></span></a>
+  <button class="mobile-nav__item" type="button" data-drawer-open="cart-drawer">{{icon "bag"}}<span>Cart</span><span class="mobile-nav__badge" data-cart-count-mobile></span></button>
+</nav>

@@ -1,0 +1,42 @@
+{{!-- Help center / FAQs with search + category tabs. JS: js/sections/content.js --}}
+<header class="page-hero page-hero--center faq-hero">
+  <div class="container">
+    {{> snippets/breadcrumb}}
+    <p class="eyebrow page-hero__eyebrow">Help Center</p>
+    <h1 class="page-hero__title" data-split>How can we help?</h1>
+    <form class="faq-search" role="search" onsubmit="return false">
+      <span>{{icon "search"}}</span>
+      <input type="search" placeholder="Search “returns”, “COD”, “size”…" data-faq-search aria-label="Search FAQs" />
+    </form>
+  </div>
+</header>
+
+<section class="container faq" data-faq>
+  <nav class="faq__cats no-scrollbar" aria-label="FAQ categories">
+    <button class="chip-toggle" type="button" aria-pressed="true" data-faq-cat="all">All topics</button>
+    {{#each faqs}}<button class="chip-toggle" type="button" aria-pressed="false" data-faq-cat="{{slugify this.category}}">{{icon this.icon}}{{this.category}}</button>{{/each}}
+  </nav>
+
+  <div class="faq__groups">
+    {{#each faqs}}
+      <section class="faq__group" data-faq-group="{{slugify this.category}}">
+        <h2 class="faq__group-title">{{icon this.icon}} {{this.category}}</h2>
+        {{#each this.items}}
+          <details class="accordion" data-faq-item>
+            <summary class="accordion__summary">{{this.q}}<span class="icon">{{icon "chevron-down"}}</span></summary>
+            <div class="accordion__content"><div class="accordion__inner"><p>{{this.a}}</p></div></div>
+          </details>
+        {{/each}}
+      </section>
+    {{/each}}
+    <p class="faq__none" data-faq-none hidden>No answers match that search. Try different words — or ask us directly below.</p>
+  </div>
+
+  <div class="faq__cta">
+    <div><h2 class="h-display-sm">Still need help?</h2><p class="text-muted">Real humans, real fast. Mon–Sat, 10 AM – 7 PM.</p></div>
+    <div class="faq__cta-btns">
+      <a class="btn btn--primary btn--lg" href="https://wa.me/919000000000">{{icon "bolt"}} WhatsApp us</a>
+      <a class="btn btn--outline btn--lg" href="/contact.html">Contact form</a>
+    </div>
+  </div>
+</section>

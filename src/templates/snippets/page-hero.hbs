@@ -1,0 +1,12 @@
+{{!--
+  Page header used by utility & content pages.
+  {{> snippets/page-hero eyebrow="" title="" sub="" center=true}}
+--}}
+<header class="page-hero{{#if center}} page-hero--center{{/if}}">
+  <div class="container">
+    {{> snippets/breadcrumb}}
+    {{#if eyebrow}}<p class="eyebrow page-hero__eyebrow">{{eyebrow}}</p>{{/if}}
+    <h1 class="page-hero__title" data-split>{{title}}</h1>
+    {{#if sub}}<p class="page-hero__sub">{{sub}}</p>{{/if}}
+  </div>
+</header>

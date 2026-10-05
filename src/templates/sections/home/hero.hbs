@@ -1,0 +1,62 @@
+{{!--
+  Full-bleed hero slider — mockup layout (left-aligned headline, pill + ↗ CTA,
+  arrows top-right) with crossfade, Ken Burns and autoplay progress.
+  Shopify: sections/hero-slideshow.liquid (slide blocks)
+  JS: js/sections/home-hero.js
+--}}
+<section class="hero" data-hero aria-roledescription="carousel" aria-label="Featured collections">
+  <div class="hero__slides">
+    {{#each home.hero}}
+      <article class="hero__slide{{#if @first}} is-active{{/if}}" data-hero-slide aria-roledescription="slide" aria-label="{{add @index 1}} of {{../home.hero.length}}" {{#unless @first}}aria-hidden="true"{{/unless}}>
+        <picture class="hero__media">
+          <source media="(max-width: 767px)" srcset="{{this.imageMobile}}" />
+          <img src="{{this.image}}" alt="" style="object-position: {{this.position}}" {{#if @first}}fetchpriority="high"{{else}}loading="lazy"{{/if}} />
+        </picture>
+        <div class="hero__content container">
+          {{#if @first}}<h1 class="hero__title" data-hero-title>{{this.title}}</h1>{{else}}<h2 class="hero__title" data-hero-title>{{this.title}}</h2>{{/if}}
+          <p class="hero__text" data-hero-fade>{{this.text}}</p>
+          <a class="btn-arrow btn-arrow--light hero__cta" href="{{this.url}}" data-hero-fade>
+            <span class="btn-arrow__label">{{this.cta}}</span>
+            <span class="btn-arrow__circle">{{icon "arrow-up-right"}}</span>
+          </a>
+          <p class="hero__proof" data-hero-fade>
+            {{stars @root.home.heroProof.rating}}
+            <span><strong>{{@root.home.heroProof.rating}}/5</strong> from {{@root.home.heroProof.reviews}} reviews</span>
+            <span class="hero__proof-sep" aria-hidden="true"></span>
+            <span>Loved by {{@root.home.heroProof.customers}} customers</span>
+          </p>
+        </div>
+
+        {{#with (findProduct this.look)}}
+          <aside class="hero-look" data-hero-fade aria-label="Shop this look">
+            <span class="hero-look__label">{{icon "sparkle"}} Shop this look</span>
+            <a class="hero-look__card" href="{{url}}">
+              <img src="{{images.[0].src}}" alt="" loading="lazy" />
+              <span class="hero-look__info">
+                <span class="hero-look__title">{{#if card_title}}{{card_title}}{{else}}{{title}}{{/if}}</span>
+                <span class="price">
+                  <span class="price__current">{{money price}}</span>
+                  <s class="price__compare">{{money compare_at_price}}</s>
+                  <span class="price__off">{{discount price compare_at_price}}% OFF</span>
+                </span>
+              </span>
+            </a>
+            <button class="hero-look__add" type="button" data-quick-shop="{{handle}}" aria-label="Quick add {{title}}">{{icon "plus"}}</button>
+          </aside>
+        {{/with}}
+      </article>
+    {{/each}}
+  </div>
+
+  <div class="hero__controls container">
+    <div class="hero__progress" role="tablist" aria-label="Choose slide">
+      {{#each home.hero}}
+        <button class="hero__bar{{#if @first}} is-active{{/if}}" type="button" role="tab" data-hero-go="{{@index}}" aria-label="Slide {{add @index 1}}"><span></span></button>
+      {{/each}}
+    </div>
+    <div class="hero__arrows">
+      <button class="icon-btn icon-btn--nav" type="button" data-hero-prev aria-label="Previous slide">{{icon "arrow-left"}}</button>
+      <button class="icon-btn icon-btn--nav" type="button" data-hero-next aria-label="Next slide">{{icon "arrow-right"}}</button>
+    </div>
+  </div>
+</section>

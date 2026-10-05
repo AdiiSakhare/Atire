@@ -1,0 +1,69 @@
+{{!-- Size guide + interactive size finder (CRO: fewer size returns). JS: js/sections/content.js --}}
+{{> snippets/page-hero eyebrow="Find your fit" title="Size guide" sub="Our tees run oversized on purpose. Use the finder or the charts below to get the drape you want."}}
+<section class="container size-page">
+  <div class="finder summary__box" data-finder>
+    <div class="finder__intro">
+      <p class="eyebrow section-head__eyebrow">Size finder</p>
+      <h2 class="h-display-sm">Not sure? We’ll pick for you.</h2>
+      <p class="text-muted">Based on 40,000+ orders with under 4% size exchanges.</p>
+    </div>
+    <form class="finder__form" data-finder-form>
+      <label class="input"><span>Height (cm)</span><input name="height" type="number" min="140" max="210" value="175" required /></label>
+      <label class="input"><span>Weight (kg)</span><input name="weight" type="number" min="35" max="150" value="70" required /></label>
+      <div class="input"><span>Preferred fit</span>
+        <div class="seg">
+          <label><input type="radio" name="fit" value="regular" /><span>Closer</span></label>
+          <label><input type="radio" name="fit" value="oversized" checked /><span>Oversized</span></label>
+          <label><input type="radio" name="fit" value="baggy" /><span>Extra baggy</span></label>
+        </div>
+      </div>
+      <button class="btn btn--dark btn--lg" type="submit">Find my size</button>
+    </form>
+    <div class="finder__result" data-finder-result hidden>
+      <span class="finder__size" data-finder-size>M</span>
+      <div><strong>Your recommended size</strong><p class="text-muted" data-finder-note></p></div>
+      <a class="btn btn--primary" href="/shop.html">Shop in your size</a>
+    </div>
+  </div>
+
+  <div class="size-page__units">
+    <p class="dash__h2">Size charts</p>
+    <div class="size-guide__units" role="group" aria-label="Units">
+      <button type="button" aria-pressed="true" data-unit="in">in</button>
+      <button type="button" aria-pressed="false" data-unit="cm">cm</button>
+    </div>
+  </div>
+
+  <div class="size-page__charts">
+    {{#each sizeGuide.charts}}
+      <div class="summary__box">
+        <h3 class="summary__title">{{this.title}}</h3>
+        <p class="text-muted size-page__note">{{this.note}}</p>
+        <div class="size-guide__table-wrap">
+          <table class="size-guide__table">
+            <thead><tr>{{#each this.columns}}<th scope="col">{{this}}</th>{{/each}}</tr></thead>
+            <tbody>
+              {{#each this.rows}}
+                <tr>{{#each this}}{{#if @first}}<th scope="row">{{this}}</th>{{else}}<td data-inches="{{this}}">{{this}}</td>{{/if}}{{/each}}</tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
+  <div class="size-page__how">
+    <div class="summary__box">
+      <h3 class="summary__title">How to measure</h3>
+      <ul class="size-guide__tips">
+        <li><strong>Chest</strong> Lay your best-fitting tee flat. Measure armpit to armpit and double it.</li>
+        <li><strong>Length</strong> From the highest point of the shoulder straight down to the hem.</li>
+        <li><strong>Shoulder</strong> Seam to seam across the back.</li>
+      </ul>
+    </div>
+    {{#each sizeGuide.fits}}
+      <div class="summary__box"><h3 class="summary__title">{{this.title}} fit</h3><p class="text-muted">{{this.text}}</p></div>
+    {{/each}}
+  </div>
+</section>

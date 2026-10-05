@@ -1,0 +1,35 @@
+{{!--
+  First-visit offer. Shown once (after 20s or on exit intent, desktop) and
+  never again after dismiss/subscribe. JS: js/components/welcome-popup.js
+--}}
+<div class="welcome" data-welcome role="dialog" aria-modal="true" aria-labelledby="welcome-title" aria-hidden="true">
+  <div class="welcome__panel">
+    <button class="icon-btn icon-btn--sm welcome__close" type="button" data-welcome-close aria-label="Close">{{icon "close"}}</button>
+    <div class="welcome__media">
+      <img src="/assets/images/placeholders/tee-college-survivor.jpg" alt="" loading="lazy" />
+      <span class="welcome__sticker">10%<small>OFF</small></span>
+    </div>
+    <div class="welcome__body" data-welcome-form-wrap>
+      <p class="eyebrow">Welcome to Atire</p>
+      <h2 class="welcome__title" id="welcome-title">Your first tee is on us. Well, 10% of it.</h2>
+      <p class="welcome__text">Join the list for 10% off your first order, early access to Friday drops and members-only combos.</p>
+      <form class="welcome__form" data-welcome-form>
+        <label class="visually-hidden" for="welcome-email">Email</label>
+        <input class="welcome__input" id="welcome-email" type="email" placeholder="you@email.com" required autocomplete="email" />
+        <button class="btn btn--dark btn--block btn--lg" type="submit">Unlock 10% Off</button>
+      </form>
+      <button class="welcome__skip" type="button" data-welcome-close>Maybe later</button>
+      <p class="welcome__fine">No spam. Unsubscribe anytime.</p>
+    </div>
+    <div class="welcome__body welcome__success" data-welcome-success hidden>
+      <p class="eyebrow">You’re in 🎉</p>
+      <h2 class="welcome__title">Here’s your 10% off.</h2>
+      <button class="welcome__code" type="button" data-copy="WELCOME10">WELCOME10 <span>{{icon "copy"}}</span></button>
+      <p class="welcome__text">Use it at checkout on your first order. We’ve also sent it to your inbox.</p>
+      <a class="btn-arrow btn-arrow--dark" href="/shop.html" data-welcome-close>
+        <span class="btn-arrow__label">Start Shopping</span>
+        <span class="btn-arrow__circle">{{icon "arrow-up-right"}}</span>
+      </a>
+    </div>
+  </div>
+</div>

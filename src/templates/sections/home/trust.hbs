@@ -1,0 +1,11 @@
+{{!-- Trust strip --}}
+<section class="container trust" aria-label="Why shop with Atire">
+  <ul class="trust__list">
+    {{#each site.trust}}
+      <li class="trust__item" data-reveal>
+        <span class="trust__icon">{{icon this.icon}}</span>
+        <span><strong>{{this.title}}</strong><small>{{this.text}}</small></span>
+      </li>
+    {{/each}}
+  </ul>
+</section>

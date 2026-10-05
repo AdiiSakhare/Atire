@@ -1,0 +1,26 @@
+{{!--
+  Editorial "story behind the print" banner — echoes the landing's
+  "Every Atire Starts a Conversation" voice. Shopify: product metafield `custom.story`.
+--}}
+{{#if product.metafields.story}}
+<section class="section container story" data-story>
+  <div class="story__card">
+    <div class="story__media" data-parallax>
+      <img src="{{product.images.[1].src}}" alt="" loading="lazy" />
+    </div>
+    <div class="story__body">
+      <p class="eyebrow story__eyebrow">{{product.metafields.story.eyebrow}}</p>
+      <h2 class="h-display-md story__title" data-split>{{product.metafields.story.title}}</h2>
+      <p class="story__text" data-reveal>{{product.metafields.story.body}}</p>
+      <ul class="story__facts" data-reveal>
+        <li><strong>240</strong><span>GSM cotton</span></li>
+        <li><strong>3</strong><span>colourways</span></li>
+        <li><strong>0</strong><span>cracks after 30 washes</span></li>
+      </ul>
+    </div>
+    <div class="story__inset" data-reveal>
+      <img src="{{product.images.[0].src}}" alt="" loading="lazy" />
+    </div>
+  </div>
+</section>
+{{/if}}

@@ -1,0 +1,20 @@
+/* ==========================================================================
+   Atire — global stylesheet entry
+   Order: tokens → reset → global → components → shared sections.
+   Page-specific section CSS is imported by each page entry (js/pages/*.js).
+   ========================================================================== */
+
+@import './base/tokens.css';
+@import './base/reset.css';
+@import './base/global.css';
+
+@import './components/button.css';
+@import './components/form.css';
+@import './components/product-card.css';
+@import './components/overlays.css';
+@import './components/cart-drawer.css';
+@import './components/commerce.css';
+@import './components/page.css';
+
+@import './sections/header.css';
+@import './sections/footer.css';

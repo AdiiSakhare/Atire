@@ -1,0 +1,226 @@
+/* ==========================================================================
+   Buttons
+   .btn                 base — 8px radius rectangle (cards, PDP)
+   .btn--primary        signature yellow
+   .btn--outline        white with hairline border (Buy Now)
+   .btn--dark / --light inverted variants
+   .btn--pill           rounded pill
+   .btn-arrow           pill + detached round ↗ button (mockup signature)
+   .icon-btn            44px circular icon button (header, carousels)
+   .stepper             yellow quantity stepper that replaces Add to Cart
+   ========================================================================== */
+
+.btn {
+  --btn-h: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--btn-h);
+  padding: 0 var(--space-6);
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  font-size: var(--fs-16);
+  font-weight: 500;
+  letter-spacing: var(--tracking-snug);
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease,
+    color var(--dur-fast) ease,
+    transform var(--dur-fast) ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn[disabled],
+.btn[aria-disabled='true'] {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.btn--sm { --btn-h: 40px; padding-inline: var(--space-4); font-size: var(--fs-15); }
+.btn--lg { --btn-h: 52px; }
+.btn--block { width: 100%; }
+
+.btn--primary {
+  background: var(--c-brand);
+  color: var(--c-brand-ink);
+}
+.btn--primary:hover { background: var(--c-brand-hover); }
+
+.btn--outline {
+  background: var(--c-bg);
+  border-color: var(--c-line);
+  color: var(--c-ink);
+}
+.btn--outline:hover { border-color: var(--c-ink); }
+
+.btn--dark {
+  background: var(--c-ink);
+  color: #fff;
+}
+.btn--dark:hover { background: var(--c-ink-soft); }
+
+.btn--light {
+  background: #fff;
+  color: var(--c-ink);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--c-ink);
+  padding-inline: var(--space-2);
+}
+
+.btn--pill { border-radius: var(--r-pill); }
+
+.btn__icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Pill + round arrow -------------------------------------------------- */
+.btn-arrow {
+  --btn-h: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  isolation: isolate;
+}
+
+.btn-arrow__label {
+  display: inline-flex;
+  align-items: center;
+  height: var(--btn-h);
+  padding: 0 var(--space-6);
+  border-radius: var(--r-pill);
+  font-weight: 500;
+  font-size: var(--fs-16);
+  letter-spacing: var(--tracking-snug);
+  background: var(--btn-bg, var(--c-brand));
+  color: var(--btn-fg, var(--c-brand-ink));
+  transition: background-color var(--dur-fast) ease;
+}
+
+.btn-arrow__circle {
+  display: grid;
+  place-items: center;
+  width: var(--btn-h);
+  height: var(--btn-h);
+  border-radius: 50%;
+  background: var(--btn-bg, var(--c-brand));
+  color: var(--btn-fg, var(--c-brand-ink));
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.btn-arrow__circle svg {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.btn-arrow:hover .btn-arrow__circle { transform: translateX(4px); }
+.btn-arrow:hover .btn-arrow__circle svg { transform: rotate(45deg); }
+
+.btn-arrow--dark { --btn-bg: var(--c-ink); --btn-fg: #fff; }
+.btn-arrow--light { --btn-bg: #fff; --btn-fg: var(--c-ink); }
+
+/* Icon button --------------------------------------------------------- */
+.icon-btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--c-line);
+  background: var(--c-bg);
+  color: var(--c-ink);
+  transition:
+    background-color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease,
+    opacity var(--dur-fast) ease;
+}
+
+.icon-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.icon-btn:hover { border-color: var(--c-ink); }
+
+.icon-btn--sm { width: 36px; height: 36px; }
+.icon-btn--sm svg { width: 18px; height: 18px; }
+
+/* Carousel arrows — white when actionable, translucent grey when not (mockup) */
+.icon-btn--nav {
+  border: 0;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+.icon-btn--nav:disabled {
+  background: rgb(255 255 255 / 0.45);
+  color: rgb(17 17 17 / 0.55);
+  backdrop-filter: blur(6px);
+  cursor: default;
+}
+
+.icon-btn__badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: var(--r-pill);
+  background: var(--c-brand);
+  color: var(--c-brand-ink);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  transform: scale(0);
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.icon-btn__badge.is-visible { transform: scale(1); }
+
+/* Quantity stepper ---------------------------------------------------- */
+.stepper {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  height: var(--btn-h, 48px);
+  border-radius: var(--r-md);
+  background: var(--c-brand);
+  color: var(--c-brand-ink);
+  font-weight: 500;
+}
+
+.stepper button {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: inherit;
+}
+
+.stepper button svg { width: 18px; height: 18px; }
+
+.stepper__count {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.stepper--outline {
+  background: var(--c-bg);
+  border: 1px solid var(--c-line);
+  --btn-h: 36px;
+  grid-template-columns: 32px 32px 32px;
+  border-radius: var(--r-md);
+}

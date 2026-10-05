@@ -1,0 +1,60 @@
+{{!--
+  Shopify: snippets/product-card.liquid
+  Usage:   {{> snippets/product-card product=this modifier="compact" }}
+  JS:      js/components/product-card.js (wishlist, quick add, ATC → stepper)
+--}}
+<article class="product-card{{#if modifier}} product-card--{{modifier}}{{/if}}" data-product-card data-handle="{{product.handle}}">
+  <div class="product-card__media">
+    <img src="{{product.images.[0].src}}" alt="{{product.images.[0].alt}}" loading="lazy" decoding="async" />
+    {{#if product.images.[1]}}
+      <img src="{{product.images.[1].src}}" alt="" loading="lazy" decoding="async" aria-hidden="true" />
+    {{/if}}
+
+    {{#if product.badge}}<span class="chip chip--badge product-card__badge">{{product.badge}}</span>{{/if}}
+
+    <button class="icon-btn icon-btn--sm product-card__wish" type="button" data-wishlist-toggle="{{product.handle}}" aria-pressed="false" aria-label="Add {{product.title}} to wishlist">
+      {{icon "heart"}}
+    </button>
+
+    <div class="product-card__quick" data-quick-add>
+      <p class="product-card__quick-label">Quick add — select size</p>
+      <div class="sizes">
+        {{#each product.options.[1].values}}
+          <button class="size-pill" type="button" data-quick-size="{{this}}">{{this}}</button>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+
+  <div class="product-card__body">
+    <h3 class="product-card__title">
+      <a href="{{product.url}}">{{#if product.card_title}}{{product.card_title}}{{else}}{{product.title}}{{/if}}</a>
+    </h3>
+    <p class="product-card__tagline">{{product.tagline}}</p>
+
+    <div class="product-card__meta">
+      <div class="price">
+        <span class="price__current">{{money product.price}}</span>
+        {{#if product.compare_at_price}}
+          <s class="price__compare">{{money product.compare_at_price}}</s>
+          <span class="price__off">{{discount product.price product.compare_at_price}}% off</span>
+        {{/if}}
+      </div>
+      <span class="product-card__rating" title="{{product.rating.value}} out of 5">
+        {{stars product.rating.value}}<span>({{product.rating.count}})</span>
+      </span>
+    </div>
+
+    <ul class="product-card__colors" aria-label="{{product.options.[0].values.length}} colours">
+      {{#each product.options.[0].values}}<li class="swatch swatch--sm" style="--swatch: {{this.swatch}}" title="{{this.name}}"></li>{{/each}}
+      {{#if (gt product.options.[0].values.length 1)}}<li class="product-card__colors-label">{{product.options.[0].values.length}} colours</li>{{/if}}
+    </ul>
+
+    <div class="product-card__actions">
+      <div data-atc-slot>
+        <button class="btn btn--primary btn--block" type="button" data-card-atc>Add to Cart</button>
+      </div>
+      <a class="btn btn--outline btn--block" href="{{product.url}}&buy=1">Buy Now</a>
+    </div>
+  </div>
+</article>

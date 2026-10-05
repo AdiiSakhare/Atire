@@ -1,0 +1,31 @@
+{{!-- Track order — demo status from saved orders. JS: js/sections/account.js --}}
+{{> snippets/page-hero eyebrow="Order status" title="Track your order" sub="Enter your order number and the mobile number or email used at checkout." center=true}}
+<section class="container track" data-track>
+  <form class="track__form" data-track-form>
+    <label class="input"><span>Order number</span><input name="order" placeholder="e.g. ATR123456" required /></label>
+    <label class="input"><span>Mobile or email</span><input name="contact" required /></label>
+    <button class="btn btn--dark btn--lg" type="submit">Track</button>
+  </form>
+  <p class="track__hint" data-track-hint></p>
+
+  <div class="track__result" data-track-result hidden>
+    <div class="track__head">
+      <div>
+        <p class="eyebrow">Order <span data-tr-id></span></p>
+        <h2 class="track__status" data-tr-status>On its way</h2>
+        <p class="text-muted" data-tr-eta></p>
+      </div>
+      <div class="track__actions">
+        <a class="btn btn--outline btn--sm btn--pill" href="/contact.html">Need help?</a>
+        <button class="btn btn--dark btn--sm btn--pill" type="button" data-tr-return>Return or exchange</button>
+      </div>
+    </div>
+    <ol class="tracker" data-tr-steps></ol>
+    <ul class="checkout__lines" data-tr-items></ul>
+  </div>
+
+  <div class="track__help">
+    <div>{{icon "bolt"}}<span><strong>Fastest help</strong> WhatsApp us your order number — we reply in under 10 minutes.</span></div>
+    <div>{{icon "return"}}<span><strong>Returns made easy</strong> Free pickup within 48 hours, refund in 5–7 days.</span></div>
+  </div>
+</section>
